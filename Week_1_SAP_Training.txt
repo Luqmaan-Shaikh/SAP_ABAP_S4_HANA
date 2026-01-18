@@ -1,0 +1,1130 @@
+SAP Training 
+
+*** Day 1 (12/01/2025)
+
+
+# ERP - Enterprise Resource Planning 
+
+-> Definition: ERP is an integrated software system used to manage and automate core business processes across an organization.
+ 
+	- 1960 Inventory Control
+	- 1970 MRP I (Material Requirement Planning)
+	- 1980 MRP II (Manufacturing Resource Planning)
+	- 1990 ERP I
+	- 2000 ERP II
+	- 2010 Cloud Computing
+
+# SAP - System Application and Products in Data Processing 
+
+-> Definition: SAP is a global ERP software used to manage business operations and customer relations.
+
+	- 1972 SAP R/1 - Tier 1
+	- 1979 SAP R/2 - Tier 2
+	- 1992 SAP R/3 - Tier 3
+	- 2012 Cloud Computing
+	- 2015 SAP S/4 HANA
+
+# Deployment Models
+-> ECC - On Premise
+-> SAP S/4 HANA - On Cloud 
+
+
+# ABAP - Advanced Business Application Programming Language
+
+-> Definition: ABAP is SAP’s proprietary programming language used for developing applications on SAP.
+
+	 - NOT CASE SENSITIVE BUT SPACE SENSITIVE like :- 
+		-> a + b = 10 (Spaces btw all)
+
+
+# SAP Modules :- 
+1. Technical - BASIS, ABAP, BI/BW ,  
+2. Functional - FI/CO , SD , MM , HR/HCM
+
+
+
+# Role of an ABAPer :- 
+
+R I C E F W 
+
+In SAP each tasks is called as one Object
+
+R - Reports :- Based on given i/p we will fetch from data base and display in predefined format
+	- Classical :- nothing but to display entire info in single list
+	- Interactive :- One task to other one / Summarized info in basic list and detailed info in further list
+	- ALV (ABAP List Viewer) :- Pre defined format like shades , borders , etc
+
+I - Interface :- Acting as a medium / Connect from SAP to SAP and SAP to Non SAP
+	- ALE/IDOCS (Application Linked Enabling / Intermediate Docs)
+	- BAPI (Buss Application Prog Interface)
+
+C - Conversions :- Conversion programs are used to transfer data from file to SAP
+	- LSMW (Legacy System Migration Workbench) [OBSOLETE]
+	- BDC (Batch Data Communication)
+
+E - Enhancements :- use to add some functionalities to standard functionality without disturbing stnd functionality
+	- BADI (Buss Adding)
+	- Customer exits
+	- User exits
+	- Enhancement FW
+	- Enhancement Spot
+
+F - Forms :- Used to design buss docs such as Purchase Order, Sales Reports, Offer Letter, Experience Letters, Pay Bills
+	- SAP Scripts [OBSOLETE]
+	- SMART Forms
+	- Adobe Forms
+
+W - Workflows :- Used to Automate Existing Buss Process and used to identify work load as well as performance of the employee
+	
+
+
+
+# Projects :- 
+	- Implementation Project (1 - 2 Years / 3 Years)
+		- Preparation , Bussiness Blue Print Phase , Realization Phase (All Development and customization will be done) , Post Preparation (All Testing will be done) , Go live and support phase
+	
+	- Upgradation Project (6 - 8 Months)
+		- When ever version changed if you want to implementation new technologies into existing system then this 
+
+	- Maintenance/Support Project (6 - 8 Months)
+		- After go live support phase each company requires 24 * 7 supports 
+
+	- Roll out Projects (6 - 8 Months)
+		- When ever we purchase a new company if you want to extend same SAP to new company then this
+		- FI/CO and HR/HCM Differs , Rest Remains the Same 
+
+
+
+
+*** Day 2 (13/01/2025)
+
+
+# Architecture -
+
+-> Tier 3 (R/3) :-
+
+1. Presentation -> Reports (Se38) 
+	- if Se38 , then goes to Application layer
+2. Application -> Buffer Zone (Acting as a Temp Memory Unit)
+	- if data present in BZ -> Presentation
+	- if data not present , data goes to DB Layer , then goes to BZ, stores there , then Presentation
+3. Database Layer
+
+
+-> Tier 2 (R/2) :-
+
+1. Presentation and Application Layer - Combined 1 Layer (both P and A)
+2. Database Layer
+
+
+-> Tier 1  (R/1) :- 
+
+1. Presentation and Application and Database Layer - Combined 1 Layer (all 3) 
+
+
+# Landscape -
+
+Some Companies will have - SANDBOX 
+1. Development System - all kinds of dev and customization will be done (ABAPer will have access to this system) (only 20% of Data will be present)
+2. Quality System - all testing will be done here (35 - 40 % data will be present)
+Some Companies will have - PRE PRODUCTION 
+3. Production System - final system (100% of data)
+
+- Flow of work :- 
+
+-> Transport Request 
+	- Developing something (we will do it under a package) 
+	- Create a package (Se21) -> All those programs under this package 
+	- We will get Alpha-numeric Code (12 or 16 digits) -> This code is called as Transport Request
+	- TR release , mail to BASIS Team , to import TR into Quality System 
+	- Functional Team is responsible for Quality Testing
+	
+
+# ABAP - ORACLE (OPEN SQL) + JAVA (OOP)
+
+
+# Types of Programming :
+	- Procedural , Structural , OOP
+
+
+# ABAP -
+
+-> ABAP Source code consists of either a Statement or a comment
+
+-> Statements - Collection of Operators , Operands , Variables and Keywords. EX :- c = a + b  
+-> Comments :- Non executable statements . To comment we use ASTERIK (*----*). EX :- * This is a Comment * 
+
+
+-> Operators :- 
+	- Mathematical (Addition, Subtraction, Multiplication, Exponential, Division, Mod)
+	- Comparative (less then , less than equal to , greater than , greater than equal to , equal to , not equal to)
+	- Logical (AND, OR, NOT)
+
+-> Operands :- variables which we need to perform particular operations
+
+-> Variables :- Name given to Memory Location
+
+-> Keywords :- Identify type of Statements (C2 B3 E O)
+	- Calling
+	- Controlling
+	- Declaration :- used to declare variable in ABAP (Data, Parameter, Tables, Types, etc)
+	- Definition 
+	- Database
+	- Events
+	- Operations
+
+
+-> Data Types :- 
+
+1. Numeric Data Types 
+	- Integer I
+	- Float F
+	- Packed Decimal P
+
+2. Character Data Types 
+	- Char C (Alpha - Numeric) (Integer + Characters)
+	- Numeric Char N
+	- Date D
+	- Time T
+
+
+- Int, Float, Date, Time -> Fixed Length Data Type
+- Rest are -> Variable Length Data Types
+
+
+NOTE -> Everything you write in ABAP MUST END with a FULL STOP (.)
+
+
+# Syntax of -
+
+1. Integer (I) 
+
+-> Data <variable_name> type I.
+Ex. data A type I.
+Initial / Default value of Integers is '0'
+
+
+2. Float (F) 
+
+-> Data <variable_name> type F.
+Ex. data A type F.
+Initial / Default value of Float is '.00'
+
+
+3. Packed Decimal (P) 
+
+-> Data <variable_name> (<length>) type P decimals <no>.
+Ex. data A(10) type P decimal 3.
+Initial / Default value of Packed Decimal is '.000' (number of decimals)
+
+
+
+4. Char (C) (Alpha Numeric)
+
+-> Data <variable_name> (<length>) type C.
+Ex. data A(5) type C.
+Initial / Default value of Char is 'Space / Empty'
+
+
+5. Date (D)
+
+-> Data <variable_name> type D.
+Ex. data A type D.
+Initial / Default Format of Date is 'YYYYMMDD' -> (20140425)
+
+
+6. Numeric Char (N) (Ex. Contact Numbers , Bank Account Numbers)
+
+-> Data <variable_name> (<length>) type N.
+Ex. data A(10) type N.
+Initial / Default Value of Numeric Char is '000' (Based on Length)
+
+
+7. Time (T)
+
+-> Data <variable_name> type T.
+Ex. data A type T.
+Initial / Default value of Time is '000000'. Format -> 'HHMMSS'
+
+
+
+# Strings :- 
+- Sequence of characters used in ABAP programming lately
+- Data Type C variables for holding alphanumeric characters
+
+Min 1 character , Max 65535 characters
+
+
+
+# String Operations :-
+
+1. Concatenate - two strings are joined to form a third string
+2. Condense - Deletes Space
+3. Strlen- used to find length of a field
+4. Replace - used to make replacements in character
+5. Search - to run searches in character string
+6. Shift - move contents of a string left or right
+7. Split - split contents of a field into two or more fields
+
+
+
+
+# In SAP HANA (SAP Logon)
+
+- How is the Name of the Program written ?
+
+1. A to X Reserved for SAP
+   Y only used for Includes , or Z for Customization or Developer
+
+2. Provide Place / Folder also known as Package [SE21]
+
+
+-> Simple ABAP Program :- 
+
+Data A type I.
+Data B type I.
+Data C type I.
+A = 10.
+B = 20.
+C = A + B.
+Write C. * [Write is Operational Key Word] *
+
+OR
+
+Data: A type I, B type I, C type I.
+A = 10.
+B = 20.
+C = A + B.
+Write C.
+
+
+-> STEPS to Create Program :-
+
+Execute SE38 (ABAP Editor)
+Provide program name :- Zname_pg1
+Click in create
+Provide Title of the program
+Select type as Executable Program
+Click on Save 
+Click on Package
+
+
+-> STEPS to Execute Program :-
+
+Save CTRL + S
+Check CTRL + F2
+Activate CTRL + F2
+Execute Program F8
+
+
+
+NOTE -> /o - opens a new session without terminating the current session
+NOTE -> /n - opens a new session but terminating the current session
+
+
+
+-> Parameter (input() in python) :- 
+
+- Parameter is the Keyword which accepts input at runtime 
+- Parameter Cannot accept float data type . Only accepts Packet Decimal.
+- Default is a keyword to provide default value to input value
+
+Syntax :- 
+- parameter <name> type <data_type> default <value>.
+- parameter A type I default 10.
+
+
+-> Obligatory :- keyword to provide input field is mandatory.
+
+Syntax :-
+- Parameter <name> type <data_type> obligatory.
+- Parameter A type I obligatory.
+
+
+# SQL :- 
+
+1. DDL :- Create , Alter
+2. DML :- Insert , Update , Modify , Delete
+3. DCL :- Commit , Rollback
+
+
+- SQL is Database Dependent and SAP is Database Independent
+
+-> SAP doesn't support SQL
+-> Open SQL supports SAP , because open SQL is database independent
+-> Open SQL doesn't support DDL  -> cant create tables by using simple statements like oracle
+-> Open SQL support DDIC (Data Dictionary) -> which is used to create or alter table
+
+
+
+
+------>>>>>> DATA DICTIONARY :-
+
+- Central source of DBMS 
+- Main functionality of DDIC is to create or alter tables
+
+-> 2 ways to create DB Table :-
+
+1. Direct method / pre defined / built in [We Don't use this]
+2. Data Element Method (TD Approach , BU Approach)
+
+
+
+-> Technical Requirements to create Table :- 
+	- Name of table starts with y or z 
+	- Provide list of fields, data types and lengths
+	- Provide the delivery class
+	- Provide the Technical settings
+
+
+
+-> Delivery Class :-
+- It defines the owner of the tables as well as it controls the transport of the data from one table to another table 
+- Technical settings is nothing but the combination of DATA CLASS and SIZE OF THE CATEGORY
+
+
+-> Data Class :- 
+- Data Class defines the physical area of the DB in where our table is logically stored
+
+- Some of the important Data Classes are :-
+
+1. APPL 0 - Master Data = Access Frequently But Updates Rarely (Customer master data, employee master data)
+2. APPL 1 - Transaction Data = Access Rarely and Updates Rarely (Sales order , Purchase Order Data) . Technical Data is Dependent Data.
+3. APPL 2 - Organization Data = Access Frequently But Updates Rarely (Company Data , Branches Data) . Organizational data is created at the time of system configures.
+
+
+
+-> Size Category 
+- It determines the space require for the table. 
+- Size category : 0
+- Each table must have at least one field as primary field that should be the character data type that should be character data type that should in th first field in the table
+
+
+--->> 1. Direct Method
+
+
+# Steps to create table using Direct method :- 
+
+- Execute SE11 (Create Table) in command Prompt
+- Select DB TABLE
+- Provide Table Name
+- Click on Create
+- Provide Short Description
+- Provide Delivery Class A
+- Select Field Names , Data Types, Lengths and Short Description
+
+
+- Save the Table (CTRL S)
+- Check the Table (CTRL F2)
+- Click on Technical Settings 
+- Select Data Class APPL 0 & Size Category as zero
+- Save Technical Settings 
+- Click on Back
+- Then Activate Table (CTRL F3)
+
+
+--->> 2. Data Element
+
+
+-> Domain :- Collection of Data Types with their lengths 
+-> Data Element :- Collection of Domain with Short Description
+
+
+1. Bottom Up :- Create Domain -> Create Data Element -> Create table -> Place data element in the table -> Check and Activate the table -> Giving Records
+2. Top Down :- Create Table -> Place data element in the table / Giving Fields -> Create Data Element -> Create Domain -> Check and Activate the table -> Giving Records
+
+
+
+-> Steps to Create Domain :- 
+
+- Execute SE11
+- Select Radio Button Domain
+- Provide Domain name by clicking on create
+- Provide short description
+- Provide Data Type & length
+- Save the domain
+- Check Domain
+- Activate Domain
+- Repeat same steps for all domain
+
+
+
+-> Steps to Create Data Element :- 
+
+- Execute SE11
+- Select Radio Button Data Type
+- Provide Data Element Name
+- Click on Create
+- Click on Enter
+- Provide Short Description
+- Provide Domain which is already created
+- Save Data Element
+- Check Data Element
+- Activate Data Element
+- Repeat same steps for all the Data Element
+
+
+
+-> Steps to create table using Data Element Method :- 
+
+- Execute SE11
+- Select Radio Button Database Table
+- Provide Table Name
+- Click on Create
+- Provide Short Description
+- Provide Delivery Class is A
+- Select Display / Maintenance allowed
+- Click on Field Tab
+- Provide Field Name, Data Elements
+
+
+
+---> In SAP Logon [H/W]
+
+Table 1
+
+Emp ID - zluqmaan_EmpId -> char - 10 -> Employee ID
+
+Emp Name - zluqmaan_EmpName -> char - 20 -> Employee Name
+
+Emp City - zluqmaan_EmpCity -> char - 30 -> Employee City
+
+Emp Contact - zluqmaan_EmpCntno -> Num C 10
+
+Emp Email - zluqmaan_EmpEmail -> Char 30
+
+
+
+*** Day 3 (16/01/2025)
+
+
+# -->> Bottom Up Approach :- 
+
+
+- For Table -> We Require Fields :- Data Types and Length -> We need Domain :- Char and 20 -> We need Data Element :- Domain Name and Short Description
+
+
+- Table -> Short Desc , Delivery Class , Display/maintenance Allow  -> Fields (Data Elements) -> Technical Settings (Data Class [appl 0], Size Category [0]) -> Extra [ Enhancement Category (Can be Enhanced Deeply :- Both Number and Character can be inputted in the field) -> Save]
+
+# Creating a Record :- 
+
+Utilities -> Table Contents -> Create Entries 
+
+
+
+# SM30 -> TMG () :- DML Operation [update , delete, modify Table]
+
+
+# -->> Top Down Approach :- 
+
+
+Table 2
+
+Customer Table :- 
+
+- Create Table (zluqmaan_cust)
+- Short desc , delivery class (A) , display/maintenance allow
+- Fields 
+	- Mandt [only for that particular client (server) it will be visible]
+	- zluqmaan_custno (Domain and Data Element):- Cust no - char - 10 
+	- zluqmaan_custname (Domain and Data Element):- Cust name - char - 20
+	- zluqmaan_custcity (Domain and Data Element):- Cust city - char - 30
+	- zluqmaan_custcntno (Domain and Data Element):- Cust cnt no - numc - 10
+	- zluqmaan_custemail (Domain and Data Element):- Cust email - char - 30 
+	- zluqmaan_custsnap (Domain and Data Element):- Cust snap - char - 30
+
+
+KEY POIONTS :- 
+
+1. Automation Process in S4 HANA - Intelligence Robotic Process Automation (IRP)
+
+2. Key Store S4 HANA - Authentication and Encryption Keys
+
+3. SAP Main Frame -> It is not a Module , Modules are stored here 
+
+4. Fiori -> Frontend for S/4 Hana , Mobile Application
+
+5. Complex Calculation in S4 HANA -> In Memory
+
+6. SAP Fiori Launch Pad -> User interface for accessing application
+
+7. Describe S4 HANA :- Column based , Object oriented
+
+8. S4 HANA is compatible with which type of processes ? -> Transactional and Analytics Both
+
+9. S4 HANA Digital Core -> Next Gen Platform for ERP, Integrated suites of application that supports various business process
+
+10. Mobile Device in S4 HANA / Interface for S4 HANA -> Fiori
+
+11. SAP used for real time Analytics in S4 HANA ? -> 
+
+12. Responsible for Admin Part -> BASIS Team
+
+13. Technologies comes under SAP - SAP S4 AHAN
+
+14. Primary benefits of S4 HANA ? - > centralized system, real time analytics and reporting
+
+15. S4 HANA Frist Released ? -> 2015 
+
+16. S4 HANA best describes from -> In Memory , Column Oriented , OOP / Relational database
+
+17. Complex Computations S4 HANA - In Memory 
+
+
+Table 3 
+
+Emp Bank Table :- 
+
+- Fields 
+	- EmpID (zluqmaan_empid) same as table 1
+	- EmpName (zluqmaan_empname) same as table 1
+	- EmpBankName (zluqmaan_empbankname) - char - 30
+	- EmpAccNo (zluqmaan_empaccno) - Numc - 20
+	- EmpIFSCode (zluqmaan_empifsc) - char - 20
+
+
+
+
+NOTE :- If you get warning message enhancement category for table missing then in menu bar click on extras -> enhancement category -> enter -> Select radio Button can be enhanced deeply (char type or numeric) -> enter .
+
+NOTE :- If you want to provide the data directly to the table then you must select the display maintenance allowed .
+
+NOTE :- If you select the display maintenance allow with restrictions , then display only possible. Create Records not possible
+
+NOTE :- If you Select the Display maintenance not allowed then display and create record not possible. 
+
+
+
+
+# Foreign Key 
+
+1st Table is called CHECK TABLE
+2nd Table is called VALUE TABLE
+
+-> Field in one table 
+-> Connected to another table via foreign key R/S
+-> Purpose is to validate data being entered in in table (FK table) by checking against list of possible values in another table
+
+- Technical Requirements to establish FK R/S :
+1. Domain of both fields in both Table must be same
+2. Check Table field must be the primary
+
+- Steps :-
+
+1. Execute SE1
+2. Select Radio Button Database Object
+3. Provide FK Table name
+4. Click on Change
+5. Select Field for which we want establish the FK Relation 
+6. Click on FK Icon under fields tab
+7. Provide Check Table Name
+8. Click on Generate Proposal
+9. Then the system automatically provides relation btw two tables
+10. Save, Check, Activate the Table
+
+
+
+H/W - 
+Top to Bottom Approach
+
+1. Vendor Table
+
+- vendor no - char - 10
+- vendor name - char - 30
+- vendor country - char - 20
+- vendor city - char - 30
+- vendor contact - numc - 10
+- vendor email - char - 30
+- vendor insta - char - 35
+
+Fk R/s
+
+2. Vendor Bank Table
+
+- vendor no - char - 10
+- vendor name - char - 30
+- Vendor Bank Name - char - 30
+- Vendor Acc No - numc - 20
+- Vendor IFSC - char - 20
+
+
+# Types of Table :-
+
+1. Transparent Tables [We use this]
+
+-> One - to - One R/s
+-> If you create one transparent table in DDIC, then it'll store like only one data table in the data base
+ 
+2. Cluster Tables
+
+-> Many - to - One R/s
+-> If you create many clustered tables in DDIC then they will form a table cluster and store in the data base
+-> Buffering isn't possible for clustered table. For this reason only fetching the data from clustered table takes more time
+-> Clustered table is suitable when you fetch the fewer amounts of data from more fields
+
+3. Pool Tables
+
+-> Many - to - One R/s
+-> If you create many pooled tables in DDIC, then they will form form like a table pool and stored in the data base
+-> Pooled tables are suitable when we fetch the large amount of data from fewer fields
+
+NOTE:- Joins aren't possible for clustered and Pooled Tables
+
+
+# Index :- 
+
+-> Used to improve performance of select query
+
+2 types :-
+
+1. Primary Index :-
+
+-> Primary Fields 
+-> w/o P I we cant create data base table
+-> up to 16 P I per Table
+-> only for Custom Tables , not for standard
+
+2. Secondary Index
+
+-> possible for other than primary fields
+-> w/o S I we can create a data base table
+-> We can create up to 9 S I per Table
+-> For Both Custom and Standard
+
+Create Secondary Index :- 
+
+1. Execute SE11
+2. Select Radio Button Data base table
+3. Provide Table name for which table we want to display
+4. Click on display
+5. Click on Index beside Technical Settings
+6. Click on Create Index
+7. Provide Index Name
+8. Enter
+9. Provide Short Description
+10. Click on table fields 
+11. Select require fields
+12. Enter , Save , Check , Activate
+
+Total 25 Keys = 16 PI + 9 SI
+
+NOTE:- We cant delete domain which is already assigned to data elements. We cant delete the data element which is already assigned to data base table
+
+
+# Some Standard Tables :
+
+1. T001
+- BUKRS company code
+- BUTXT Company name
+- ORT01 City
+- LAND1 - Country 
+
+2. KNA1
+- KUNNR Customer Name
+- NAME1 - Name
+- ORT01 - City
+- LAND1 - Country
+- SPARS - Language
+
+3. LFA1
+- LIFNR Vendor Number
+- NAME1 Name
+- ORT01 City
+- LAND1 Country
+- SPARS Language
+
+## FOR CUSTOM TABELS:- 
+
+# ADD some additional Fields to the data base table [Already existing Table]
+
+-> Create structure , include structure 
+-> Same Structure can be used in N no. of custom Fields
+-> All steps of include structure saved either in our own package ot in $TMP package
+
+## FOR STANDARD TABLES:-
+
+# ADD some additional Fields to the data base table [Already existing Table]
+
+-> By using Append Structure we can add additional fields to standard data base table
+-> Same Structure can be appended to only one standard data base table 
+-> All steps of append structure must be saved in our own package only. Because $TMP is non transportable
+
+
+#           Database Table                                    VS                 Structure 
+
+-> DBT Must contain at least one field as Primary Field       VS         Structure Doesn't contain any Primary Fields
+-> DBT contains Permanent Data                                VS         Structure doesn't contain any data
+-> We must provide the size of the table in DBT               VS         We only need to provide size of the structure
+-> We must provide Delivery Class tot DBT                     VS         We do no need to provide the Delivery Class to the structure 
+
+
+# Steps to create the Structure :-
+
+1. Execute SE11
+2. Select Radio Button Data Type
+3. Provide Structure Name
+4. Click on Create
+5. Select Radio Button Structure 
+6. Enter
+7. Provide Short Desc
+8. Provide Component , Component Type
+
+
+# Steps to include the same structure in any number of custom tables :-
+
+1. Execute SE11
+2. Select Radio Button Data Base Table 
+3. Provide Table Name
+4. Click on change
+5. Place Cursor where you want tot include the structure 
+6. Provide Field Name ".include"
+7. Provide the Data Elements as Structure Name
+8. Enter , Save , Check , Activate
+
+
+
+
+*** Day 4 (17/01/2025)
+
+
+# Syntax of declaring the structure / table in ABAP Editor :-
+->
+Data: Begin of </Structure /table>,
+      ------,
+      ------,            Field Name
+      ------,
+      End of </Structure /table>.
+
+Ex :- 
+->
+Data: Begin of emp,
+      eid(10) type c,  
+      ename(25) type c,
+      ecity(30) type c,                  Work Area
+      ecntno(10) type numc,
+      End of emp.
+
+-> Work Area always hold one record at a time 
+-> So we go for internal tables
+
+
+# Internal Tables ******************** :-
+
+1. Internal Tables is the collection of Records.
+2. IT are Temporary Tables. Means Data in IT wont be saved anywhere in SAP.
+3. IT are Dynamic Memory Location. Means we don't have to provide size of IT.
+4. Scope of IT is up to that program.
+5. Placing Data to IT as well as getting data from IT is always record by record.
+
+
+#           Database Table                  VS             Internal Table
+
+- DBT are Permanent Storage Location        VS       IT are Temporary Storage Location
+- We can Access DBT from anywhere in SAP    VS      We can Access IT within the Program only
+- We must provide Size of DBT               VS      IT are Dynamic, Need not provide the size
+
+
+# Syntax of declaring IT :-
+-> 
+Data <internal table> LIKE table of <work area>.
+
+# Ex:- 
+-> 
+Data IT like table of WA.
+
+# Syntax of accessing fields from Work Area
+-> 
+<work area name> - <field name>.
+
+# Ex :-
+-> 
+WA - Eid.
+
+NOTE -> APPEND is the Keyword to Transfer the data from work area to IT
+
+
+# Ex :- 
+->
+Data: Begin of emp,
+      eid(10) type c,  
+      ename(25) type c,
+      ecity(30) type c,
+      ecntno(10) type numc,
+      End of emp.
+Data IT like table of WA.
+WA-Eid = '1'.
+WA-Ename = 'Ali'.
+WA-Ecity = 'Hyd'.
+WA-Ecntno = '0000000000'.
+APPEND WA to IT.
+WA-Eid = '2'.
+WA-Ename = 'Luqmaan'.
+WA-Ecity = 'Mumbai'.
+WA-Ecntno = '1111111111'.
+APPEND WA to IT.
+Loop at IT into WA.
+Write:/ WA -Eid, WA - Ename, WA - Ecity , WA - Ecntno.
+Endloop.
+
+
+# Syntax to Select Query :-
+-> 
+Select <field1> <field1> ... from <data base table> into table <internal table> where <condition>.
+
+Ex :- To Display Company Codes, Company Names and Cities :- 
+->
+Data: Begin of wa,
+	BUKRS(4) type c,
+	BUTXT(25) type c,
+	ORT01(25) type c,
+	End of wa.
+Data it like table of wa.
+Select BUKRS BUTXT ORT01 from T001 into table it.
+Loop at it into wa.
+Write:/ wa-BUKRS,wa-BUTXT,wa-ORT01.
+Endloop.
+
+Ex :- To Display Company Codes, Company Names, Cities and Countries :- 
+->
+Data: Begin of wa,
+	KUNNR(10) type c,
+	NAME1(35) type c,
+	ORT01(35) type c,
+	LAND1(3) type c,
+	End of wa.
+Data it like table of wa.
+Select KUNNR NAME1 ORT01 LAND1 from KNA1 into table it.
+Loop at it into wa.
+Write:/ wa-KUNNR, wa-NAME1, wa-ORT01, wa-LAND1.
+Endloop.
+
+
+# Syntax of Declaring the Field :- 
+-> 
+Data <field name> (<length>) type <data type>.
+
+# Ex.
+-> 
+Data BUKRS(4) type c.
+
+OR
+
+-> 
+Data <field name> type <data element>.
+
+# Ex.
+-> 
+Data BUKRS type BUKRS.
+
+OR
+
+-> 
+Data <field name> type <data base table> - <field name>. [WE will be using this one]
+
+# Ex.
+-> 
+Data BUKRS type T001-BUKRS. 
+
+-> 
+Data Matnr type MARA-Matnr.
+
+# Select-options (We use S_ ):- 
+
+-> Select-options is the keyword which accepts single vale, multiple values, single range and multiple ranges
+
+
+# Syntax of Select-options :- 
+-> 
+Select-options <name of the select-options> for <variable name>.
+
+Ex:-
+-> 
+Data v1 for BUKRS.
+Select-options S_BUKRS for v1.
+
+-> 
+Data v2 for KNA1-KUNNR.
+Select-options S_KUNNR for v2.
+
+-> 
+Data v3 for marc-matnr.
+Select-options S_matnr for v3.
+
+
+# Syntax of Select-options in Select Query:- 
+-> 
+Select <field1> <field2> ... from <database table> into table <Internal Table> where <field> in <select-options>.
+
+# Ex :-
+-> 
+REPORT ZLUQMAAN_P5.
+Data v1 type T001-Bukrs.
+SELECT-OPTIONS S_BUKRS for v1.
+Data: Begin of WA_T001,
+  BUKRS type T001-BUKRS,
+  BUTXT type T001-BUTXT,
+  ORT01 type T001-ORT01,
+  End of WA_T001.
+Data IT_T001 like table of WA_T001.
+Select BUKRS BUTXT ORT01 from T001 into table IT_T001 where BUKRS in S_BUKRS.
+LOOP at IT_T001 into WA_T001.
+Write:/ WA_T001-BUKRS, WA_T001-BUTXT, WA_T001-ORT01.
+Endloop.
+
+
+# Parameter :-
+
+# Syntax
+-> 
+Parameter <name of parameter> type <data type> 
+ 
+# Ex:-
+->
+parameter P_BUKRS type T001-BUKRS.
+
+# Syntax of Parameter in Select Query :-
+-> 
+Select <field1> <field1> ... from <database table> into table <Internal Table> where field = <parameter>.
+
+# Ex :-
+->
+Select BUKRS BUTXT LAND1 from T001 into table IT_001 where BUKRS = P_BUKRS.
+
+
+
+# 			Parameter 		          VS 			Select-options 
+
+-> P is Keyword which accepts single value at run time    VS          S-o is Keyword which accepts single value , multiple single values , single range , multiple ranges
+-> Without P input parameter we cant get data             VS          Without providing input select-options we can get the entire data from DB 
+
+
+# Types of Internal Table :
+
+1. Indexed 
+	- Standard
+	- Sorted
+2. Hashed
+
+
+# Standard IT :-
+
+-> Accepts Duplicate Records
+-> Here all fields are Non-Unique
+-> Passing Data from work area to IT is always through 'Append' Keyword
+-> Searching of a Record is Linear Search
+
+# Syntax :-
+->
+Data <IT> like standard table of <work area>.
+
+
+# Sorted IT :-
+
+-> May or may not accept Duplicate Records
+-> Here we must specify at least one field as Unique / Non-Unique
+-> Passing Data from work area to IT is always through 'Insert' Keyword
+-> Searching of a Record is Binary Search
+
+# Syntax :-
+->
+Data <IT> like sorted table of <work area> with unique / non-unique key <filed>.
+
+#Ex :-
+->
+Data IT like sorted table of WA with unique key Eid.
+
+
+# Hashed IT :-
+
+-> Wont accept Duplicate Records
+-> Here we must specify at least one field as Unique
+-> Passing Data from work area to IT is always through 'Collect' Keyword
+-> Searching of a Record is Hash Algorithm
+
+# Syntax :-
+->
+Data <IT> like hash table of <work area> with unique key Eid.
+
+
+# Kind is the keyword which returns type of IT 
+- Standard (T) , Sorted (S) , Hash (H)
+
+# Lines is the keyword which returns the no of records in IT
+
+# Syntax :-
+->
+Describe table <internal name> KIND <variable1> LINES <variable2>.
+
+# Ex :-
+->
+Describe table IT_KNA1 KIND v1 LINES v2.
+
+NOTE -> By Default variable is the character data type and length is 1
+NOTE -> By Default IT is Standard IT (T)
+
+
+# Types of Declaring IT :- 
+
+1. Declaring IT with some of the fields from any one of the dbt :- 
+
+# Ex :-
+->
+Data: begin of wa_t001,
+bukrs type t001-bukrs,
+ort01 type t001-ort01,
+end of wa_t001.
+Data IT like table wa_t001.
+
+2. Declaring IT with all fields from any one of the dbt :-
+
+# Syntax 
+-> 
+Data begin of <work area>.
+Include Structure <DBT>.
+Data end of <work area>.
+Data <I T> like table of <work area>.
+
+# Ex :-
+->
+Data begin of wa_t001.
+Include Structure t001.
+Data end of wa_t001.
+Data it_t001 like table of wa_t001.
+
+3. Declaring IT table by Referring DBT (Rarely we use this)
+
+# Syntax :-
+->
+Data <w a> like <dbt>.
+Data <I T> like table of <w a / dbt>
+
+# Ex :-
+->
+Data wa like t001.
+Data it like table of wa.
+
+OR
+
+->
+Data IT like table of t001.
+Data wa like line of IT.
+
+
+NOTE :-
+
+# Type is used to Refer :-
+	- Data Types
+	- Data Elements
+	- Fields in the table
+	- Types
+
+# Like is used to Refer :-
+	- Variables
+	- Fields in the table
+
+
+
+
+
+
+
