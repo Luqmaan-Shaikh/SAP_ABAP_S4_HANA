@@ -1,0 +1,1339 @@
+*** Day 5 (19/01/2026)
+
+
+
+# Types of Declaring IT :- 
+
+4. Declaring IT by using Types Keyword :-
+
+# Syntax :-
+->
+Types: Begin of <type name>,
+---
+---
+---
+End of <type name>.
+Data <wa> type <table name / type name>.
+Data <IT> type table of <type name>. OR Data <IT> like table of <wa>.
+
+# Ex :-
+->
+Types: Begin of ty_t001,
+bukrs type t001-bukrs,
+ort01 type t001-ort01,
+End of ty_t001.
+Data wa type <ty_t001>.
+Data it type of ty_t001. OR Data it like table of wa_t001. 
+
+
+NOTE -> Comment Multiple Lines :- Select All Lines -> ( CTRL + < )
+NOTE -> Uncomment :- Select All Lines -> ( CTRL + > )
+
+
+# Initializing Techniques :-
+
+- Clear
+- Refresh 
+- Free
+
+1. Clear :-Clear clears the contents of WA and also Clear is used to clear the contents of IT
+
+# Syntax :-
+->
+Clear <wa>.
+Clear <IT>.
+
+# Ex :- 
+->
+Clear WA_t001.
+Clear IT_t001.
+
+-> Before Clear 
+
+Bukrs - 100
+Butxt - TCS
+ort01 - Hyd
+
+-> After Clear :- Structure Remains
+
+Bukrs - 
+Butxt - 
+ort01 - 
+
+2. Refresh - Refresh always clears the contents at the Internal Table only.
+
+# Syntax :-
+->
+Refresh <IT>.
+
+
+# Ex :-
+->
+Refresh IT_t001.
+
+
+-> Before Refresh 
+
+Bukrs - 100
+Butxt - TCS
+ort01 - Hyd
+
+-> After Refresh :- Structure Remains
+
+Bukrs - 
+Butxt - 
+ort01 - 
+
+3. Free - Free Acts like Refresh.
+-> Refresh clears contents of IT only. Not the Memory which is allocated for that.
+-> Free clears contents of IT as well as Memory which is allocated for that.
+
+# Syntax :-
+->
+Free <IT>
+
+# Ex :-
+->
+Free IT_t001
+
+-> Before Free 
+
+Bukrs - 100
+Butxt - TCS
+ort01 - Hyd
+
+-> After Free :- Nothing Remains
+
+EMPTY 
+
+
+# Operations on IT :-
+
+1. Pushing data from WA to IT by using :-
+
+- Append -> Standard Table
+- Insert -> Sorted Table
+- Collect -> Hashed Table
+
+2. Reading data from IT :- 
+
+- Single Record
+- Multiple Record (Loop at)
+
+3. Modify data in an IT by using MODIFY Keyword
+
+4. Delete data in an IT by using DELETE Keyword
+
+5. Sort data in an IT by using SORT Keyword (By Default Ascending)
+
+
+## Pushing data from WA to IT :-
+
+-> APPEND is the Keyword used to transfer data from WA to last record of IT
+
+=> 
+Append <WA> to <IT>.
+
+-> Insert is KW to transfer data from WA to IT based on key fields
+
+=>
+Insert <WA> into table <IT>
+
+-> Collect check IT whether record is available or not based on the key field. If not it acts like append (record adds first). Otherwise it adds numeric fields from WA to number field in IT
+
+=>
+Collect <WA> into <IT>
+
+
+## Reading a single record for IT based on Index :- (We dont use this)
+
+Syntax :-
+->
+Read table <IT> into <WA> index <no>.
+
+# Ex :-
+->
+Read table IT into WA index 2.
+
+# Reading a single record for IT based on Condition :-
+
+# Syntax  :-
+->
+Read table <IT> into <wa> with key <condition>.
+
+# Ex :-
+->
+Read table IT into WA with key BUKRS = '200'.
+
+Output -> 200 IBM Chennai
+
+
+## Reading multiple records from IT based on Index :-
+
+# Syntax :-
+->
+Loop at <IT> into <WA> from <index no> to <index no>.
+---
+---
+---
+Endloop.
+
+# Ex :-
+->
+Loop at IT into WA from 2 to 3.
+Write:/ WA_t001-Bukrs, WA_t001-BUTXT, WA_t001-ORT01.
+Endloop.
+
+Output -> 200 IBM Chennai
+	  300 HCL Hyderabad
+
+## Reading multiple records from IT based on Condition :-
+
+# Syntax :-
+->
+Loop at <IT> into <WA> where <condition>.
+---
+---
+---
+Endloop.
+
+# Ex :-
+->
+Loop at IT into WA where ORT01 = 'Hyderabad'.
+Write:/ WA_t001-Bukrs, WA_t001-BUTXT, WA_t001-ORT01.
+Endloop.
+
+Output -> 300 HCL Hyderabad
+	  500 TCS Hyderabad
+
+
+## Modify the data in IT by using Modify keyword :- (We rarely use Modify)
+
+-> 2 Step Procedure :-
+
+1. Fill latest Information into WA
+2. Modify Index Table based on WA
+
+# Syntax :-
+->
+Modify <IT> from <WA> transporting <field1> <field1> where <condition>.
+
+# Ex :-
+->
+WA_t001-ORT01 = 'BAN'.
+Modify IT_t001 from WA_t001 transporting ORT01 where BUKRS = '200'.
+
+# Syntax :-
+->
+Modify <IT> from <WA>.
+
+
+## Delete data from IT by using Delete Keyword :-
+
+1. Based on Index :-
+
+# Syntax :-
+->
+Delete <it> index <index no>.
+
+# Ex :-
+->
+Delete IT_t001 index 3.
+
+2. Based on Condition :-
+
+# Syntax :-
+->
+Delete <it> where <condition>.
+
+# Ex :-
+->
+Delete IT_t001 where ORT01 = 'Hyderabad'.
+
+## Sort data in an IT :-
+
+# Syntax :-
+->
+Sort <IT> by <field1> <field1>. [By Default Ascending]
+
+# Ex :-
+->
+Sort IT_t001 by BUKRS.
+
+# Syntax :-
+->
+Sort <IT> by <field1> descending. [Specified for Descending]
+
+# Ex :-
+->
+Sort IT_t001 by BUKRS descending.
+
+
+NOTE -> Before using delete , to delete duplicates we must sort table based on comparing fields.
+
+## Delete Adjacent Duplicates [Automatically Sorts First and Then Automatically Deletes Duplicate Entries if we provide the given Syntax]:-
+
+# Syntax :-
+->
+Delete Adjacent Duplicates from <IT> comparing <field1> <field2>.
+
+# Ex :-
+->
+Delete Adjacent Duplicates from IT comparing BUKRS.
+
+
+# Employee Table Example :-
+
+->
+Data: Begin of WA_Emp,
+Eid(10) type C,
+Ename(25) type C,
+End of WA_Emp.
+
+Data IT_Emp like table of WA_Emp.
+
+Data: Begin of WA_Sal,
+Eid(10) type C,
+Esal(10) type C,
+End of WA_Sal.
+
+Data IT_Sal like table of WA_Sal.
+
+Data: Begin of WA,
+Eid(10) type C,
+Ename(25) type C,
+Esal(10) type C,
+End of WA.
+
+Data IT like table of WA.
+
+WA_Emp-Eid = '1'.
+WA_Emp-Ename = 'Rohan'.
+
+Append WA_Emp to IT_Emp.
+
+WA_Emp-Eid = '2'.
+WA_Emp-Ename = 'Dev'.
+
+Append WA_Emp to IT_Emp.
+
+WA_Emp-Eid = '3'.
+WA_Emp-Ename = 'Nish'.
+
+Append WA_Emp to IT_Emp.
+
+WA_Emp-Eid = '4'.
+WA_Emp-Ename = 'Sid'.
+
+Append WA_Emp to IT_Emp.
+
+WA_Emp-Eid = '5'.
+WA_Emp-Ename = 'Luq'.
+
+Append WA_Emp to IT_Emp.
+
+Loop at IT_Emp into WA_Emp.
+Write:/ WA_Emp-Eid, WA_Emp-Ename.
+Endloop.
+
+Uline.
+
+WA_Sal-Eid = '1'.
+WA_Sal-Esal = '10000'.
+
+Append WA_Sal to IT_Sal.
+
+WA_Sal-Eid = '2'.
+WA_Sal-Esal = '20000'.
+
+Append WA_Sal to IT_Sal.
+
+WA_Sal-Eid = '3'.
+WA_Sal-Esal = '50000'.
+
+Append WA_Sal to IT_Sal.
+
+WA_Sal-Eid = '4'.
+WA_Sal-Esal = '30000'.
+
+Append WA_Sal to IT_Sal.
+
+WA_Sal-Eid = '5'.
+WA_Sal-Esal = '40000'.
+
+Append WA_Sal to IT_Sal.
+
+Loop at IT_Sal into WA_Sal.
+Write:/ WA_Sal-Eid, WA_Sal-Esal.
+Endloop.
+
+Uline.
+
+Loop at IT_Emp into WA_Emp.
+WA-Eid = WA_Emp-Eid.
+WA-Ename = WA_Emp-Ename.
+
+Read Table IT_Sal into WA_Sal with Key Eid = WA_Emp-Eid.
+WA-Esal = WA_Sal-Esal.
+Append WA to IT.
+
+Clear WA.
+
+Endloop.
+
+Loop at IT into WA.
+Write:/ WA-Eid, WA-Ename, WA-Esal.
+Endloop.
+
+# Search Help :-
+
+-> Used to Provide List of Possible values to input variable.
+-> 2 Types :-
+
+1. Elementary SH
+2. Collective SH
+
+-> 2 Step Procedure
+
+=> Create Search Help
+=> Attach Search Help to Data Element
+
+# Steps to Create Elementary Search Help :-
+
+1. Execute SE11
+2. Select Radio Button SH
+3. Provide SH name (zluqmaan1)
+4. Click on create 
+5. Click on Enter
+6. Provide Short Description
+7. Provide Selection Method is Table name (T001)
+8. Provide Hot Key as any name
+9. Enter
+10. Provide SH Parameter
+
+Search help Parameter  IMP EXP  LPOS SPOS
+BUKRS                  yes yes  1     1
+BUTXT                      yes  2     2
+
+11. Save, Check and Activate
+
+
+# Steps to attach SH to Data Elementary :-
+
+1. Execute SE11
+2. Select on Radio Button Data Type
+3. Provide Data Element Name (ZENT_9_BUKRS)
+4. Click on Create
+5. Enter
+6. Short Description
+7. Provide Domain Name [(zbukrs) (4, char)]
+8. Click on further characteristics tab
+9. Provide H name (zluqmaan1) , parameter (bukrs)
+10. Save , Check and Activate
+
+
+# Collective SH :- [We dont use this]
+
+-> Collective SH is the collection of Elementary SH
+-> We create C SH to identify Company Codes based on Company Name an identify Company Codes based on Vendor No.
+
+# Steps :-
+
+1. SE11
+2. Radio Button - Search Help
+3. Collective SH name (zluqmaan2)
+4. Create
+5. Radio Button - collective SH
+6. Enter
+7. Short Description
+8. Search Help Parameter (BUKRS)
+9. Import , export , click on include search help tab
+10. provide all Elementary SH
+11. Select each element SH
+12. Click on parameter assignment
+13. Click on yes
+14. Enter
+15. Save , Check and Activate Collective SH
+
+# Steps to create Data Element for C SH :-
+
+1. SE11
+2. Radio Button Data Type
+3. Data Element Name
+4. Create
+5. Enter
+6. Short Description
+7. Domain Name
+8. Characteristics Tab
+9. Collective SH name , Parameter
+10. Save , Check and Activate
+
+
+# Hot Key :-
+
+-> Permits user to select an Elementary SH from Collective SH directly in the input field with the short notation
+
+-> After Executing program we provide input as equal to hot key (=A) and click on F4
+-> Then we get the E SH which contains specified hot key as default
+
+-> Letters and digits are allowed as Hot Keys.
+
+# Lock Objects :-
+
+-> Lock object is used to avoid Concurrent access of multiple users on the same data base
+-> Whenever we create and activate lock object it generates 2 Functional Modules
+1. Enqueue (Locking) , 2. Dequeue (Unlock)
+-> Lock Object name must start with EZ or EY
+
+# Steps to Create Lock Object :-
+
+1. SE11
+2. Radio Button - Lock Object
+3. Lock Object Name
+4. Create
+5. Short Description
+6. Tables Tab
+7. Table Name (T001)
+8. Select Lock Mode as Read Lock
+9. Save , Check and Activate
+10. In Menu Bar click on go to -> Lock Modules
+11. Identify Functional Modules
+(ENQUEUE - Lock object name , DEQUEUE - UnLock Object name)
+
+# Types of Lock Modules :-
+
+1. Write Lock or Exclusive Lock :-
+-> Locked data can be read or processed by one user only
+
+2. Read Lock or Shared Lock :- 
+-> Several users can read the same data at the same time but only one user can edit the data
+
+3. Exclusive not cumulative Lock :- 
+-> Several users can access the same data as well as update the same data
+
+
+
+*** Day 6 (20/01/2026)
+
+
+
+NOTE -> T-codes:- SE01, SE09, SE10 - > For Transporting from one Landscape to another (Dev to Quality, Quality to Production)
+NOTE -> T-Code :- SE80 -> SAP Repository (except features of SE11 , we can do everything like create a project also)
+
+NOTE -> EKKO :- Purchase Document 
+
+
+# R/3 Architecture Overview :-
+
+Presentation layer -> Appln [Dispatcher -> Queue -> Dispatcher (in form of FIFO) -> Work Process [1000s of Work Process are present] (goes to the first available Work Process) (Handles 1 request at a time) -> Buffer Zone (User Context and Program Roll Area - Very Important in Dialog Step Processing also called as screen Programming)]
+
+Module Pool Programming - SE51 - Design Screens
+SE41 - Design Buttons 
+
+# Buffering :- 
+
+NOTE :- Buffering is always available in the technical settings of a table
+
+-> Temporary place in Appln Server
+-> If we Execute any object then System goes to appln server and check the required data is available or not in BA
+-> If data is available then it gets from BA and displays it
+-> If data is not available in BA then it goes to DB and picks data from DB servers and place it into BA and Displays it
+
+Scree 1 <-> Screen 2 (Presentation Server) --- Buffered Area---> Appln Server <-> Database 
+
+
+# Types :-
+
+1. Single Record Buffering :-
+
+-> The Selected Data will be stored into Buffered Area
+
+2. Generic Area Buffering :-
+
+-> Key Info will be stored in the BA
+
+3. Fully Buffered :-
+
+-> Entire Data of DB is loaded into the BA 
+
+NOTE-> If you want to display data in single line then provide line-size 
+Ex :- Report <Report Name> Line-Size 1023.
+
+
+# Table Maintenance Generator TMG *********** :-
+
+-> used to insert, update and delete the data base without any code (w/o DML commands)
+-> TMG is only possible for custom Tables
+-> Transaction code (t-code) = SM30
+
+Authorization group for ABAPer -> BASIS Team
+
+NOTE -> Functional Group = SE37
+
+# Steps to Create TMG :-
+
+1. SE11
+2. Radio Button -> DB Table
+3. DB Table Name for which we want to create the TMG
+4. Click on Change
+5. In Menu Bar click on utilities -> TMG
+6. Select Authorization Group provided by BASIS People
+7. Provide Function Group as Table Name
+8. Select Maintenance type is one step or two step
+9. Provide Screen Number (any no) 
+10. Click on Create 
+11. Save in our Package
+12. Save , Check and Activate / Back
+
+# Steps to maintain data by using TMG :-
+
+1. Execute SM 30 
+2. Provide Table or View Name as our Table Name (ZHALI1)
+3. Click on Maintain
+4. Enter
+5. Perform operations of data (Insert, Update, Delete)
+
+# Steps to Create Transaction Code for table or TMG :-
+
+1. Execute SE93
+2. Provide transaction code as same table name
+3. Click on create
+4. Short Description
+5. Radio Button - Transaction with Parameter
+6. Provide Transaction (SM30)
+7. Select Check box skip initial screen 
+8. Select GUI check boxes
+9. Provide Default Values
+
+Name of Screen Field    Value
+Update 			  X
+
+10. Click on Save
+11. Now we execute this table name as transaction code then we get screen and perform the operations
+
+-> 2 types of Maintenance 
+
+=> One Step Maintenance :-
+-> It means both maintaining data and display data in a single screen
+
+=> Two Step Maintenance :-
+-> It means maintaining data in one screen and displaying data in another screen 
+
+# Some Events in TMG ********* :-
+
+1. Before Saving data in DB
+2. After Saving data in DB
+3. Before Deleting Data Display
+4. After Deleting Data Display
+5. Creating a New Entry
+
+NOTE -> Events in Reports and Events in Module Pool [IMP Questions for Interview for sure]
+
+# Steps to implement the events in TMG :-
+
+1. Execute SE11
+2. Open Table in Change Mode
+3. In Menu Bar Click on utilities -> TMG 
+4. In Menu Bar click on Environment -> Modification events
+5. Enter
+6. Click on New Entries in Appln Tool Bar
+7. Select the Event
+8. Provide the Form Name
+9. Save
+10. Click on Editor
+11. Enter
+12. Implm Code in between Form end Form
+13. Save , Check and Activate 
+14. Back , Save and Check
+
+
+# Table type :-
+
+-> Collection of Structure records or structure fields
+-> By using TT we declare IT in the ABAP Editor
+-> Creation of TT is a 2 Step Procedure :-
+1. Create Structure , 2. Create Table Based on the Structure
+
+# Steps to create Structure :-
+
+1. SE11
+2. RB - Data Type
+3. Structure Name
+4. Create
+5. RB - Structure
+6. Enter
+7. Short Description
+8. Component, Component Type
+
+Component Component Type 
+BUKRS      BUKRS
+BUTXT      BUTXT
+ORT01      ORT01
+
+9. Save , Check and Activate
+
+# Steps to Create Table Type based on Structure :-
+
+1. SE11
+2. RB - Data Type
+3. Table Type Name
+4. Create
+5. RB - Table Type
+6. Enter
+7. Short Description
+8. Provide Line Type as Structure Name
+9. Enter 
+10. Save , Check and Activate and Table Type
+
+Data it_t001 type zhali1.
+Data wa_t001 like type of it_t001.
+Select bukrs butxt ort01 from t001 into table it_t001.
+Loop at it_t001 int wa_t001.
+Write:/ wa_t001-bukrs , wa_t001-butxt, wa_t001-ort01.
+Endloop. 
+
+
+# Views (acts like joins) :-
+
+-> Each appln has its own DBT
+-> If you want to display a part of data from each table then we pick the data from each table and merge the data and display the data 
+-> If its regular activity then is better to create a view
+-> Views are Logical DB
+-> It doesn't contain the data permanently 
+-> At run time only view contains the data
+
+# 4 Types :-
+
+1. Projection View :-
+
+-> If you want to display the part of data from single DBT , if its a regular activity then its better to create a projection view
+-> Always involving Single DBT
+
+# Steps to Create Projection View :-
+
+1. SE11
+2. RB - view
+3. Projection View Name
+4. Create 
+5. RB - Projection View
+6. Enter
+7. Short Description
+8. Provide Basis Table
+9. Table Fields Button
+10. Required Fields Check Box
+11. Enter
+12. Save , Check and Activate
+
+# Ex :-
+->
+Select BUKRS BUTXT ORT01 from ZENT_9AM_PV into table IT_T001.
+
+NOTE-> Fetching data from views is faster than fetching data from DBT
+
+
+2. Database View :-
+
+-> If you want to display data from more than one table then we pick the data from each table and merge it and display it
+-> If its a regular activity, then its better to create DB View
+-> DB view is always involved with more than one table
+
+-> DB View picks the data from both the tables
+-> If and only of there is one or more entries is available in the right hand side table with corresponding left hand side table
+
+# Steps to Create Projection View :-
+
+1. SE11
+2. RB - view
+3. DB View Name
+4. Create 
+5. Enter
+6. Short Description
+7. Provide Related Tables in left table
+8. Select all tables
+9. Select on Relationships
+10. Check box
+11. Enter
+12. Click on View Fields tab
+13. Click on Table Fields button
+14. Select each table
+15. Click on choose
+16. Select Required Fields
+17. Enter
+18. Save , Check and Activate
+
+# Ex :-
+->
+Select BUKRS BUTXT LIFNR from ZENT_9AM_DV into table IT_Final.
+
+
+3. Help View :-
+
+-> Help view pick the data from left hand size table even though there is no match found in the right hand side table
+-> Help view always involve in two DBT
+
+# Steps to Create Help View :-
+
+1. SE11
+2. RB - view
+3. Help View Name
+4. Create 
+5. RB - Help View
+6. Short Description
+7. Initial Table
+8. Click on Relationships Button
+9. Select Required Table Check Box
+10. Enter Click view on Fields tab
+11. Click on Table Fields
+12. Select Each Table
+
+
+# WE DONT GET THE OP FOR HELP VIEW - CODE :-
+
+Data: Begin of WA_Help,
+BUKRS(4) type c,
+BUTXT(25) type c,
+ORT01(25) type c,
+MTEXT(25) type c,
+End of WA_Help.
+
+Data IT_Help like table of WA_Help.
+
+Select BUKRS BUTXT ORT01 MTEXT from zluqmaan_hv into table IT_Help.
+
+Loop at IT_Help into WA_Help.
+Write:/ WA_Help-BUKRS, WA_Help-BUTXT, WA_Help-ORT01, WA_Help-MTEXT.
+Endloop.
+
+
+
+### Capgemini M1 Test ********************** [4th week from Start] :-
+
+=> MCQs - 30 Questions [MAYBE]
+
+=> Coding :- DDIC -> Data elements , domain , table creation , search help , views , joins , Structures
+
+=> Select Queries , Internal Table
+
+=> Reports
+
+
+# Control Break Statements / Event in Internal Table :-
+
+-> CBS works within the loop at Internal Table Before using the CBS
+
+1. At First
+2. At Last
+3. At New <field name>
+4. At End <field name>
+
+-> Each CBS ends with 'Endat.'
+
+# At First 
+-> Its an Event which is triggered at the first record of IT
+Adv -> Used to display Header Information for IT
+
+# At New <field name>
+-> Its an Event which is triggered at the first record of each block
+Adv -> Used to Display Individual Fields
+
+# At End <Field Name> 
+-> Used to Display at the last record of each block
+Adv-> Used to Display the Sub Total
+
+# At Last 
+-> Is an Event which is triggered at the last record of IT
+Adv -> Used to Display the Grand Total
+
+
+
+*** Day 7 (21/01/2026)
+
+
+
+# Code for CBS
+
+Declare=> Types v1 type table_name-table_fields
+Select options s_name for v1
+Declare v2 and v3
+Declare Types : begin 
+--- Declare Fields
+Declare WA for table
+Declare IT for table
+Declare 2nd WA for calculation [To have a series of Calculations to be done]
+Select query 
+Sort
+Loop
+At first
+At New field_name
+At End field_name
+Calcualtions for Sub total and Grand Total
+At Last
+
+
+# Foramtting (SY-VLINE, SY-ULINE) :- 
+
+IN WRITE STATEMENTS :-
+
+1. sy-uline.
+2. sy-vline 2 'cocd' color 5, 6 sy-vline, 7 'compny name' color 5, 32 sy-vline, 33 'compny code' color 5, 57 sy-vline.
+3. sy-unline.
+4. O/P => sy-vline, 2 <field1>, 6 sy-vline, 7 <field2>, 32 sy-vline, 33 <field3>, 57 sy-vline.
+5. sy-uline.
+
+NOTE->  Emphasize -> Keyword to get COLOURS in ALV Reports
+
+
+
+## VBAK (Sales Document (SD) Header Table)
+
+VBELN -> SD NO.
+AUART -> SD TYPE
+AUDAT -> SD DATE
+KUNNR -> CUSTOMER NAME
+BUKRS_VF -> COMPANY CODE
+
+## VBAP (Sales Document Item Table)
+
+VBELN -> SD NO.
+POSNR -> ITEM NO.
+MATNR -> MATERIAL NO.
+KWMENG -> MATERIAL QUANTITY
+MEINS -> UOM
+NETWR -> NET VALUE
+
+
+# Insert (Single Record) :-
+
+-> It inserts a record into dbt based on the key field if there is no match found in the db
+-> otherwise it ignores the record
+
+# Syntax :-
+->
+Insert <dbt> from <wa>.
+
+NOTE -> SY_SUBRC is the system variable which contains zero with the above statement executed successfully otherwise it contains non zero. Most od the times it contains '4'
+
+# Ex :-
+->
+Data wa_T001 like T001.
+WA_T001-BUKRS = '0786'.
+WA_T001-BUTXT = 'SATISH INFO'.
+WA_T001-ORT01 = 'HYD'.
+WA_T001-LAND1 = 'IN'.
+Insert T001 from WA_T001.
+If SY-SUBRC = 0.
+Write:/ 'Inserted'.
+Else.
+Write:/ 'Not Inserted'.
+Endif.
+
+
+# Insert (Multiple Records) :-
+
+-> It Inserts Multiple Records from IT to DBT if there is no match found in db for all the records of IT based on the key field
+-> If at least one record is matched then it simply ignores the all records of IT as well as terminates the entire transaction (DUMP)
+
+# Syntax :-
+->
+Insert <dbt> from table <it>.
+
+Data: wa_t001 like t001.
+      it_t001 like table of wa_t001.
+
+wa_t001-bukrs = '0888'.
+wa_t001-butxt = 'satish info'.
+wa_t001-ort01 = 'hyd'.
+Append wa_t001 to it_t001.
+clear wa_t001.
+
+wa_t001-bukrs = '0999'.
+wa_t001-butxt = 'dhawan tech'.
+wa_t001-ort01 = 'che'.
+Append wa_t001 to it_t001.
+clear wa_t001.
+
+wa_t001-bukrs = '0777'.
+wa_t001-butxt = 'dhawan info'.
+wa_t001-ort01 = 'ban'.
+Append wa_t001 to it_t001.
+clear wa_t001.
+
+Insert t001 from table it_t001.
+
+If SY-SUBRC = 0.
+Write:/ 'Inserted'.
+Else.
+Write:/ 'Not Inserted'.
+Endif.
+
+
+NOTE -> SY-DBCNT is a system variable which contains no of records as successfully processed into the db
+
+# Ex :-
+->
+Insert T001 from table it_t001 accepting duplicate keys.
+write sy-dbcnt.
+
+# Update (single record) / overwrite :-
+
+-> It Updates a record into dbt if there is a match found into db on key field.
+-> Otherwise it ignores the record
+
+# Syntax :-
+->
+Update <dbt> from <wa>
+
+NOTE -> Whenever we are working with update then we must change field information and also non change fields information. Otherwise non change field information may be lost
+
+# Ex :-
+->
+Data wa_T001 like T001.
+WA_T001-BUKRS = '0777'.
+WA_T001-BUTXT = 'SATISH INFO'.
+Insert T001 from WA_T001.
+If SY-SUBRC = 0.
+Write:/ 'Updated'.
+Else.
+Write:/ 'Not Updated'.
+Endif.
+
+
+# Update (Multiple records)
+
+-> similar to single record functionality
+
+# Ex :-
+-> Update <dbt> from table <it>.
+
+# Update Particular Record :-
+
+Update <dbt> set <field1> = <value> ... where <condition>.
+
+# Ex:-
+->
+Update T001 set ORT01 = "MUM' LAND1 = 'IN' where BUKRS = '0777'.
+If SY-SUBRC = 0.
+Write 'Updated'.
+Else.
+Write 'Not Updated'.
+Endif.
+
+# Modify :-
+
+NOTE :- Modify acts like Update if there is a match found in DB based on the key field otherwise it acts like insert. Modify never Fails
+
+# Syntax :-
+->
+Modify <dbt> from wa.
+Modify <dbt> from table <it>.
+
+# Delete :-
+
+-> It Deletes data from db based on condition
+
+# Syntax :-
+->
+Delete from <dbt> where <condition>.
+
+# Ex :-
+->
+Delte from t001 where bukrs = '0787'.
+If sy-subrc = 0.
+Write 'Deleted'.
+Else.
+Write 'Not Deleted'.
+Endif.
+
+
+# Commit Work :-
+
+-> This command is used to commit the DB Changes
+
+# Ex :-
+->
+Delete from t001 where bukrs = '0786'.
+Commit Work.
+
+# Rollback Work :-
+
+-> This Command is used to reverse the DB Changes
+
+# Ex:-
+->
+Delete from t001 where bukrs = '0787'.
+Rollback Work.
+
+
+#### JOINS *************** :-
+
+-> Used to Fetch the data from more than 1 Table
+-> Joins Symbol (~)
+-> 2 Type :
+	- Inner Join (Mostly this is used)
+	- Left Outer Join
+
+1. Inner Join :-
+
+-> Inner Join picks the data from both the tables if and only if one or more than one entry is available in the right hand side table with corresponding left hand side table
+
+
+# Syntax :-
+-> 
+Select <dbt1> ~ <field1> <dbt1> ~ <field2> ...
+       <dbt2> ~ <field1> <dbt2> ~ <field2> ...
+--------
+Where <Condition>.'
+
+
+NOTE -> Link field must be primary field in at least one dbt
+
+
+HW -> 4 Tables Inner Join
+
+
+# Left Outer Join :-
+
+-> Only possible for 2 DBT
+-> LOJ pick the data from left hand side table even though there is no match found in right hand side
+-> In the Inner Join Syntax instead of Inner Join we paste the LOJ
+
+
+## M1 EXAM :-
+
+3 hrs Coding
+
+- DDIC
+- Reports
+- OOPS (Methods and classes [global and local])
+
+
+# Steps to Work for all Entries :-
+
+1. Declare one final data internal table which data we want to display and also declare one work area and internal table for each participated dbt.
+2. Based on the given input we will fetch the data from db and filled into db Internal Table.
+3. Based on the db Internal Table where data we will fill the final Internal Table data.
+
+
+# Syntax :-
+
+Not for 1st select query
+
+If not it_<1st table name> is initial.
+select <field1> ... from <table name> into table <IT> for all entries in <IT> where matnr = IT_matnr~mara.
+EndIf
+
+
+# Procedure to fill the Final Internal Table :-
+
+-> First we identify the no. of primary keys in each participated dbt.
+-> If the no. of primary keys are '1' that is read.
+-> If the no. of primary keys is more than '1' that is 'looped'.
+-> Loop the many primary keys db Internal Table and read the single primary key Internal Table and populate the final Internal Table.
+
+
+
+
+*** Day 8 (22/01/2026)
+
+
+
+# Syntax of Selection-screen :-
+->
+Selection-screen begin of block <block name> with frame title text-<no>.
+---
+---
+Selection-screen end of block <block name>.
+
+
+-> if you want to provide the meaningful descriptions to the input variables then in the menu bar click on go to -> text elements -> selection texts 
+-> It displays all the available inputs
+-> If fields is coming from dictionary then select the dictionary check box otherwise we manually provide the text
+
+
+
+# Syntax of check box :-
+->
+Parameter <name of check box> as check box.
+
+# Ex :--
+->
+Parameter P_DIS as checkbox.
+
+
+# Syntax of Radio Button :-
+->
+Parameter <name of the radio button> radiobutton group <group name>.
+
+# Ex :-
+->
+Parameter: Male radiobutton group g,
+	   Female radiobutton group g.
+
+
+
+# Diff btw Select Single VS Select up to 1 rows
+
+-> it fetch the only one record VS it also fetch only one record
+-> Here we must pass entire primary key combination in where condition VS Enough to pass part of key combination in the where condn it always pick the first record among the method once
+-> It hits the data base only once VS It hits the data base twice
+-> This is used to fetch the exact record VS This is used for validation
+-> Select single <f1> <f2> from <db> table into <wa> where condn. VS Select <f1> <f2> from <db> into <wa> up to 1 rows where <condn>. Endselect.
+
+## SE91 :- Message Type
+## SE93 :- Create your own T-code
+## SE41 :- Menu Painter
+## SE51 :- Screen Painter
+## SE01, SE09, SE10 :- TR
+## SE24 :- Global Class
+## SE37 :- Activate Function Group
+
+# Message :-
+
+-> 4 diff types of messages
+
+1. Abend mssg A -> <mssg> -> Enter :- Terminates the entire transaction
+2. Warning mssg W  / Error Mssg E -> Status Bar -> Enter :- 
+- If you are in the basic list then it goes to program
+- If you are int he secondary list then it goes to previous list
+3. Infor mssg I -> <mssg> -> Enter :- Goes to Selection-screen
+4. Success mssg S -> Status bar -> Enter Nothing Happened
+
+# Syntax :-
+->
+Message <mssg type> <mssg no> (<mssg class>).
+
+
+## Steps to Create mssg Class :-
+
+1. SE91
+2. Mssg Class Name
+3. Create
+4. Short Description
+5. Save
+6. mssg tab
+7. provide mssg against the mssgs
+
+
+### Events in Common for all the 3 Reports ************* :-
+
+1. Initialization
+-> Event which is triggered before displaying selection-screen
+ADV -> Used to provide default values to the selection-screen
+
+2. At Selection-screen :-
+-> Event which is triggered after providing the input to the screen and before leaving the selection-screen
+ADV -> Used to validate given output
+
+3. At Selection-screen-on :-
+-> Event which is triggered at the selection-screen based on particular input field
+ADV -> Used to validate the particular input field
+
+4. Start-of-Selection :-
+-> Event which is triggered after leaving the selection-screen and before displaying the output
+ADV -> Used to fetch data from db and place into internal table
+
+5. End-of-Selection :-
+-> Event which is triggered after completion of the logic
+ADV -> Used to Display the Output
+
+6. Top-of-Page :-
+-> Event which is triggered at the top of each page
+ADV -> Used to display the Header information
+
+7. End-of-Page :-
+-> Event which is triggered at the end of each page
+ADV -> Used to display the footer information
+
+
+
+
+
+
+*** Day 9 (23/01/2026)
+
+
+
+# Process Flow of Events :-
+
+
+		  At Selection-screen-on		     Top-of-page (5)
+			|					|	^
+			v					v	|
+Initialization -> Selection Screen -> Start-of-selection -> End-of-Selection
+			^
+			|					(6)	(4)
+								|
+								V
+		  At Selection-screen			     End-of-page (7)
+
+     (1)                (2)                     (3)
+
+
+
+
+## Some more Events in Classical Report :-
+
+1. At Selection-screen output :-
+
+-> Event which is triggered n
+ADV -> Used to 
+
+
+2. At Selection-screen on value-request :-
+
+-> Event which is triggered at the time of click on F4 button
+ADV -> Used to provide list of possible values to input variables
+
+
+3. At Selection-screen on help-request :-
+
+-> Event which is triggered at the time of click on F1 button
+ADV -> Used to provide the help document to the input variable
+
+
+-> At Selection-screen output is the first triggering event in the selection-screen
+
+
+NOTE -> When ever the program is loaded into the ABAP editor then automatically load of event program will be triggered.
+     -> We never write any code on load of program event.
+
+
+
+# Message Type :-
+
+NOTE -> In real time we always use only one mssg class only one mssg no. against that no. we maintain the place holders
+
+# Syntax :-
+->
+Message <mssg type> <mssg no> (<mssg class>) with '<mssg>'
+
+
+
+## Sy-index -> Rows
+
+## ABAP Dictionary :- Sequence :- Table, Views (database, projection , Maintenance, Help), Data Type (Data Element, Structure, ), Type Group, Domain, SH, Lock Objects
+
+## Data Element is a Semantic Domain -> Define with Lengths also
+
+## Client majorly used for -> Segregation of Data (000 - Golden Client)
+
+## APPL0 master, APPL1 transaction, APPL2 Planning, APPL3 Special
+
+## Move -> Copies value from Source to target , Move-Correspondence -> Copies value field by field btw structure/it rows, but only for fields having same name
+
+## W/o Authorization grp WE CANNOT MOVE IN TMG
+
+## Custom Table and Standard Table => $TMP , Include (Custom) and Append Structure [Add Fields , Structure] (Standard) 
+
+## S4 HANA -> Columnar Storage
+
+## DB Incomplete (Not fixed) -> char, numeric, packed decimal 
+
+## Stnd , Sorted, Hashed IT -> every non unique , 1 unique/non unique , 1 unique compulsory
+
+## Fully Specified IT :- (record, duplicacy, uniqueness) -> Standard (completly accepting duplicates) and Hased (completely non accepting duplicates )
+-> WHY NOT SORTED -> Sorted (may or may not accept duplicates)
+
+## Selection Screen => Select options, Paramteres
+
+
