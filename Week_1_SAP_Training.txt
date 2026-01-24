@@ -1,6 +1,6 @@
 SAP Training 
 
-*** Day 1 (12/01/2025)
+*** Day 1 (12/01/2026)
 
 
 # ERP - Enterprise Resource Planning 
@@ -96,7 +96,7 @@ W - Workflows :- Used to Automate Existing Buss Process and used to identify wor
 
 
 
-*** Day 2 (13/01/2025)
+*** Day 2 (13/01/2026)
 
 
 # Architecture -
@@ -495,7 +495,7 @@ Emp Email - zluqmaan_EmpEmail -> Char 30
 
 
 
-*** Day 3 (16/01/2025)
+*** Day 3 (16/01/2026)
 
 
 # -->> Bottom Up Approach :- 
@@ -784,7 +784,7 @@ NOTE:- We cant delete domain which is already assigned to data elements. We cant
 
 
 
-*** Day 4 (17/01/2025)
+*** Day 4 (17/01/2026)
 
 
 # Syntax of declaring the structure / table in ABAP Editor :-
@@ -930,7 +930,7 @@ Data Matnr type MARA-Matnr.
 
 # Select-options (We use S_ ):- 
 
--> Select-options is the keyword which accepts single vale, multiple values, single range and multiple ranges
+-> Select-options is the keyword which accepts single value, multiple values, single range and multiple ranges
 
 
 # Syntax of Select-options :- 
@@ -957,7 +957,6 @@ Select <field1> <field2> ... from <database table> into table <Internal Table> w
 
 # Ex :-
 -> 
-REPORT ZLUQMAAN_P5.
 Data v1 type T001-Bukrs.
 SELECT-OPTIONS S_BUKRS for v1.
 Data: Begin of WA_T001,
