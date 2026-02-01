@@ -1,0 +1,591 @@
+*** Day 10 (27/01/2026)
+
+# Modularization Techniques :-
+
+-> Used to divide business processing logic into reusable block of statements
+-> 2 Step Procedure:-
+	1. Define the Reusable Block
+	2. Calling the Reusable Block
+
+-> 2 Types of Modularization Techniques
+	1. Source Code Modularizing technique
+		- Include
+		- Macros
+	2. Functionality Modularizing Technique
+		- Subroutine
+		- Function Module
+
+
+## Include :-
+
+-> We cant execute an include independently where as the same include program can be included to any numbers of executable programs.
+-> Include programs are used to improve the readability of the program.
+-> In the real time include programs are used to maintain all declarations of the program
+
+
+# Steps to create include :-
+
+1. SE38
+2. Provide Include program name
+3. Create
+4. Provide Title
+5. Select Type as 'Include program' 
+6. Click on save, package
+7. Save, Check Activate
+
+
+## Macros :-
+
+-> Macros are used to perform the arithmetical operations
+-> Macros can take upto 9 place holders (&1, &2, .... &9)
+-> If you want to maintain the same set of statements more than one location of the same program instead of this we maintain those statements in macro definition later we call the same macro definition from different locations of the same program
+
+# Syntax of calling the macro :-
+->
+<macro name> <place holder value> <place holder 2 value>.
+
+NOTE -> In macros definition should be the first and calling should be the next
+
+
+## Subroutines :- 
+
+-> Subroutines are procedures
+-> That we can define if any ABAP program & calling from the same or some other ABAP program
+-> Procedures is the collection of statements
+
+# Syntax of defining the subroutine :-
+->
+Form <form name / subroutine name> using <IV 1> type <DT> <IV 2> type <DT> ... changing <OV 1> type <DT> <OV 2> type <DT> ...
+---
+---
+---
+Endform.
+
+# Syntax of Calling the subroutine :-
+->
+Perform <form name> using <IP 1> <IP 2> ... <OP 1> <OP 2> ...
+
+NOTE -> In Subroutine calling is the first & definition is the next
+     -> In Subroutines all the using parameters are called input parameters
+     -> All the changing parameters are called as output parameters
+     -> We cant place any executable statement after the definition of the subroutine
+
+# 2 Types :-
+
+1. Internal Subroutines :-
+-> Its nothing but the definition of the subroutines as well as calling of the subroutine must be in the same program
+
+2. External Subroutines :-
+-> Its nothing but the definition of the subroutines taken from one program & the calling of the subroutine is taken from some other ABAP program
+
+# Syntax of calling the external subroutine :-
+->
+perform <form name> in program <program name> using <ip1> <ip2> ... changing <op1> <op2> ...
+
+
+
+## Diff btw Macros 							VS 	  Subroutines :-
+
+1. In Macros definition and calling in the same program                 VS        may / may not in the same program
+2. In Macros definition should be first and calling should be next      VS        Calling should be first and definition should be next
+3. Macros contain upto 9 inputs                                         VS        Can contain any number of input
+4. After definition of macros we can place any executable statement     VS        we cant place any executable statement
+5. Macros are used in HR-ABAP VS both HR-ABAP & ABAP
+
+
+# Termination of subroutine :-
+
+-> Subroutines normally ends with endform
+-> If you want to terminate the subroutine earlier then we use exit or check command
+-> Exit command is used to terminate the subroutine unconditionally
+-> Check commands is used to terminate the subroutine conditionally
+
+
+
+## Function Modules ************ :-
+
+-> FM are reusable components that are defined in functional library
+
+-> Each FM must be attached to one Function Group
+-> Each contains 2 include programs by default
+-> One is for Global Declaration and one is for common Subroutines
+-> All the FM can access both th include programs
+-> When ever we are calling any one of the FM then all other FM will be loaded into the memory of calling program
+-> So it is better to group related FM into one FG
+
+
+NOTE -> SE37 is the t-code for Function Builder
+
+
+# Steps to create Function Group :-
+
+1. SE37
+2. Menu bar click on GO TO -> Function Groups -> Create Group
+3. Provide FG name
+4. Short Description
+5. Save
+6. Click on Package
+
+# Attributes of Function Module :-
+
+1. Attributes :-
+-> Attributes specify the type of FM wheter its a normal or remote enable (rfc's -> BAPI's)
+-> If the FM type is normal then we can access the function module within the server only
+-> If FM type is remote enable then we can access the FM within the server as well as outside the server also
+
+2. Import :-
+-> Import acts like input parameters [using in the server]
+
+3. Export :-
+-> Export acts like output parameters [changing in the server]
+
+4. Changing :-
+-> Changing acts like both import & export
+
+5. Tables :-
+-> Tables acts like both import and export only for Internal Tables
+
+6. Exceptions :-
+-> They are used to handle errors in FM
+
+7. Source Code :-
+-> It contains the logic to related FM
+
+# Steps to create Function Module :-
+
+1. SE37
+2. FM Name
+3. Create
+4. FG Name
+5. Short Description
+6. Save
+7. Enter
+8. Import 
+9. Parameter name, type, associated type 
+10. Export
+11. Parameter name, type, associated type 
+12. Source Code
+13. Write Source Code
+
+NOTE -> FM writes Single Value & Multiple Values. So we need to maintain any display statement (write) in the FM Definition
+
+NOTE -> We can test the FM independently without calling the FM 
+
+
+## Subroutines VS FM :-
+
+1. SR are local that means we can access SR within the server only VS FM are global, means we can access FM within the server as well as outside the server
+2. We cant test the SR Independently without calling the SR VS We can test the FM independently without calling
+3. We cant handle errors in SR VS We can handle errors in FM without calling 
+4. SR are defined in ABAP-Editor VS FM are defined in Function Builder SE37
+
+
+NOTE -> In FM all parameters are either pass by value or pass by reference. By default all parameters are pass by reference. Pass by reference means from calling to definition and definition to calling all parameter values are passing along with the memory. Pass by value means from calling to definition and definition to calling only parameter values are passed
+
+NOTE -> In the remote enable FM all parameters are pass by value only
+
+
+## Interactive Reports :- 
+
+NOTE -> We can have only 1  Basic List and upto 20 Secondary Lists (1-20)
+
+# Events in Interactive Report :-
+
+1. At Line Selection :-
+-> Its an event which is triggered at the time of user clicks on any record of any list
+
+2. At User-command :-
+-> Its an event which is triggered at the time of user clicks on any menu item
+
+3. Top-of-page during line-selection :-
+-> Its an event which is triggered at the top of each secondary list
+
+4. At PF(N) :-
+-> Its an event which is triggered at the time of user clicks on F1 to F12 Function Keys
+
+5. Set PF-status :-
+-> Its an event which is triggered at the time of attaching our own GUI to the program
+
+
+NOTE -> Classical events are also triggered for Basic List
+
+
+## Some of the system variables related to interactive report :-
+
+1. SY-LSIND :-
+-> Its the system variable which contains the current list index number
+
+2. SY-LISEL :-
+-> Its the system variable which contains the contents of the selected record
+
+3. SY-LILLI :-
+-> Its the system variable which contains the exact line number of the selected record
+
+4. SY-UCOMM :-
+-> Its the system variable which contains the function code of the selected menu item
+
+5. SY-LINNO :-
+-> Its the system variable which contains the line number of the last record display
+
+
+
+## Techniques used to identify the records which are clicked by the user in the previous list :-
+
+1. Hide Technique :-
+-> Hide Maintain the copy of the previous list with the output line numbers and their contents
+-> Whenever the user clicks on any record of any list then at line-selection event will be triggered and list index is increased by '1' and that particular record will move from hide area to work area
+-> Based on the work area we fetch the data for current list
+
+NOTE -> Hide is always maintain after write statement
+
+2. SY-LISEL Technique
+3. Get Cursor Technique
+
+
+
+*** Day 11 (28/01/2026)
+
+
+
+
+## Syntax of accessing the part of data from any variable :-
+->
+<variable name> + X(Y).
+
+X => Starting point
+Y => No of characters
+
+# Ex :-
+-> 
+Data A(10) type C value 'ENRICH TECHNOLOGIES'.
+WRITE A.
+
+WRITE A + 0(5).
+
+NOTE -> Whenever we may use anyone of the classical report event then we must use the start of selection event
+
+NOTE -> CONVERSION_EXIT_ALPHA_INPUT is the FM which is used to add the Leading Zeros to the input variable based on the length of the input variable
+
+
+# Ex :-
+->
+Data A(5) type C.
+A = 415.
+Call function CONVERSION-EXIT-ALPHA-INPUT.
+WRITE A.
+
+O/P => 00415
+
+
+
+## Get-cursor Technique :-
+
+-> Get-cursor technique writes the field name as well as field value which is clicked by the user
+
+# Syntax :-
+-> 
+Get-cursor field1 <variable 1> value <variable 2>.
+
+
+NOTE -> If you click on most of the records, if the output isn't coming then we open the table in se11 and pass the values
+     -> If data is available then you must check any conversion routine is available or not
+
+
+## Steps to identify conversion routine :-
+
+-> Double click on data element of the field
+-> Double click on it and identify the input routine and apply the input routine before select query
+
+
+## Menu Painter :-
+
+-> Menu Painter is a tool to design the user interface to the program
+-> T-code for Menu Painter is 'SE41'
+
+=> GUI Components :-
+
+1. GUI TITLE
+	- Title Bar
+
+2. GUI Status
+	- Menu Bar [File, Edit, Goto, Utilities, ..., Systems, Help]
+	- Standard tool bar [Close, Maximize/Minimize, Search something, Go Back]
+	- Application Tool bar 
+	- Function Keys [Stop , pat urn]
+
+
+NOTE -> In menu bar system and help are default menu items and we can create up to 6 menu items (total 8 items)
+
+NOTE -> We can design up to 35 buttons in the application tool bar
+
+
+## Steps to create GUI to the program :-
+
+1. SE41
+2. Program Name
+3. Status (any name)
+4. Create
+5. Short Description
+6. Enter
+7. Expand the Function key and enabling the back button by providing 'BACK'
+8. Expand Application Tool Bar
+9. Function Code name
+10. Double Click on it
+11. Enter
+12. Provide Function text [Download]
+13. Enter
+14. Select Shortcut key
+15. Enter
+16. Repeat same steps for all other buttons 
+17. Save, Check and Activate
+
+# Syntax of attaching our own GUI to the program
+->
+SET PF-STATUS '<status name>'.
+
+# Ex :-
+-> 
+set pf-status 'STAT'.
+
+
+# Syntax of reading the displayed record :-
+->
+Read line <line no> field value <Display field name 1> into <variable 1> <display field name 2> into <variable 2> --- .
+
+# Ex :-
+-> 
+Read Line 3 field value WA_EKKO-EBELN into v1
+			WA_EKKO-BEDAT into v2
+			WA_EKKO-LIFNR into v3.
+
+
+## Standard T-code :-
+
+01 -> Creating
+02 -> Changing
+03 -> Display
+
+1. XK03 -> Display Vendor
+2. XD03 -> Display Customer
+3. MM03 -> Displaying Material
+4. ME53N -> Display Purchase Order
+5. VA03 -> Display Sales Order
+6. FB03 -> Display Accounting Documents
+
+
+# Syntax 
+-> 
+Call Transaction <T-code>.
+
+# Ex :-
+->
+Call Transaction 'VA03'.
+
+
+NOTE -> Before call transaction we must set the value set parameter id '<id name>' field '<value>'.
+
+# Steps to identify Parameter ID :-
+
+1. Execute T-code place the cursor on input field
+2. Click on F1
+3. Click on Technical Information identify the parameter id
+
+# Syntax :-
+->
+Set Parameter ID '<ID Name>' field '<value>'.
+
+# Ex :-
+->
+Parameter P_VBELN type VBAK-VBELN.
+Set Parameter 'ID' 'AUN' field P_VBELN.
+Call Transaction 'VA03'.
+
+NOTE -> If you want to get the current document value which is opened
+
+# Syntax :-
+->
+Get parameter ID '<ID Name>' field <Variable>.
+
+# Ex :-
+->
+Data v1 type vbak-vbeln.
+Get parameter ID 'AUN' field v1.
+Write v1.
+
+NOTE -> Set and Get are called SP Memory and import, export, changing are called ABAP memory
+
+NOTE -> SY-INDEX is the system variable which contains the current loop pass
+
+NOTE -> SY-TABIX is the system variable which contains the exact line number of the record which is moving from internal table to work area
+
+
+#### ALV REPORT ********** :-
+
+-> ALV is used to display the output with predefined functionalities
+-> Like :-
+
+1. Sort the list in Ascending Order
+2. Sort the list in Descending Order
+3. Tables
+4. Filtering
+5. Down the List
+6. Send an Attachment
+7. Word Processing
+8. Excel Sheet
+9. Change the layout
+10. Graphics
+11. Print Previews
+
+-> ALV is introduced from 4.6C version onwards
+-> ALV is used to display the data from IT only
+
+
+## Steps to work with ALV :-
+
+
+
+
+NOTE -> REUSE_ALV_GRID_DISPLAY is the function module which is used to display the output in a grid format
+     -> -- is the FM which is used 
+
+
+
+# Field Catalog
+
+NOTE -> Whenever we are working with all the fields from any one of the dbt on structure, then no need to prepare field internal table
+     -> We simply pass i_structure_name as dbt name structure
+
+NOTE -> Here the function module picks the columns headings from the data element of each field and also display the fields in the similar order of the fields in the table
+
+## Filling the field catalog
+
+-> If we are working with all the fields
+
+-> 
+
+-> 
+
+## Some of the field catalog internal table :-
+
+1. FieldName -> name of the field
+2. Col_Pos -> Column Position
+3. Seltext_S, Seltext_M, Seltext_L -> Column Heading
+4. Emphasize -> Color
+
+- Cxyz =>
+
+C is a character that notifies ALV grid that you will use specific colours
+
+x => Contains one of the following colour numbers:
+	- 0 -> Background Colour
+	- 1 -> Blue
+	- 2 -> Gray
+	- 3 -> Yellow
+	- 4 -> Blue/Gray
+	- 5 -> Green
+	- 6 -> Red
+	- 7 -> Orange
+
+y => is saying if the colors are intensified ('1') or not ('0')
+
+z => is saying if the colors should be inverted ('1') or not ('0')
+
+# Ex :-
+
+C401
+C300
+C110
+
+5. Output Length -> 
+
+To activate => 'X'
+To Deactivate => ' ' (Space)
+
+6. Hotspot -> Hand / Symbol
+7. Edit -> Change Mode
+8. No-zero -> Remove the landing zeros
+9. No-sign -> Removes
+10. No-out -> 
+11. Do-sum -> 
+12. Checkbox -> 
+
+
+NOTE -> In slis we have one type i.e SLIS_T_FIELDCAT_ALV which contains all the fields related to field catalog internal table
+     -> So we simply declare our internal table by referring this 
+     -> Slis is the group which contains all the types related to ALV
+
+NOTE -> Whenever we are referring any type under any type group then we must include the type group name by using 'type-pools' keyword
+
+
+
+
+*** Day 12 (30/01/2026)
+
+NOTE -> REUSE_ALV_FIELDCATALOG_MERGE is the function module which is used to fill the field catalog internal table
+
+=> Input for the above function module is :-
+	- Data Work Area
+	- Program name in where data work area is declared
+	- Field Catalog Internal Table
+	- Program name, in where field catalog internal table is declared
+
+NOTE -> SY-CPORG is the system variable which contains current program name
+
+NOTE -> Whenever we are working with merge function module then we must consider the following things 
+
+	- We never declare the data internal table by using 'TYPES' keyword
+	- We never refer the data internal table fields by using TYPE. Instead of type we use LIKE
+	- 
+
+
+
+*** Day 13 (31/01/2026)
+
+
+NOTE -> SY-CUCOL => Horizontal Cursor
+NOTE -> SY-LISEL => Content of selected element
+NOTE -> SY-LSTI => Going to the last level of the interactive report
+NOTE -> Hide can be used in Loop after write statement
+NOTE -> What happens if hide is used in loop but op line is skipped using continue ? - NO Data will be stored -->> Correct option
+- Data stored ?
+- Run time error ?
+- override ?
+NOTE -> At line selection , write :- list level, sy-lsind
+NOTE -> SY-SUBRC is 1 or 4 (NO Output)
+NOTE -> sy-lsind , used to navigate to secondary lists
+NOTE -> Load of program is there by default before initialization
+NOTE -> Can we Buffer the DB Views ? -> YES
+NOTE -> We assign a search help , while creating SH, We go to that page se11 and give table name where we wanted to assign , elementay SH -> Table name -> Bukrs (SH) , page where we specify the table / data elements ? => Selection method Criteria (Selection screen) 
+NOTE -> Joins, left table data is viewed first
+NOTE -> u r into selection screen s_vbeln , criteria no execution (Selection screen on) , just clicked , output (start of selection) , output displayed (end of selection)
+NOTE -> when Syntax error is encountered-> Information message with list processing (error)
+NOTE -> 
+
+
+
+## Mock M1 :-
+
+[60 -70 % Passing Criteria]
+
+50 Marks :- 
+
+- 10 marks each question x 5 = 50
+
+= Tables, TMG, Foreign key
+= Views, SH, Joins
+= Modularization technique (Function Modules)
+= Classical / Interactive
+
+
+# 
+
+-> 
+
+
+
+
+
+
+
+
+
