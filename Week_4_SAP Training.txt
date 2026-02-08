@@ -1,0 +1,681 @@
+*** Day 14 (02/02/2026)
+
+
+## ALV :- 
+
+-> Nicely , Block format 
+-> No write, we use reuse_alv_grid_values or reuse_alv_list_values
+-> Record by record (1st record , append , 2nd record , append , etc)
+-> field catalog merge -> f name , col position , emphasize , etc [Field by field]
+-> slis_t_fieldcat_alv => field catalog
+-> type-pools slis ==> ALV REPORT
+-> field catalog => it_fcat , wa_fcat
+-> sy-cprog => current prognam name
+
+
+
+=> ALV Types :- Norma, Block , hierarchical , commentary 
+
+
+
+
+### Events in ALV :-
+
+=> In ALV, events are handle through 'sub-routines' (form, endforms)
+
+1. top_of_page :-
+-> Its an event which is triggered at the top of each page
+
+2. top_of_list :-
+-> Its an event which is triggered at the top of displayed output list
+
+3. end_of_page :-
+-> Its an event which is triggered at the end of each page
+
+4. end_of_list :-
+-> its an event which os triggered at the end of displayed output list
+
+5. user_command :-
+-> Its an event which is triggered at the time of user clicks on any record of any list as well as any menu item
+-> This event acts like both at line-selection and the user-command
+
+6. pf_status_set :-
+-> Its an event which is triggered at the time of attaching our GUI to the program
+
+
+NOTE -> Whenever we are working with events then we must declare an event IT which contains 2 fields
+
+-> Event Nem
+-> Which form handlesthe event
+
+NOTE -> slis_t_event :- which contains the above fields. So we simply declare the IT by referring slis_t_event
+
+NOTE -> When ever we are working with events then we must provide 'i_callback_program' as current program name in the grid or list display
+
+
+
+
+*** Day 15 (03/02/2026)
+
+
+NOTE -> If you want to print the logo in the top if page then list display doesn't display
+     -> Only grid display supports the logo, but we cant print the text in the top or bottom by using write statements in grid display
+
+
+
+## REUSE_ALV_COMMENTARY_WRITE :-
+
+-> Its the function module which is used to display the text top or bottom events
+-> The input for the above function module is an IT which contains two fields
+
+
+==> IT
+1. What to display (INFO)
+2. How to display (TYP)
+	- Header (H)
+	- Selection (S)
+	- Action (A)
+
+NOTE -> In slis we have one type i.e slis_t_listheader which contains the above two fields
+     -> So we simply declare our IT by referring slis_t_listheader
+
+
+## Steps to upload the logo in ALV
+
+=> SE71 => Uploading of logos / pictures
+
+-> Execute / OAER
+	> Provide the class name is 'pictures'
+		-> Class type as 'OT'
+		-> Object by as 'Any name'
+-> Execute (F8)
+
+=> Expand standard document types in the bottom window
+=> Double click on screen
+=> Browse the logo
+=> Enter
+
+
+NOTE -> If you want to print the logo then you must pass the object key name into commentary write function module
+
+
+## Syntax of calling subroutine for the event -> USER_COOMAND
+->
+Perform <form name> using sy-ucomm slis_selfield.
+
+sy-ucomm = contains code of user selection menu item
+slis_selfield = Field Name, Value, Tab Index
+
+## Syntax of Definition :-
+->
+Form <form name> using <variable 1> like sy-ucomm <variable 2> type slis_selfield.
+
+
+
+## Business Cycle of SD :-
+
+-> Pre-Sales Activities (Inquiry / Quotation)
+	- Customer Inquire VA11 about products, followed by a formal Quotation VA21
+
+-> Sales Order Creation (VA01)
+	- A binding contract confirming materials, quantities, prices, and delivery dates. Key checks include Availability (ATP) and Credit Checks
+
+-> Delivery Creation (VL01N)
+	- Generation of shipping documents, picking, and packing of goods
+
+-> Goods Issue (VL02NPG)
+	- The actual movement of goods out of the warehouse, which reduces inventory and triggers financial accounting entries (FI)
+
+-> Billing (VF01)
+	- Generation of the customer invoice , which posts revenue to financial accounting
+
+-> Payment (F-28)
+	- receipt of payment from the customer, clearing the account receivable
+
+
+
+# Key Transaction Codes (T-Codes):
+
+-> VA01/VA02/VA03 :- Create/Change/Display Sales Order.
+-> VL01N/VL02N/VL03N :- Create/Change/Display Delivery.
+-> VF01/VF04 :- Create/Process Billing Documents.
+-> VA11 :- Crate Inquiry 
+-> VA21 :- Create Quotation 
+
+
+
+## Procure to Pay Business Process in SAP (Key Steps) :-
+
+1. Requirement Definition (Purchase Requisition - ME51N) 
+-> 
+
+2. Source Determination (RFQ - ME41)
+-> 
+
+3. Vendor Selection (Quotation Maintenance - ME47)
+-> 
+
+4. Purchase Order Creation (ME21N / ME22N)
+-> 
+
+5. Goods Receipt (GR - MGO)
+-> 
+
+6. Invoice Verification (IV - MRO)
+-> 
+
+7. Payment (F-53)
+-> 
+
+
+
+### Specially for Tables :- SE16 and SE16N
+
+
+## Some of the standard transaction codes: -
+
+1. XK03  Display the vendor
+2. XD03  Display the customer
+3. MM03  Display the material
+4. ME23N  Display purchasing order
+5. VA03  Display sales order
+6. FB03  Display the accounting document
+
+Note: - 1  create 	2  change 	3  display
+
+## Syntax of call the transaction: -
+-> 
+Call transaction ‘<transaction code>’
+
+## If you want to skip the first screen: -
+-> 
+Call transaction ‘<transaction code>’ and skip first screen.
+
+## Syntax of set the value before call the transaction: -
+->
+Set parameter id ‘<IDNAME>’ field ‘<VALUE>’.
+
+## Steps to identify the parameter id at transaction: -
+1. Execute the transaction code XK03. 
+2. Place the customer on input field. 
+3. Click on technical information. 
+4. Identify the parameter id.
+
+EX :-
+->
+Parameter p_lifnr type lfa1-lifnr.
+Set parameter id ‘LIF’ field p_lifnr.
+Call transaction ‘XK03’ and skip first screen.
+
+
+
+## Blocked ALV :-
+
+-> B-ALV is used to display the output in a block wise format.
+
+# Steps to work with B-ALV :-
+
+1. Initialize the blocked ALV by using 'REUSE_ALV_BLOCK_LIST_INIT' FM. The input for the above FM is 'current program name'
+2. Append the data IT to the blocked ALV by using 'REUSE_ALV_BLOCK_LIST_APPEND' FM. 
+   The input for the above function module is 
+	- <Data IT>
+	- <Field Catalog IT>  --
+	- <Event IT>            | - Dummy also ok
+	- <Layout WA>         --
+3. Display the data in the blocked ALV by using 'REUSE_ALV_BLOK_LIST_DISPLAY' FM 
+
+
+
+## Hierarchical ALV :-
+
+-> H-ALV is used to display the header and item details in a hierarchical manner
+
+NOTE -> 'REUSE_ALV_HIERSEQ_LIST_DISPLAY' is the function module which is used to display the header and item details in a hierarchical manner
+
+-> The input for the above function module is :-
+	- Two Data IT (Header or Item)
+	- Only one field catalog IT
+	- Key info WA :- Link field btw header and item table
+
+-> Key info WA contains field btw the header and item table
+
+EKKO -
+      |- EBELN :- key info wa
+EKPO -
+
+
+- Fields in key info WA :-
+= Header 01
+= Item 01
+= Header 0
+= Item 02
+= Header 05
+= Item 05
+
+NOTE -> In slis we have only one type i.e 'SLIS_KEYINFO_ALV' which contains above fields
+     -> So we simply declare our IT by referring slis_keyinfo_alv
+
+
+## 			GRID DISPLAY 			VS 			LIST DISPLAY
+
+1. Supports OOP's ALV 					VS 		Doesnt supports OOP's ALV
+2. Slower 						VS 		Faster
+3. Edit and logo is possible 				VS 		Not possible
+4. Block and Hierarchical ALV is not possible 		VS 		Not Possible
+5. In the op i symbol indicates F1 help 		VS 		In the list display i indicates no of records displayed 
+6. By using 'commentary write' FM only 			VS 		Either by using write or commentary write FM we can print the text on top or bottom event
+we can print the text on top or bottom event
+7. Used to display op in Grid format 			VS		In List format
+
+
+
+
+
+### OOABAP ********** :-
+
+
+- Diff types of programming structures
+1. Unstructured
+2. Procedural
+3. OOP
+
+
+1. Unstructured Programming :
+-> Entire Prog contains only 1 main prog
+-> Same set of statements is placed in multiple locations of the same prog
+-> Its very difficult to maintain if the prog becomes very large
+
+2. Procedural Programming :-
+-> Entire prog is splitted into smaller program
+-> Same set of statements is placed in placed in a procedure (Subroutines or FM) & later we call the same procedure from diff locations of the same prog
+-> All the subroutines & FM can access the global declrations
+-> It takes little bit extra time to enhance the existing functionality
+
+3. Object Oriented Programming :-
+-> Entire prog is visualized in terms of class & objects
+-> All the modules cant access the global declarations
+-> It takes very less time to enhance the existing functionality
+
+# Key Features of OOP :-
+1. Better programming structure
+2. Most stress on data security & access
+3. Reduce the redundancy of code
+4. Data Abstraction & Encapsulation
+5. Inheritance and Polymorphism
+
+## Class and Object :-
+
+-> Class is the blueprint or template of an object
+-> Object is the real one
+
+
+Ex:- If you want to build a farm house then we take a plant from engineer to build the farm house. Its nothing but class. Based on the plant constructed house is an object
+
+2 Types of class :-
+- Local Class
+- Global Class
+
+
+## 	Local Class 				VS		 Global Class
+
+
+1. starts with any letter			VS 		Y or Z
+2. created through SE38 			VS 		SE24
+3. Access Within the Program only 		VS 		From anywhere in SAP
+4. Stored in memory of ABAP Prog 		VS 		Is stored in the class repository
+
+
+
+## Class Definition :-
+
+-> Class definition is nothing but declaring all the component of class & any one of the visibility section
+
+## Components of a Class :-
+
+1. Attributes
+-> Used to declare the variables, WA, IT which are needed to implement the logics
+
+2. Methods 
+-> Is the collection of statements which perform the particular activity
+
+3. Events
+-> Used to handle the methods of some other class
+
+4. Interfaces
+-> Interface is the collection of methods which are defined & not implemented
+
+
+## There are 3 types of visibility sections
+
+1. Public Section
+-> We can access the public components within the class as well as outside the class
+
+2. Protected Section
+-> We can access the protected components within the class as well as derived / child class
+
+3. Private Section
+-> We can access the private components within the class only
+
+NOTE -> In ABAP we haven't default visibility section
+
+
+
+*** Day 16 (04/02/2026)
+
+
+
+# Syntax of Class Definition :-
+->
+Class <class name> definition.
+---
+---		Components of class
+---
+Endclass.
+
+
+
+## Class Implementation :-
+-> Class implementation is nothing but implementing the methods which are defined in the class definition
+
+# Syntax of class implementation :-
+->
+Class <class name> implementation.
+Method <method1>
+---
+---
+---
+Endmethod.
+Method <method1>
+---
+---
+---
+Endmethod.
+||
+||
+Endclass.
+
+NOTE -> We can access the components of the class is always through object
+
+
+# Syntax of creating the object for the class :-
+
+- This is 2 Step Procedure :-
+1. Create the reference to the class
+2. Create the object based on reference
+
+# Syntax of creating the reference to the class :-
+->
+Data <reference name> type ref to <class name>.
+
+# Syntax of creating the object based on reference :-
+->
+Create object <reference name>.
+
+
+NOTE -> Class object created under start-of-selection event only
+
+
+# Syntax of Declaring the Method :-
+->
+Methods <methods name> importing <IV1> type <DT>
+				 <IV2> type <DT>
+					||
+					||
+			exporting <EV1> type <DT>
+				  <EV2> type <DT>
+					||
+					||
+			changing <CV1> type <DT>
+				 <CV2> type <DT>
+					||
+
+
+I ->		-> E
+	Method
+C ->		-> C
+
+
+# Syntax of implementing the method :-
+
+1. If the method is declared in class 
+-> 
+Method <method name>.
+---
+---
+---
+Endmethod.
+
+
+2. If the method is defined in interface
+->
+Methos <interface> <method>.
+---
+---
+---
+Endmethod.
+
+
+# Syntax of calling the method :-
+->
+Call method <object name of the class> -> <method name> 
+					exporting
+					  <IV1> = <Value 1>
+					  <IV2> = <Value 2>
+					importing
+					  <EV1> = <variable 1> 
+					  <EV2> = <variable 2> 
+						||
+						||
+<object name of the class> -> <method name> (Exporting
+						---
+						---
+					     Importing
+						---
+						---)
+
+
+
+# Each Class contains 2 types of Components :-
+
+1. Instance
+2. Static
+
+
+## Instance VS Static :-
+
+1. Instance components exists for each object of the class VS Static components exists for only once for all objects at class
+2. Instance components are declared with Data, Methods, Events, Interfaces VS Static components are declared with Class-Data, Class-Methods, Class-Events, Class-Interfaces
+3. Interface components always accessed through class objects VS Static components always accessed through class object or class name
+
+
+=> Instance :-
+
+Class -> 	C1
+		|
+	    ---------
+	    |   |    |
+Object -> R1C1 R2C R3C1
+
+	    |   |   |
+
+Instance -> A   A   A
+Component
+
+
+=> Statics :-
+
+	C1
+	|
+   -----------
+   |    |    |
+
+R1C1   R2C1  R3C1
+  |     |     |
+  ------------
+	|
+	A
+
+
+## Constructors :-
+
+-> Constructors are unique type of methods
+-> Constructor methods are executed significantly whenever an object is created or
+-> At every time a class is loaded
+-> These methods are mainly used to set default values in a class i.e used to default values to attributes (Ex :- V_LAND1 = 'MX')
+-> These are declared only in public section
+-> These methods cannot be called explicitly
+
+1. Instance Constructors :-
+
+-> These are special type of methods
+-> Constructor method is executed significantly whenever an object is created
+-> These methods are mainly used to set default values in a class
+-> The name of the constructor method is 'Constructor'
+-> These methods have only importing parameters
+-> There are no exporting parameters
+
+2. Static Constructors :-
+
+-> It is a type of constructor method
+-> This method is executed naturally whenever a first call to the class is made
+-> The first call can be through instance or class name
+-> Static constructor are used to set the default values globally i.e Irrespective of instances
+-> Static constructors will not have any importing / exporting parameters
+-> These are executed only once
+-> The name of the static constructors is 'CLASS_CONSTRUCTOR'
+
+
+## Inheritance :-
+
+-> Used to create a new class based on existing class
+-> The new class is called child class / derived class / sub class
+-> Existing class is called super class / parent class
+-> Sub class can access all the components at super class which are defined under public or protection section only not under the private section
+-> Through super class object we can access the components of super class only
+-> Through sub class object we can access the components of sub class as well as super class also
+
+# Syntax of defining the subclass :-
+->
+Class <sub class name> definition inheriting from <super class name>.
+Public / protected / private section.
+---
+---
+---
+Endclass.
+
+
+
+## Debugging :-
+
+-> Technique used to find errors, analyze program flow and correct logical or runtime issues by executing the program step by step
+-> Only Executable statements
+-> Save, Activated
+
+Debugging => F5 - select single , F6 - Execute, F7 - Return , F8 - continue
+
+Select , If , etc => Executable Technique
+
+
+
+
+*** Day 17 (05/02/2026)
+
+
+
+## Steps to Create Global Class
+
+1. SE24 
+2. Provide the object type as class name (zluqmaan_10am_GC1)
+3. Create
+4. Enter
+5. Short Description
+6. Save , click on package
+7. Method Name (GET_PO_DETAILS)
+8. Select the level (INSTANCE Method)
+9. Select the visibility as public, provide Short Description
+10. Click on Prameters
+
+Parameter	Type	Typing mssg	Associated type
+I_EBELN       IMPORTING    TYPE		EKKO-EBELN
+E_WA	      EXPORTING	   TYPE 	EKKO
+
+
+11. Save
+12. Click on code icon  beside exceptions
+13. Click on Signature in the application tool bar and identifies the input output parameters and implement the logic
+
+METHOD GET_PO_DETAILS.
+SELECT SINGLE * FROM EKKO INTO E_WA WHERE EBELN = I_EBELN.
+ENDMETHOD.
+
+14. Save, Check and Activate the method
+15. Click on Back
+16. Repeat the same steps for all other methods
+17. Save , Check , Activate the class
+
+
+## Steps to create the object for Global Class :-
+
+1. Place the cursor in the program where we want to create object
+2. Click on pattern in the application tool bar 
+3. Select the radio button ABAP objects pattern
+4. Enter
+5. Select the radio button create object
+6. Provide the instance name as reference name (RCG)
+7. Provide Global Class Name (zluqmaan_10AM_GC1)
+8. Enter
+
+
+NOTE -> Constructor is the one special type of method I the class we no need to call the constructor 
+extensity by using call method when ever we create the object for the class then automatically constructor will be triggered and asked the input output parameters
+
+
+
+## Steps to call the Global Method :-
+
+1. Place cursor where we want to call the method in the program
+2. Click on pattern in the application tool bar
+3. Select the ABAP objects pattern
+4. Enter
+5. Select Radio Button call method
+6. Provide Instance Name as reference (RGC)
+7. Provide Class Name (zluqmaan_test_001 (global class)), method name (GET_PO_DETAILS)
+8. Enter
+
+
+NOTE -> st05 => Analyzing Dump Cases / st22 => Dump Handling
+
+
+
+NOTE -> If you want to declare the WA with some of the fields in the global method and class then we must create on structure with those fields in the data dictionary and after we refer the structure in the global method and class
+
+NOTE -> If you want to declare the IT with some of the fields in the global and method and class then in data dictionary and later we refer the table type in the global class and method
+
+NOTE -> If you want to declare the select-options in global class and method then we must create one table type with sign, option, low, high in the data dictionary and later we refer the table type in the global method and class
+
+
+
+1. Create Function module 
+2. Data type -> table type 1 (Short description , line type) , goto -> data element matnr, structure Row type (Table type name), click short description
+3. Structure-> components (matnr, meins, mtart,matkl)
+4. table type 2 
+5. import -> i_matnr type mara-matnr
+6. parameter -> e_it_mara 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
