@@ -1,0 +1,672 @@
+*** Day 18 (11/02/2026)
+
+
+## OOPS ALV :-
+
+-> Whenever we are working with OOPS ALV, then we must design one custom screen other than '1000' and draw the customer control screen element
+-> In that we display the ALV output
+
+
+# CL_GUI_CUSTOM_CONTAINER :-
+-> The Global class which refers the custom control screen element
+
+# CL_GUI_ALV_GRID :-
+-> The Global class which refers the ALV Grid
+
+# SET_TABLE_FOR_FIRST_DISPLAY :-
+-> This is the Global Method under grid class which is used to display the output in an OOPS ALV
+
+
+## The input for the above methods is two Internal Tables
+
+1. Display Internal Table
+2. Field Catalog Internal Table
+
+
+-> If you want to call this method then we must create object for grid class
+-> Whenever we create the object for grid class then automatically one constructor is triggered and asks the input as object name of container class
+
+NOTE -> Whenever we are working with OOPS ALV then we must design one custom screen
+
+## Steps to work with OOPS ALV :-
+
+1. Create the selection-screen / input fields
+2. Declare the Internal Table and field Internal Table
+3. Create the reference to the customer and grid star-of-selection
+
+
+## PBO (Process before output) of the screen :-
+
+1. Design the back button
+2. Create the object to container and grid
+3. Fill the Data Internal Table
+4. Fill the Field Catalog
+5. Call the SET_TABLE_FOR_FIRST_DISPLAY method
+
+
+=> Filling the Field Catalog
+
+1. If we are working with all the fields from any one of the database table / structure, then we no need to prepare the field catalog. We simply pass i_structure_name as database table name / structure name 
+
+2. Manually filling the field catalog
+
+3. By using 'LVC_FIELDCATALOG_MERGE' Function Module
+
+
+## PAI (Process After Input) of the screen :-
+
+1. Logic of the back button
+
+
+## Some Events in OOPS ALV :-
+
+1. PRINT_TOP_OF_PAGE
+-> Its an event which is triggered at the top of each page
+
+2. PRINT_TOP_OF_LIST
+-> Its an event which is triggered at the end of the displayed output list
+
+3. PRINT_END_OF_PAGE
+-> Its an event which is triggered at the end of each page
+
+4. PRINT_END_OF_LIST
+-> Its and event which is triggered at the end of displayed output list
+
+5. DOUBLE_CLICK
+-> Its an event which is triggered at the time of user clicks on any record of any list.
+-> It exports 2 Parameters 
+	1. E_ROW => Contains Index No of selected row
+	2. E_COLUMN => Contains field name which is clicked by the user
+
+
+
+*** Day 19 (12/02/2026)
+
+NOTE -> BAPI and ALE comes under I (INTERFACE)
+
+
+## Cross Application :-
+
+-> Cross Appln is the concept to exchange the data among the systems
+-> ALE is Appln Link Enabling is an SAP technology to support cross appln
+-> Uses IDOC to Support the cross apllns
+-> IDOC Interface Document is the carrier to carry the data from one system to another system
+-> SAP can understand only the IDOC format, when it communicates with any other system
+
+
+-> Irrespective of the receivers, the ABAPER job in sender system is to generate the IDOC
+-> The process of generating the IDOC is nothing but out bound process
+-> Irrespective of the senders, the abaper job in receiver system is to collect the data from IDOC
+-> The process of collecting the data from Idoc is nothing but in bound process
+
+# Runtime Components of IDOC :-
+
+1. It generates a simple Idoc number, which is 16 digits
+2. It generated 3 types of records
+	- Control records 
+	- Data records 
+	- Status records
+
+
+
+1. Control Records :-
+
+-> Control Record specifies the sender as well as receiver information
+-> It generates only one control record
+-> This information will be saved on EDIDC table
+
+
+2. Data Records :-
+
+-> It specify the data which is send by the senders system
+-> It generates any number of data records
+-> This information will be saved on EDIDD table
+
+
+3. Status Records :-
+
+-> It generates Status Code for each and every stage of transferring data
+-> It generates any no of status records
+-> This information will be saved on EDIDS table
+
+
+## Status Codes are 
+
+1. Outbound Status (0 - 49)
+2. Inbound Status (50 - 75)
+
+
+Note -> The linking between EDIC, EDIDD and EDIDS is the IDOC number. 
+
+
+
+## Types of IDOCS :-
+
+1. BASICS Type 
+	- Standard Idoc
+	- Custom Idoc
+
+2. Extension
+	- Standard Idoc + Custom Idoc
+
+
+## Standard Idoc :-
+
+-> If you want to send as well as receive the DBT Info then we go for standard Idoc
+
+LFA1 
+  - LIFNR 
+  - NAME1 
+  - ORT01 
+
+
+## Custom Idoc :-
+
+-> If you want to send and receive the custom table info then we go for Custom Idoc
+
+Zhai 
+  - EID 
+  - ENAME 
+  - ESAL 
+
+
+## Extension Idoc :-
+
+-> If you want to send and receive the additional fields information of standard DBT along with standard fields info then we go for Extension Idoc
+
+LFA1 
+  - LIFNR 
+  - NAME1 
+  - ORT01 
+
+    | | 
+
+    + 
+
+ZHAI 
+  - EID 
+  - ENAME 
+  - ESAL 
+ 
+
+Note: - IDOC is the collection of segments. Each segment is the collection of fields. 
+
+
+
+## Characteristics of an IDOC :-
+
+1. Name of the IDOC
+2. List of the segment
+3. Hierarchy of the segments 
+4. Optional (vs) mandatory for the segments
+5. Provide parent & child relationship of the segments
+6. Each segment can carry up to 1000 bytes
+7. Provide the minimum and maximum number of repetition for the segment
+
+
+## Steps to establish the communication settings :-
+
+1. Define logical system (SALE)
+2. Assign client to logical system (SCC4) 
+3. Maintain RFC Destination details (SM59)
+
+
+NOTE -> In the real time communication settings are established by BASIS people
+
+If the receiver is available in foll address and he wants vendor H7070 details
+
+  Client  : 810 
+  User  : SAPUSER 
+  Password : india123 
+  Logical system: SP810. 
+In this before sending the vendor details first we need to establish the communication settings from sender 
+to receiver system. 
+
+
+## Steps to define logical system :- 
+
+-> Execute SALE. Expand basic settings. Expand logical systems. Execute define logical system. Enter. 
+Click on new entries in the application tool bar. Provide sender, receiver logical system name & short 
+description. Save. 
+
+
+## Steps to assign client to logical system :-
+ 
+-> Execute ‘SCC4’. Click on change mode. Select the client. Click on details. Provide the logical system 
+name SP800. Click on save. 
+
+
+## Steps to maintain RFC destination details :-
+
+-> Execute ‘SM59’. Select the ABAP connections. Click on create. Provide RFC destination (SP810). 
+Provide short description (Sender to receiver). Click on logon & security tab. Provide the receive log on 
+details. 
+
+Client  : 810 
+User  : SAPUSER 
+PW Status : is initial 
+Password : india123. 
+
+-> Click on save. Click on connection test. Click on back. Click on remote logon in the application 
+tool bar. 
+
+
+
+NOTE -> BD64 => Distribution Model
+
+
+NOTE -> The table is cross-client. It means whatever changes are made in one client those are automatically reflected into all other clients in same server
+
+
+## Outbound Process :-
+ 
+-> Based on the given input one outbound program will triggered & fetch the application data from 
+the data base & generate the master IDOC. 
+-> Master IDOC is nothing but data in internal table. Master IDOC won’t save anywhere in SAP. 
+-> ALE service layer reads the distribution model & identifies the interested receivers. Based on the 
+receivers it generates the communication IDOC.
+-> Distribution model is the collection of senders, receivers, message type
+-> Message type is used to identify the type of the application (vendor , customer , material , ...)
+-> Communication IDOC is the physical IDOC which is receiver specific
+-> ALE communication layer dispatch these communication IDOC to their relevant receiver systems
+
+
+NOTE -> If you get the ZERO Master IDOCs, the reason is the given input having no data in the DB
+
+NOTE -> If you get the zero communication IDOCs the reasons are
+1. There is no interested receives are available in distribution model
+2. Communication settings problem 
+
+
+## Steps to identify Transaction Code using Short Description :-
+
+-> Execute ‘SDMO’. Provide short description (Send vendor). Execute. Then we identify the transaction 
+codes. 
+
+## Some of the Standard Message Type :-
+
+
+TCODE MESSAGE TYPE IDOC TYPE  SHORT DESCRIPTION 
+BD10  MATMAS  MATMAS01 
+     MATMAS02  Send Material 
+               | | 
+     MATMAS05 
+BD11  MATMAS           | |   Get Material 
+BD12  DEBMAS  DEBMAS01 
+     DEBMAS02  Send Customer 
+              | | 
+     DEBMAS06 
+BD13  DEBMAS           | |   Get customer 
+BD14  CREMAS  CREMAS01 
+     CREMAS02  Send Vendor 
+              | | 
+     CREMAS05 
+BD15  CREMAS           | |   Get Vendor 
+
+
+
+NOTE -> WE20 (Bound Partner Profile)
+NOTE -> WE21 (Port Number)
+
+
+## Steps to Create Distribution Model :-
+
+-> Execute ‘BD64’. Click on change mode. Click on create model view in the application tool bar. Provide 
+the short description (distribution), technical name (DBCM1). Enter. Select the description model which is 
+in the last. Click on add message type in the application tool bar. Provide sender (SP800), receiver 
+(SP810) and message type (CREMAS). Enter. Repeat the same step for all the receivers. Click on save. 
+
+
+## Port Number :-
+
+-> Port Number is used to specify the way of transferring the data
+-> Types of ports are :-
+
+1. TRFC port  -> ALE/IDOC 
+2. File port  -> LSMW, EDI/IDOC 
+3. Internet port  -> Web Apps 
+4. XML port  -> Java 
+
+
+## Steps to create the Port Number :-
+
+-> Execute ‘WE21’. Select the transactional RFC. Click on create (F7). Enter. The system automatically 
+generates a port number (A000075). Provide short description (port number). Provide RFC destination 
+(SP810). Click on save. 
+
+
+## Steps to create Outbound partner profile :-
+
+-> Execute ‘WE20’. Select the partner type LS. Click on create. Provide partner number (SP810). Click on 
+save. Click on create out bound parameter plus (+) button. Provide the message type (CREMAS). Provide 
+the port number (A000075). Select the radio button transfer IDOC immed. Select the basic type 
+(CREMAS05). Click on save. 
+
+
+## Steps to send the vendor details: - 
+
+-> Execute BD14. Provide the vendor number (H7070). Provide the message type (CREMAS), target system 
+(SP810). Click on execute and absorb the master and communication IDOC s. 
+ 
+## Steps to create vendor: - 
+
+-> Execute ‘XK01’. Provide the vendor number (H7070), Account group (0004). Enter. Provide the name 
+(GMR COR), search term (GMR), country (IN). Click on save. 
+ 
+## Steps to check or test the IDOC: - 
+
+-> Execute ‘WE02’ or ‘WE05’. Provide the logical message (CREMAS), partner number (SP810). Execute. 
+& absorb the run time components (data control, status, data records). 
+
+
+
+NOTE -> After we get the status code 03, we create 'RBDMOIND' standard program. If the status code 03 turn to 12 then the IDOC is successfully reached to destination.
+	If the status code remains 03, then the IDOC is in the TRFC queue. If the status code turns to 11, then the IDOC is damaged in the queue
+
+
+NOTE -> Outbound program can be developed either through executable program or through function 
+module where as inbound program must be developed through functional module only because the 
+interface parameters are same for any message type (import, export, changing, - - -). 
+
+NOTE -> Process code is used to identify  the function Module 
+
+
+
+## Inbound Process :-
+
+-> After idoc reached to receiver system, then it goes to WE20 inbound partner profile & check the 
+message type. If the message type is available, then it goes to process code. Against the process code it 
+triggers the inbound program (function module). The inbound program collects the data from idoc & 
+placed into internal table. From the internal table the data is transferred to their application. From the 
+application the data is posted to their relevant data base tables. 
+
+
+NOTE -> At the time of creating the outbound partner profile if we select the mode of dispatch is collect then we must execute 'RESOUT00' standard program then only the collect idocs will be dispatched to their relevant receiver system 
+
+NOTE -> At the time of creating the partner profile if you select the mode of posting trigger by background (collect) then we must execute 'RBDAPP01' standard program
+
+
+
+# Filtering Techniques :-
+
+->  Filtering techniques are used to generate the idoc based on the conditions. Filtering techniques 
+are always at sender system.
+
+1.Idoc filtering :- 
+
+-> Idoc filtering is used to drop the idoc at run time. Idoc filtering conditions are placed or 
+maintained in distribution model. 
+
+2. Segment Filtering :-
+
+-> It is used to drop the segments permanently to the particular receiver system
+-> The transaction code for segment filtering is 'BD56'
+
+NOTE -> 'WE30' is the transaction code to create as well as display the idoc
+
+NOTE -> 'WE31' is the transaction code to create as well as display the segment 
+
+NOTE -> Whenever we are working with segment filtering then we must create dummy partner profile for sender system itself
+
+
+
+## Steps to create dummy partner profile for sender itself :-
+
+-> Execute WE20. select the partner type LS. Click on create. Provide the partner number SP800. Save. 
+
+
+
+-> Configure the segment filtering to drop the ‘E1LFA1A’ segment information permanently to the 
+SP810 receiver. 
+ 
+## Steps to work with segment filtering :- 
+-> Execute BD56. Provide the message type. Click on new entries (F5) in the application tool bar. 
+Provide the sender type (LS) sender (SP800). Receiver type (LS), Receiver (SP810) segment type 
+(E1LFA1A). Repeat the same steps for all which are dropped. Click on save. 
+ 
+## Reduced Idoc: - 
+
+-> Reduced idoc is used to drop the segments as well as fields permanently to the particular receiver 
+system. We can’t drop the mandatory segments as well as mandatory fields which are in green colour. The 
+transaction code for reduced idoc is ‘BD53’. 
+ In the reduced idoc we create the new message type based on the existing message type. Based on 
+the new message type we configure the ALE. (Create distribution model, outbound partner profile). 
+Steps to work with reduced idoc: - 
+ Execute BD53. Provide the reduced message type (DEBMAS). Click on create. Provide the 
+reference message type (DEBMAS). Enter. Provide short description (Reduced message of customer). 
+Select the required segments by placing the cursor on the segment. Click on select button in the 
+application tool bar. Double click on the segment. Select the required fields. Click on select. Enter. Repeat 
+the same steps for all other segments. Click on save. Based on this new message type (ZSDEBMAS) we 
+create the distribution model & outbound partner profile. 
+
+
+
+## BAPI - Business Application Programming Interface :-
+
+-> BAPIs are used to connect from SAP to SAP as well as SAP to Non-SAP
+
+-> BAPIs are defined as an API Method of SAP Objects
+-> These methods and their objects are stored as well as maintained in BOR (Business Object Repository)
+-> BOR taking care about version change management (whenever the version is changed if any changes required in BAPI those changes is done by BOR)
+-> BAPIs are also called as one of the Remote Function Module
+
+
+## 		BAPI 							VS 				BDC
+
+1. Used to upload the data from file to SAP system directly 		VS  	from file to SAP through screens
+2. Faster 								VS	Slower
+3. Never cause to terminate the program when ever error occurs in the   VS 	Some times BDC Open Group BDC insert BDC Close Group may cause to terminate the program
+   BAPI it is simply written those errors through written parameters 
+4. Performs own Authorization checks to validate the user 		VS 	We provide the authority check to validate the user 
+5. In BAPI Flat File Fields are varying 				VS 	Fixed
+6. Whenever the version is changed we no need to change the code 	VS 	Sometimes we need to change the code
+
+
+
+## Some of the important points related to BAPI: - 
+
+1) BAPI mustn't contain call transaction. 
+2) BAPI mustn't invoke commit work instead of commit work we call the BAPI
+TRANSACTION_COMMIT function module. 
+3) BAPI structure mustn't contains includes. 
+4) There is no functional dependences between any two BAPI's. 
+5) BAPI never calls to terminate the program. Whenever an error occurred in BAPI it written those 
+errors through written parameter. 
+6) BAPI must not contain dialogue programs. 
+7) BAPI mustn't contain Submit reports. 
+
+
+
+## Steps to create our own custom BAPI :-
+
+1. Create the BAPI structure (SE11) 
+2. Create the BAPI function module (SE37) 
+	1. Which is remote enable. 
+	2. Must contains RETURN parameter 
+	3. All parameters are pass by value 
+3. Create the object and methods for BAPI function module (SW01) 
+4. Release the object and method (SW01). 
+
+
+
+*** Day 20 (13/02/2026)
+
+
+NOTE -> In the real time we never create our own custom BAPIs. We always use existing BAPIs.
+
+
+NOTE -> In the real time we always use the BAPIs like conversion program or report
+
+
+## Steps to identify the standard BAPIs: - 
+
+-> Method 1:- 
+Execute ‘SE93’. Provide the related transaction code (ME23N). Click on display. Click on display object 
+list (CTRL + SHIFT + F5) in the application tool bar. Expand the package. Expand the business 
+engineering. Expand the business object types. Double click on our required business object. Expand the 
+method. Double click on our required method (Get details). Click on ABAP tab. Identify the BAPI name 
+(BAPI_PO_GETDETAIL). 
+
+-> Method 2:- 
+Execute BAPI transaction. Click on hierarchical tab. Expand the module. Expand the application (sales). 
+Expand the object. Double click on method. Identify the BAPI in right side. 
+
+-> Method 3:- 
+By using BAPI methods we can identify the standard BAPI. 
+
+## Some of the BAPI Methods are :-
+
+1. Get list ()
+2. Get Details ()
+3. Get Status ()
+4. Exercise Check ()
+5. Create ()
+6. Change ()
+7. Delete ()
+
+
+## Application of BAPI :-
+
+-> BAPIs are used to connect with R/3 to new SAP components B!/BW , APO , CRM , SCM , etc
+-> BAPIs are used to connect with R/3 to internet by using IACS (Internet Appln Components)
+-> BAPIs are used to connect with distributed system with help of A<E
+-> BAPIs are used to connect with VB as a frontend to R/3 system
+-> BAPIs are used to connect with R/3 to business partners own developments that is vendor portals, customer portals etc
+-> BAPIs are used to connect with SAP to legacy system
+-> BAPIs are used to connect with SAP to Non-SAP System
+
+
+## Enhancement Spot: - 
+
+-> Enhancement Spot is the collection of BADI definitions. 
+-> If you want to create a BADI then first we create the enhancement spot. In that we create the BADI definition. 
+
+NOTE :- We can’t create the transaction code for enhancement.
+
+
+### ENHANCEMENTS :-
+
+1. Procedural Approach
+
+	- USER EXIT
+
+	- CUSTOMER_EXIT
+		- Menu Exit
+		- Screen Exit
+		- Function Exit
+		- Field Exit
+
+2. Object Oriented Approach
+
+	- BADI 
+
+
+
+# User Exit :-
+
+-> User Exit is nothing but  adding some additional functionality to the standard functionality is always through subroutines (form , end form)
+-> In the real time most of the times we user exits in SD 
+
+
+## Some of the scenarios in user exit :-
+
+1. Scenario 1: - 
+
+-> In real time if we maintain the key information of the sales order in a separate ‘Z’ table at the time of 
+creating sales order. At the time of cancel the sales order then we must remove the sales order key 
+information from the ‘Z’ table by using user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_DELETE_DOCUMENT 
+
+2. Scenario 2: - 
+
+-> In the real time SD functional consultant provide the number ranges for sales order, delivery & billing 
+document. Based on the sales organization & company we split the number ranges into smaller ranges by 
+using user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_NUMBER_RANGE 
+
+3. Scenario 3: - 
+As per client requirement if we add some additional fields to standard SD tables if you want to assign 
+these fields values at the time of creating the sales documents then we use user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_MOVE_FIELD_TO_VBAK 
+
+4. Scenario 4: - 
+
+-> In the real time at the time of creating the sales order some times the end user select the same tax 
+conditions more than once. To avoid this by using user exit. 
+Program Name: MV45AFZZ 
+User exit Name: USEREXIT_SAVE_DOCUMENT_PREPARE 
+
+
+## Steps to identify the user exit: - 
+
+-> Execute SPRO. Click on SAP reference IMG. Expand sales and distribution. Expand system modification. 
+Expand user exits. Expand user exits in sales. Click on documentation of user exits in sales document 
+processing. 
+
+ Delete the sales order key information from the ‘Z’ table at the time of cancel the sales document 
+by using user exit. 
+
+
+## Steps to implement the user exit: - 
+
+-> Execute SE38. Provide the program name MV45AfZZ. Click on display. Click on find function key. 
+Provide the user exit name (USEREXIT_DELETE Document). Enter. Double click on form or user exit. 
+identify the place where we implement the logic. Click on enhance (  ) symbol in the application tool bar. 
+In the menu bar click on edit  enhancement operations  show implicit enhancement options. It’ll 
+provide yellow line for all the forms. Select our user exit yellow line. Right click  enhancement 
+implementation  create. Click on code. Click on create enhancement implementation. Provide the 
+implementation name (ZS10AM_UEI), short description (Delete sales document). Enter. Save in our own 
+package or package. Select the implementation name. enter. Provide the logic. 
+Delete from ZS10AM_SKI where VBELN = VBAK-VBELN. Save, check, activate. 
+ Split the sales order number ranges into smaller ranger based on the sales organization. 
+When ever we are working with number ranger ranges then we must create one ‘Z’ table which contains 
+based on which fields we want to split the number ranges and from value, to value and current value. 
+
+ 
+ 
+USEREXIT_NUMBER_RANGE: - 
+Data WA like ZS10NR. 
+Select single * from ZS10NR into WA where VKORG = VBAK-VKORG and BUKRS_VF = VBAK
+BUKRS_VF. 
+USEREXIT_SAVE_DOCUMENT: - 
+Update ZS10NR set CVAL = VBAK-VBELN where VKORG = VBAK-VKORG and BUKRS_VF = 
+VBAK-BUKRS_VF. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
