@@ -1,0 +1,386 @@
+*** Day 21 (17/02/2026)
+
+
+### ENHANCEMENTS :-
+
+1. Procedural Approach
+
+	- USER EXIT
+
+	- CUSTOMER_EXIT
+		- Menu Exit
+		- Screen Exit
+		- Function Exit
+		- Field Exit
+
+2. Object Oriented Approach
+
+	- BADI 
+
+
+
+# User Exit :-
+
+-> User Exit is nothing but  adding some additional functionality to the standard functionality is always through subroutines (form , end form)
+-> In the real time most of the times we user exits in SD 
+
+
+## Some of the scenarios in user exit :-
+
+1. Scenario 1: - 
+
+-> In real time if we maintain the key information of the sales order in a separate ‘Z’ table at the time of 
+creating sales order. At the time of cancel the sales order then we must remove the sales order key 
+information from the ‘Z’ table by using user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_DELETE_DOCUMENT 
+
+2. Scenario 2: - 
+
+-> In the real time SD functional consultant provide the number ranges for sales order, delivery & billing 
+document. Based on the sales organization & company we split the number ranges into smaller ranges by 
+using user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_NUMBER_RANGE 
+
+3. Scenario 3: - 
+As per client requirement if we add some additional fields to standard SD tables if you want to assign 
+these fields values at the time of creating the sales documents then we use user exit. 
+Program Name: MV45AFZZ 
+User Exit: USEREXIT_MOVE_FIELD_TO_VBAK 
+
+4. Scenario 4: - 
+
+-> In the real time at the time of creating the sales order some times the end user select the same tax 
+conditions more than once. To avoid this by using user exit. 
+Program Name: MV45AFZZ 
+User exit Name: USEREXIT_SAVE_DOCUMENT_PREPARE 
+
+
+## Steps to identify the user exit: - 
+
+-> Execute SPRO. Click on SAP reference IMG. Expand sales and distribution. Expand system modification. 
+Expand user exits. Expand user exits in sales. Click on documentation of user exits in sales document 
+processing. 
+
+ Delete the sales order key information from the ‘Z’ table at the time of cancel the sales document 
+by using user exit. 
+
+
+## Steps to implement the user exit: - 
+
+-> Execute SE38. Provide the program name MV45AfZZ. Click on display. Click on find function key. 
+Provide the user exit name (USEREXIT_DELETE Document). Enter. Double click on form or user exit. 
+identify the place where we implement the logic. Click on enhance (  ) symbol in the application tool bar. 
+In the menu bar click on edit  enhancement operations  show implicit enhancement options. It’ll 
+provide yellow line for all the forms. Select our user exit yellow line. Right click  enhancement 
+implementation  create. Click on code. Click on create enhancement implementation. Provide the 
+implementation name (ZS10AM_UEI), short description (Delete sales document). Enter. Save in our own 
+package or package. Select the implementation name. enter. Provide the logic. 
+Delete from ZS10AM_SKI where VBELN = VBAK-VBELN. Save, check, activate. 
+
+ Split the sales order number ranges into smaller ranger based on the sales organization. 
+When ever we are working with number ranger ranges then we must create one ‘Z’ table which contains 
+based on which fields we want to split the number ranges and from value, to value and current value. 
+
+ 
+ 
+USEREXIT_NUMBER_RANGE: - 
+Data WA like ZS10NR. 
+Select single * from ZS10NR into WA where VKORG = VBAK-VKORG and BUKRS_VF = VBAK
+BUKRS_VF. 
+USEREXIT_SAVE_DOCUMENT: - 
+Update ZS10NR set CVAL = VBAK-VBELN where VKORG = VBAK-VKORG and BUKRS_VF = 
+VBAK-BUKRS_VF. 
+
+
+
+## Enhancement Framework :-
+
+-> E Fw is the collection of implicit enhancement & explicit enhancement
+-> Now-a-days user exits are called implicit enhancements
+-> In the old version if you want to implement the user exits then we must provide the access key (access key is provided by BASIS people)
+-> Now-a-days we implement the user exits through implicit ehnacement
+
+
+## Customer Exits :-
+
+-> C E is nothing but adding some additional functionality to the standard functionality is always through function module
+-> C E is either menu exit or screen exit or function exit or field exit
+
+
+NOTE -> C E are always identified through package of transaction 
+
+
+## Steps to implement the Customer Exit :-
+
+1. Identify the package at the transaction (SE93)
+2. Based on the package identify the customer exits (SMOD Transaction) 
+3. Identify the right customer exit based on the Short Description or break point
+4. Implement the customer exit through project (CMOD transaction)
+
+
+## Menu Exit :-
+
+-> Menu Exits are used to adding some additional menus to the standard GUI 
+-> Menu Exits are not possible for all transaction codes
+
+
+## Some of the standard t-codes which contains menu exit :-
+
+-> VX11: - Create financial document 
+-> CO01: - Create production order
+-> MC94: - Change flexible LIS planning
+
+ Implement the menu exit for the standard transaction VX11. 
+
+
+## Collective Search Help :-
+
+-> Collective search help: - Collective search help is the collection of elementary search help. 
+  Create the collective search help to identify the company code based on company name & 
+identify the company code based on vendor number. 
+ 
+Execute SE11. Select the radio button search help. Provide the collective search help name (zsashi3). 
+Click on create. Select the radio button collective search help. Enter. Provide short description. Provide 
+the search help parameter (BUKRS) & data element (BUKRS). Import, export, click on include search 
+help tab. Provide the all the elementary search helps. Select the each element search help. Click on 
+parameter assignment. Click on yes. Enter. Save, check, activate the collective search help. 
+ 
+Steps to create data element for collective search help: - 
+ 
+Execute SE11. Select the radio button data type. Provide the data element name. Click on create. Enter. 
+Provide short description. Provide the domain name. Click on characteristic tab. Provide the collective 
+search help name, parameter. Save, check, activate. 
+Execute /OSE38. 
+Parameter P_BUKRS type ZENT_9_BUKRS. 
+ 
+Hot key: - 
+The Hot key permits the user to select an elementary search help from the collective search help directly 
+in the input field with the short notation. 
+ After executing the program we provide the input as equal to hot key (=A) & click on F4. Then we 
+get the elementary search help, which contains the specified hot key as default. 
+Letters & digits are allowed as a hot key. 
+Lock Objects: - 
+Lock object is used to avoid the concurrent access of multiple users on the same data base. When ever we 
+create & activate the lock object it generates two function modules. 1. Enqueue (locking) 2. Dequeue 
+(unlock). The lock object name must be start with EZ or EY. 
+
+
+Steps to create lock object: - 
+Execute SE11. Select the radio button lock object. Provide the lock object name. Click on create. Provide 
+short description. Click on tables tab. Provide the table name (T001). Select the lock mode as read lock. 
+Save, check, activate. In the menu bar click on go to  lock modules. Identify the functional modules. 
+(ENQUEUE – lock object name, DEQUEUE – UnLock object name). 
+ 
+Types of lock modules: - 
+Write lock (or) exclusive lock: - 
+The locked data can be read or processed by one user only. 
+Read lock (or) shared lock: - 
+Several users can read the same data at the same time but only one user can edit the data. 
+Exclusive not cumulative lock: - 
+Several users can access the same data as well as update the same data.
+
+
+## Steps to identify the package :-
+
+1. Execute SE93
+2. Provide t-code VX11
+3. Click on display
+4. Identify the package (VEI)
+
+## Steps to identify the customer exits based on package :-
+
+1. Execute SMOD
+2. Click on find Function Key
+3. Provide the package (VEI)
+4. Execute 
+5. Identify all the customer exits 
+
+## Steps to identify the right customer exit which contains menu exit :-
+
+1. Double click on each customer exit and identify the right customer exit which contains the menu exit
+2. Exit Name : RVEXAKK2
+
+## Steps to identify :-
+
+1. Execute SMOD
+2. Provide the customer exit in the enhancement
+3. Select Radio Button Documentation
+4. Display: read the Documentation
+
+## Steps to implement the customer exit :-
+
+-> Execute CMOD. Provide the project name (ZS10AMME) [any name]. Click on create. Provide short 
+description. Save. Click on enhancement assignment. Provide the enhancement name as customer exit 
+name (RVEXAKK2). Enter. Click on save. Click on components. Back to initial screen. Select the radio 
+button components. Click on change. Double click on each menu exit. Provide the short description (Go to 
+SE16). Second button is Go to SE11. Enter. Double click on function exit. Double click on include. 
+Implement the logic. 
+If SUCOMM = ‘+CS1’. 
+CALL TRANSACTION ‘SE16’. 
+ELSEIF SUCOMM = ‘+CS2’. 
+CALL TRANSACTION ‘SE11’. 
+ENDIF. 
+Save, check, activate the include. Back, activate the function module. Back. Activate the components. 
+Back. Activate the project. 
+
+## Steps to verify the menu exit :-
+
+1. Execute VX11
+2. Select the Financial Documents
+3. Category (Revocable) , type (01) , Company Code (1000) 
+4. Enter 
+5. In the menu bar click on environment 
+6. Got to SE16
+
+## BADI (Business ADD-INS) :-
+
+-> BADIs are used to adding some additional functionality to standard functionality w/o disturbing the standard functionality
+-> BADIs are introduced from 4.6C version onwards 
+-> BADI contains 2 sections
+1. BADI Definition
+2. BADI Implementation
+
+-> Each BADI definition contains one adapter class and interface 
+-> Adapter class taking care the version change management (whenever the version is changed if any changes required in the BADI those are done by adapter class)
+-> Interface is the collection of methods which are defined not implemented 
+-> Those are implemented through BADI implementation based on client requirement
+
+-> The T-code for BADI Definition is SE18
+
+## BADI Implementation :- 
+
+-> BADI Implementation is nothing but implementing the methods which are defined in BADI definition. 
+
+-> The transaction code for BADI implementation is SE19. 
+
+
+Differences between Customer exit (Enhancement) and BADI. 
+Customer Exit (Enhancement) 	
+1. We can implement the customer exit only 
+once. 
+2. Customer exit is the procedural approach.  
+So it takes some extra time to enhancing. 
+3. In the screen exit the screen number is fixed 
+which is provide by SAP. 
+4. By using CMOD transaction we can 
+implement the customer exit. 
+BADI 
+1. We can implement the same BADI any 
+number of times. 
+2. BADIs are object oriented approach. So it 
+takes very less time to enhancing. 
+3. In the screen BADI we provide our own 
+screen number. 
+4. By using SE19 transaction we can 
+implement the BADI.
+
+Note: - In the real time we never create our own BADI. We always use existing BADIs. 
+
+
+
+## Steps to identify the standard BADIs :- 
+
+=> Method 1 :-  
+
+-> Execute ‘SE24’. Provide the object type as ‘CL_EXITHANDLER’. Click on display. Double click on GET_INSTANCE method. 
+Place the break-point on first call method. Now we execute our required
+transaction (which transaction BADIs we want) in a separate session. Execute XK01. Enter. In the menu 
+bar click on debugger  switch to classic debugger. Provide the field name as EXIT_NAME. Enter. 
+Identify the BADI (VENDOR_ADD_DATA). Continuously click on F8 button. Identify the all the BADIs 
+& maintained in Excel sheet. After delete the break point. Now open the each & every BADI in ‘SE18’. 
+(BADI Name: VENDOR_ADD_DATA). Click on display. Click on interface tab. Double click on each & 
+every method. Identify the input, output parameters. In the menu bar click on goto  documentation  to 
+component. Read the documentation if it satisfies our requirement then we implement this method through 
+SE19. 
+
+
+Note :- In the real time we always identify the BADIs with the help of functional people.
+
+=> Method 2 :-
+
+-> Execute ‘SE93’. Provide transaction code (XK01). Click on display. Click on display object 
+list (Ctrl + Shift + F5). Expand the package in the left panel (FBK). Expand the enhancements. Expand the 
+classic BADIs definition. Identify the all the BADIs. Open the each and every BADI in SE18. Click on 
+interface tab. Double click on each method. Identify the input, output parameters. In the menu bar click on 
+goto  documentation  to component. Read the documentation. If it satisfies client requirement then 
+we implement this method through SE19. 
+
+
+=> Method 3 :-
+
+-> Execute SPRO. Click on SAP Reference IMG. Expand the Logics-General (If we want to customer or 
+vendor BADIs). Expand the business partners. Expand the vendors. Expand the control. Expand the 
+adoption of customers own master data fields. Identify the BADIes. OR click on find function key. 
+Provide the search term as BADI. Enter. Identify the all BADIs. 
+
+
+
+
+## Day 22 (18/02/2026) :-
+
+
+## Steps to Create Module Pool Program & Screen :-
+
+1. SE38
+2. Program name 
+3. Create
+4. Title
+5. Select Type as Module Pool
+6. Save
+7. Click on Package
+8. Click on Display Object List
+9. Select the program in left panel
+10. Right Click -> Create -> Screen
+11. Provide Screen Number (2222) 
+12. Provide Short Description 
+13. Select the Radio Button sub screen
+14. Save
+15. Layout
+16. Click on Dictionary or Program Fields (F6)
+17. Provide the table name which table contains these fields
+18. Select Required Fields
+19. Enter
+20. Save, Check, Activate the Screen
+21. Click on back
+22. Double click on the program 
+23. Right click -> Activate
+
+BADI Name :- MB_MIGO_BADI
+Method Name :- PBO_BETAIL
+Badi is implemented through SE19
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
