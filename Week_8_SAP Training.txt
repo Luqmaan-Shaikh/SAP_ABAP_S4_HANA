@@ -1,0 +1,593 @@
+## Day 25 (04/03/2026) :-
+
+
+## OData (OPEN DATA) Services :-
+
+-> OData is used to define best practices that are required to build and consume RESTful APIs
+-> It helps you to find out charges, defining functions for reusable procedures and sending batch requests etc
+
+-> Some of the important features are :-
+
+- OData provides facility for extension to fulfil any custom needs of your RESTful APIs
+- REST stands for Representational State Transfer and its sometimes spelled as ReST 
+- It relies on a stateless, client-server, cacheable communication protocol. In virtually all cases, the HTTP protocol is used 
+- REST is defined s an architecture style for designing network applications
+- OData helps you to focus on your business logic while building RESTful APIs without having to worry about the approaches to define request and response headers, status codes, HTTP methods,
+URL conventions, media teams, payload formulas and query options, etc
+- OData RESTful APIs are easy to consume 
+
+## OData Services Life Cycle :-
+
+-> The OData service life cycle includes span of an OData Service
+-> Given below are the key steps to be considered in an OData Service Life Cycle
+
+- Activation of OData Service
+- Maintaining of OData Service
+- Maintaining of models and services, up to the cleanup of the metadata cache
+- RESTful Applns use HTTP requests to post data or create or update, read data and delete data REST uses HTTP for all four CRUD Operations
+- REST is a lightweight alternative to mechanisms like RPC (Remote Procedure Calls) and Web Services
+
+## REST :-
+
+-> REST is defined as an option for web services and Remote Procedure calls 
+-> It is used for designing network applications
+
+-> REST services like a web services and supports below features :-
+
+- Work and firewalls
+- Language-independent 
+- Standards-based 
+- Not Platform Dependent
+
+
+## REST Architecture :-
+
+-> Given below are the components of the REST Architecture 
+
+1. Resources :-
+
+-> In REST, both the state and the functionality are presented as resources. Resources are the ky element of RESTful design, as opposed to 'methods' or 'services' used in RPC and SOAP Web Services
+
+-> RPC, calls like 'getProductName' and 'getProductPrice' are not used in REST. You view the product and data as a resource should contain all the required information
+
+2. Web of Resources :-
+
+-> It means that a single resource should not contain detailed data and it contains links to additional web pages 
+
+3. Client - Server :-
+
+-> In REST client - server model, one component server can be the other component client 
+
+4. No Connection State :-
+
+-> Each request should contain details about the connection to each client and should not reply on the previous connections tl the same client 
+
+5. Cacheable :-
+
+-> The protocol must allow the server to explicitly specify which resources may be cached, and for how long
+
+6. Proxy Servers :-
+
+-> To improve performance and scalability, Proxy servers can be used. Any standard HTTP proxy can be used
+
+## OData Service using SAP NetWeaver Gateway Service Builder 
+
+-> Use the T-code:- SEGW
+
+-> A new window will open. Click Create Project
+-> Now, follow the steps given below -
+
+- Enter the Project name. It should be unique and should not contain any special characters
+- Enter the description of the project as it is a mandatory field
+- Enter the different attributes such as Project Type, Generation Strategy
+- Select Package or click the local object, if you want to create this locally
+
+- Once you click the package, Service Builder will create a new project with empty folder structure. All these are automatically created with a new project and click on the save icon 
+- Now to create an Entity type in data model -> right click -> Create -> Entity Type
+
+## Steps to create SAP OData Service :-
+
+-> In this section we will follow multiple predefined steps to create an OData, these are :
+
+1. We will use SAP Service Gateway Builder (SEGW) to create a new project
+2. We will Import DDIC / CDS or other Structure to create an OData Model 
+3. We will Generate an OData
+4. We will Register and test our services
+
+-> Create a new Service Builder Project
+
+-> To create a new project , follow the given steps :
+
+1. Go to T-code SEGW, it will start the Gateway Service Builder
+2. Click on the create project button
+3. Enter the given information
+
+Field 					Description 					Example
+
+Project - It is the name of your SAP OData Service. It will start with Z or Y - ZPROJECT_NAME
+
+Description - Enter a description for your OData - Demo OData Project
+
+Project Type - SAP Provides given 4 Project Operations - Service with SAP Annotations 
+
+1. Service with SAP Annotations
+2. Service with Vocabulary-based Annotations 
+3. Annotation Model for Referenced Service
+4. OData 4.0 Service 
+
+We will learn about them in detail, later 
+
+Generation Strategy - It will be preloaded as Standard which means, it has all standard configurations - Standard
+
+Package - Enter your project package or temporary package $tmp - $TMP
+
+Person Responsible - It will be preloaded with your User ID / User Name - barrt Allen
+
+
+-> Now, a Wizard will open. Enter the foll details, there :-
+
+Field			Description			Example
+
+Name - Enter a name of Model. It should be explanatory - CustomerData
+
+Type - We have 2 Options here - Choose Entity Type
+
+1. Entity Type : This means a simple DDIC structure/table/view will be imported
+2. Complex Type : This means a complex DDIC structure/table/view will be imported
+
+ABAP Structure - Choose your required ta le or structure name. Just copy and paste the name of your DDIC table/structure/view - zcustomer_data
+
+Create Default Entity Set - It will create an Entity Type with the same fields as of Entity. Also  the name will reamain same. We recommend you to leave it check marked - Leave it checked 
+
+-> Just press Continue. The above process will generate foll classes :-
+
+Class Name			Description
+
+MPC Class - MPC stands for Model Provider Class. This is generated and refreshed every time, we generate a class. It is not recommended to extend this class for Model Annotations, because all the methods are deleted whenever the OData is generated   
+
+MPC EXT Class - This is the Extended MPC Class and all the methods are conserved even the OData is generated
+
+DPC Class - DPC stands for Data Provider Class. This is generated and refreshed every time, we generate a class. It is not recommended to extend this class for CRUD Operations, because all the methods are deleted whenever the OData is generated
+
+DPC EXT Class - This is the Extended DPC Class, and all the methods are conserved even the OData is generated
+
+MDL Class - This is the Model Class
+
+SRV Class - This is the Service Class
+
+
+## Register SAP OData using the Gateway Client
+
+-> Once the OData is generated, now it is the time to register the service
+-> Once the service is registered, then only it can be used anywhere 
+-> To generate an OData, follow the given steps :
+1. Double Click the node Service Maintenance
+2. Select any System and click Register
+
+
+-> Now, in the next screen you get the foll Operations :-
+
+Field 					Description
+
+Technical Service Name - This is auto generated service name
+
+Service Version - It is auto generated service version
+
+Description - It is the Description of the OData you have mention earlier
+
+External Service Name - It is same to the auto generated service name
+
+Namespace - It is by default Blank
+
+
+
+| Field                         | Description                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| *Technical Service Name*    | This is auto generated service name                                                                               |
+| *Service Version*           | It is auto generated service version                                                                              |
+| *Description*               | It is the description of the OData you have mentioned earlier                                                     |
+| *External Service Name*     | It is same as the auto generated service name                                                                     |
+| *Namespace*                 | It is by default blank                                                                                            |
+| *External Mapping ID*       | It is by default empty                                                                                            |
+| *External Data Source Type* | It is by default set to source type C                                                                             |
+| *Technical Model Name*      | It is auto generated model name                                                                                   |
+| *Model Version*             | It is auto generated model version                                                                                |
+| *Package Assignment*        | Assign your package name here, or just choose Local Object from the button below. It will be then *$TMP*        |
+| *ICF Node*                  | It is by default “Standard Mode”                                                                                  |
+| *OAuth Enablement*          | It provides option to add extra authentication. In case you need OAuth2 enablement choose it, else leave it blank |
+
+
+
+## Entity Types
+
+-> Entity Type or Entity is like a structure which can hold one data record. In ABAP programming terms, we can compare it to a work area.
+
+-> Entity type has properties with some of the properties marked as Keys. More details on the properties like Type, Length are also defined.
+
+
+
+
+## Day 26 (05/03/2026) :-
+
+
+## Association :-
+
+-> Associations are relationships btw two entity types
+-> It defines the cardinality / multiplicity btw thw related entities
+
+-> In this example, Orders and Order_Details Entity where one Order has multiple Order_Details items
+-> The key that connects these two sets is OrderID as specified in Referential Constraint
+
+-> When an association is created btw Principal Entity to Dependent Entity, a Navigation Property is also created from Principal Entity to Dependent Entity
+
+-> In this example, a navigation property is created for Entity Type Orders
+-> This allows us to navigate from Orders to Order_Details Entity Set
+
+-> Association / Navigation Properties will help us in getting related Data
+-> For Ex : Getting Order_Details for a specific Order
+-> You can easily imagine appln which shows Order first and when users select a order, display the item details 
+
+
+## Association Sets :-
+
+-> Entity Types are collected into Entity Sets
+-> Similarly Association Collection is called Association Sets
+
+## Navigation Property :-
+
+-> It describes the path btw the relationship of an entity 
+-> It gets created when Association is created
+-> In the URI paths while addressing the association, Navigation Property names are used
+
+## Complex Types :-
+
+-> Complex types comprises of a unique name, and properties but it does not have a unique key, they can only exist as properties of a containing entity or as a temporary values
+-> It is not mandatory to have complex types in all the series 
+
+## CRUD-Q Operations :-
+
+-> CRUD-Q is short form for Create, Read, Update, Delete and Query Operations
+
+-> The operations are pretty much self explanatory 
+-> The only probable question is what is a difference in Read and Query Operations 
+-> Read is when you read one Entity and Query is when you get the Entity Set 
+-> That is the difference 
+
+
+## Operations		HTTP Method	Description		Ex
+
+Create			POST		Create an Entity	Create an Order
+
+Read			GET		Read and Entity		Read an Order
+
+Update			PUT		Update an Entity	Update and Order
+
+Delete			DELETE		Delete an Entity	Delete an Order
+
+Query			GET		Query on Entity Set	Query on order set and get single/multiple orders
+
+
+## GET_ENTITYSET Method :-
+
+-> The GTE_ENTITYSET Method in the data provider class is called when you specify an entity set name without any parameters in the URL, and returns all entities in the specified entity set
+
+-> After the runtime data provider class is created, the method is initially an empty shell
+-> The base class implementation does nothing, so the derived runtime data provider class must redefine this method to implement the business logic that enables the service to return entity sets
+
+-> GET_ENTITYSET is a general-purpose method for delivering any entity set
+-> The GET_ENTITYSET method in your runtime data provider class responds to requests for any of the entity sets defined in the model class
+
+=> To provide the functionality for getting an entity set :-
+
+1. Redefine the GET_ENTITYSET method in the general runtime data provider class to dispatch requests to the GET_ENTITYSET methods data provider classes that are specific to each entity type
+
+2. Implement the GET_ENTITYSET methods for each entity-type-specific runtime data provider class
+
+
+-> For a service to provide delta-querying capabilities, its GET_ENTITYSET method must issue a delta token and return it as part of the response
+-> This delta token is picked up by the client and submitted with subsequent requests to retrieve the data that has changed since the token was issued
+-> Add the delta token to the ES_RESPONSE_CONTEXT parameter, which is available in the delta token 
+
+-> GET_ENTITY method is used when you need to fetch a single record from the database/backend. (READ)
+
+
+## Deep Entity 
+
+-> In SAP OData, the concept of 'deep entity creation' refers to creating or updating multiple entities in a single request by including related entities in the payload
+
+-> This approach offers several benefits :-
+
+1. Reduced Network Overhead :- 
+- Deep entity creation allows us to minimize the number of requests sent over the network 
+- Instead of making separate requests for each entity, we can include, all the related entities in a single request payload
+- This reduces network latency and improves overall performance
+
+2. Atomicity and Consistency :-
+- Deep entity creation supports the notion of atomic operations
+- It ensures that either all the entries in the request are created successfully, or none of them are created 
+- This helps maintain data consistency and integrity within the SAP system 
+
+
+
+## Day 27 (06/03/2026) :-
+
+
+## Open Dataset :-
+
+-> Open Dataset statement in ABAP is used for opening a presentation server file in the program 
+-> For closing the file CLOSE DATASET statement is used 
+
+# Syntax :-
+
+OPEN DATASET <dsn>
+[FOR INPUT | OUTPUT | APPENDING | UPDATE]
+[IN BINARY MODE | IN TEXT MODE | IN LEGACY BINARY MODE | IN LEGACY TEXT]
+[REPLACEMENT CHARACTER <rc>]
+[IGNORING CONVERSION ERROS]
+[AT POSITION <pos>]
+[TYPE <c>]
+[MESSAGE <mess>]
+[FILTER <filt>].
+
+
+-> Without any additional the OPEN DATASET statement open a file for reading purpose in binary mode
+-> For other purposes we need to specify the statement with the proper additions.
+
+FOR OUTPUT: Open a file for writing
+•	Will create a new file, if the file not exists
+•	If the file is already opened, then the writing position set at the starting of the file
+•	If the file is not opened already, the contents of the file will be deleted.
+•	In this mode writing always start from the beginning of the file.
+FOR INPUT: Open an existing file for writing.
+Only the difference with OUTPUT addition is, it won’t create new file if it not exists.
+FOR APPENDING: Open a file for writing at the end of file.
+•	Will create a new file, if the file not exists
+•	If the file is already opened, then the writing position set at the end of the file
+•	In this mode writing always start from the end of the file.
+IN BINARY MODE: This addition opens the file as a binary file. In this mode, the read and write operation doesn’t require interpreting the file contents, the entire data is used in an unchanged form.
+IN TEXT MODE: This addition opens the file as a text file. In this mode, read and write operations deal the contents of the file in a line by line way. The addition ENCODING also used with for specifying the character representation for the file.
+AT POSITION: This addition is used for specifying an exact position in bytes to read or write. For an example AT POSITION 10 will skip first 10 bytes in the file and the initial read or write operation will start from this position only.
+TYPE: This addition is used for specifying further file attributes for passing to the operating system.
+MESSAGE: This addition is used for storing the system messages like error messages at the time of opening files.
+FILTER: This addition is for specifying the system commands like compress in UNIX.
+ 
+It always a good practice to use CLOSE DATASET after the processing with the file opened with OPEN DATASET.
+
+
+
+## Day 28 (07/03/2026) :-
+
+## New Syntax in ABAP :-
+
+-> SAP ABAP 7.4+ introduces modern syntax for cleaner, more efficient code
+-> Key Improvements include :-
+
+1. Inline Declarations
+2. Table Expressions
+3. Functional-style operators (ex: FILTER, REDUCE, VALUE)
+4. Enhanced Object-Oriented Features
+
+=> Inline Declarations :-
+
+1. Simple Variable DATA(lv_var) = 'YES'.
+
+2. SELECT SINGLE 
+-> 
+SELECT SINGLE vbeln, erdat, erzet, ernam, vbtyp
+FROM vbak
+INTO @DATA(wa)
+WHERE vbeln = @lv_vbeln.
+
+3. SELECT INTO TABLE
+->
+SELECT vbeln, erdat, erzet, ernam, vbtyp
+FROM vbak
+INTO TABLE @DATA(itab)
+WHERE vbeln = @lv_vbeln.
+
+4. LOOP/READ TABLE
+->
+LOOP AT itab INTO @DATA(wa).
+ENDLOOP.
+READ TABLE itab INTO @DATA(wa) WITH KEY vbeln = lv_vbeln.
+
+5. Field Symbols 
+->
+LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs_vbak>).
+ENDLOOP.
+
+## Table Expressions :-
+->
+DATA(wa) = itab[ vbeln = lv_vbeln ].
+IF line_exists( itab[ vbeln = lv_vbeln ] ).
+ENDIF.
+
+DATA(lv_tabix) = line_index( itab[ vbeln = lv_vbeln ] ).
+
+TRY.
+itab[ vbeln = lv_vbeln ] - ernam = 'SAPUSER'.
+CATCH cx_sy_itab_line_not_found.
+ENDTRY.
+
+## Conversion Operations :-
+->
+lv_vbeln = | { lv_vbeln ALPHA = IN } |.
+lv_vbeln = | { lv_vbeln ALPHA = OUT } |.
+
+## Conditional Statements :-
+->
+lv_var = COND #( WHEN 2 = 3 THEN 'YES' ELSE 'NO' ).
+
+## Switch Cases :-
+->
+var = SWITCH #( sy-subrc WHEN 0 THEN 'SUCCESS'
+WHEN 1 THEN 'FAIL' ).
+
+## Concatenate :-
+->
+lv_var = | I have { lc_amount } rupees |.
+DATA(lv_output) = | Hello | & | | &| World |.
+tmp = 'It is the year' && sy-datum(4).
+
+## Value Operator :-
+
+- Create Internal Table
+->
+DATA(itab) = VALUE tt_data(
+( sno = 1 name = 'AMAR' )
+( sno = 2 name = 'AKBAR' )
+( sno = 3 name = 'ANTHONY' )
+).
+
+- Add Entries
+->
+itab = VALUE #( BASE itab
+( sno = 4 name = 'RAHUL' )
+( sno = 5 name = 'RAJ' )
+).
+
+- Range Example
+->
+itab1 = VALUE #( sign = 'I' option = 'BT'
+( low = 1 high = 10 )
+( low = 21 high = 30 )
+( low = 41 high = 50 )
+).
+
+
+## For Operator
+->
+DATA(gt_citys) = VALUE ty_citys(
+FOR ls_ship IN gt_ships ( ls_ship-city )
+).
+
+
+## Side - by - Side Comparison :-
+
+1. Data Declaration :-
+
+- Old Syntax ABAP :-
+->
+DATA: lv_name TYPE string.
+
+- New Syntax ABAP :-
+->
+DATA ( lv_name ) = 'SAP'.
+
+-> new Syntax removes the need to explicitly specify the data type in many cases, making the code cleaner and faster to write.
+
+2. Internal Table Declaration :-
+
+- Old Syntax ABAP :-
+-> 
+DATA: it_emp TYPE STANDARD TABLE OF zemp,
+      wa_emp TYPE zemp.
+
+- New Syntax ABAP :-
+-> 
+DATA( it_emp ) = VALUE zemp_tt().
+
+-> This reduces boilerplate code and improves clarity.
+
+3. SELECT Statement :-
+
+- Old Syntax ABAP :-
+->
+SELECT * FROM zemp
+INTO TABLE it_emp
+WHERE dept = 'IT'.
+
+- New Syntax ABAP :-
+->
+SELECT * FROM zemp
+INTO TABLE @DATA(it_emp)
+WHERE dept = 'IT'.
+
+-> Inline Declarations make the SELECT statement more self-contained and easier to read.
+
+4. Reading Internal Table :-
+
+- Old Syntax ABAP :-
+->
+READ TABLE it_emp INTO wa_emp INDEX 1.
+IF sy-subrc = 0.
+WRITE wa_emp-name.
+ENDIF.
+
+- New Syntax ABAP :-
+->
+DATA(wa_emp) = it_emp[ 1 ].
+WRITE wa_emp-name.
+
+-> New Syntax Eliminates unnecessary system variables like sy-subrc.  
+
+5. Looping Through Internal Table :-
+
+- Old Syntax ABAP :-
+->
+LOOP at it_emp into wa_emp.
+WRITE wa_emp-name.
+ENDLOOP.
+
+- New Syntax ABAP :-
+->
+LOOP at it_emp into DATA(wa_emp).
+WRITE wa_emp-name.
+ENDLOOP.
+
+-> Inline Variables keep variables local and clean.
+
+6. Conditional Statement :-
+
+- Old Syntax ABAP :-
+->
+IF lv_count = 10.
+WRITE 'Complete'.
+ENDIF.
+
+- New Syntax ABAP :-
+->
+WRITE COND string(
+WHEN lv_count = 10 THEN 'Complete'
+ELSE 'In Progress'
+).
+
+-> This Functional Style reduces lines of coding
+
+7. Values Assignment :-
+
+- Old Syntax ABAP :-
+->
+CLEAR lv_total.
+lv_total = lv_price * lv_qnty.
+
+- New Syntax ABAP :-
+->
+DATA(lv_total) = lv_price * lv_qnty.
+
+-> Fewer lines, Same Result.
+
+
+## ABAP CDS Entities :-
+
+-> ABAP CDS entities are data models based on the data definition language (DDL) specification and are managed by ABAP Dictionary
+
+# Overview :-
+
+-> ABAP CDS provides a framework for 
+
+
+## Defining ABAP CDS Entities :-
+
+-> To define or extend an ABAP CDS entity, you first need to create a data definition or metadata extension as the relevant object with which you can use the standard functions of the ABAP Workbench - such as syntax check, activation, or connecting to the Transport Organizer 
+-> A CDS entity is defined in the text-based DDL editor of ABAP Development Tools
+
+## ABAP CDS Views :-
+
+->
+
+## Defining ABAP CDS Views :-
+
+-> 
+
+

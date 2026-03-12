@@ -1,0 +1,247 @@
+## Day 23 (25/02/2026) :-
+
+
+
+### Workflows :-
+
+
+-> Automating Business Process
+-> Tracking is the main purpose of Workflows
+-> SWDD -> Creation of Workflows
+
+-> In SAP system, Business Workflows are used to execute business process in appln
+-> Workflows are a key component of SAP system wherein they help design the business process
+-> It can be a simple release or a complex repeated business process such as creating material master, etc
+
+-> SAP Business Workflows are predefined in SAP R/3 system and the users can also create their new workflows. The Workflow allows the users to manage business processes in an efficient manner such that it can be aligned with compliance.
+
+-> Workflows ensure that right information is sent to the right person at the right time in a correct sequence.
+
+-> To perform a complex task in SAP system such as invoice approval, purchase request, etc. involves going through different steps
+-> These steps can be performed manually or by using some formal communication such as email, notes, etc 
+-> When the tasks are performed manually, these are some common problems associated with it, such as 
+	- Difficulty tracking the task status
+	- Dealing with inefficiency
+	- Difficulty tracking formal communications
+	- Managing a deadline
+
+-> SAP Workflow Process
+-> It is a tool for automating business process and works uniformly across all the applications
+-> As you can see, it is suitable where the business involve multiple people or a group of people
+
+-> Business workflows can easily be integrated with Operation Management and SAP NetWeaver BI for analysis purposes so it can easily determine the business process that suits your organization
+
+-> These are different reasons why we need Workflow in business process in SAP system
+-> The longest duration in any business process is the wait time
+
+
+
+## Steps :-
+
+Purchase requisition -> Purchase Order -> Receipts -> Invoice ---(Approval)---> Make Payment
+
+
+-> The above image shows a standard Purchase Requisition process
+-> It shows that each step involves wait time in the business process and with the use of a standard SAP Workflow, this wait time can be eliminated
+
+=> Following challenges are involved in the business processes of an organization :-
+
+-> Raising PO, Invoice, Sales Order - All require approval from specific stakeholders and involves multiple steps
+-> Hence, a lot of wait time is added to the cycle
+
+-> Auditing and Compliance :- Areas where auditing is required or any specific compliance has to be based on courtly laws, SOX, etc
+-> They are tough to manage using manual business process
+
+-> Specific Process :- Processes which involve standard repeated steps and follow specific business rules
+-> Ex:- When a new BP is created, you need to define contact information, credit limit and other information for managing process
+-> It is recommended to manage the specific processes using SAP Workflow
+
+
+-> With the use of SAP Workflows, organizations can easily overcome these challenges and can also perform detailed reporting such as executing time, wait time, etc
+
+-> In SAP system, the workflow ensures that right information is sent to the right person at the right time
+-> SAP Workflows are available with SAP Appln such as ERP, CRM and others
+-> Users can easily use these workflows to map the business processes or these can also be edited using the workflow builder
+
+NOTE -> THe Workflow Wizard creates workflows, which are not complete and is used only as a framework
+
+-> To create the Workflow which meets your business process requirement, you should use the Workflow Builder
+
+
+## Workflow Architecture :-
+
+-> SAP Workflow architecture in SAP Appln system consists of the foll layers :-
+	- Business Object
+	- Business Proposal 
+	- Organization Model
+
+-> A Business Object in SAP Business Workflow is defined as a collection of methods or events for an entity in the business process
+-> Few Common Business Objects in the SAP System include :- Customer, Material and Vendor
+
+-> In SAP Workflow, business processes are defined in the workflow Builder
+-> Each work processes termed as an activity and contains
+
+->
+
+-> Actual agents that actually take an 
+
+-> SAP System contains different predefined business objects, events and methids
+
+-> Foll are the common Business Objects in SAP PLM :-
+
+1. DRAW => Document Management
+2. BUS1001 => Material Master
+3. BUS1080 => BOM
+4. ECM => Change Master
+5. BUS1003 => Class
+6. BUS7051 => Notification
+
+-> For each 
+
+1. Methods :- Change, Display, Get Details, Create
+2. Events :- Created, Changed
+
+-> In SAP system, Business Object are known to reduce the complexity of SAP system by dividing it into smaller units
+-> Each business object is commonly defined with the properties :-
+
+1. Object Type ID :- It is used for internal identification of the business object
+2. Object Name :- It is used for external identification of the business object. Using this property, the external system can interact with SAP system
+3. Super Type :- It is the parent object from which all the components of the BO are inherited
+4. Name :- It is a descriptive name of the BO
+5. Description :- It is a brief description of the business object type 
+6. Application :- The appln component to which the BO belongs to
+7. Program :- Program contains the ABAP code of the BO
+
+-> 
+
+-> 
+
+## Common Task Examples include :-
+
+1. Release Document
+2. Post invoice
+3. Approve Absence
+4. Run Report 
+5. Change Material
+
+
+## Foll table shows the components of SAP Workflow
+
+1. Organizational Plan :- 
+- Organizational Unit (a functional unit in your enterprise) 
+- Position (represents a post)
+- Job (classification of functions in an enterprise)
+- Staff assignments / assignment of user ids
+
+2. Standard Task :-
+- Task (a description of an activity)
+
+3. Workflow Builder :-
+- Overview
+- Step types
+
+
+
+## Day 24 (27/02/2026) :-
+
+
+
+## Workflows (Continue) :-
+
+-> in SAP Workflow, an administrator is responsible for managing workflows are enabled, and for ensuring that workflows are executed, transported workflows are enabled, and the workflow engine is monitored
+
+-> A Workflow Administrator should have access to the foll T-codes :-
+
+-> SWI2 is the T-code used for analysis of Workitem
+-> However, it provides different filtering options for the foll transactions :-
+
+- SWI2_freq
+- SWI2_adm1
+- SWI2_dead
+- SWI2_diag
+- SWIE (Unlock Workflows)
+- SWIA (Process Workitem as Administration)
+- SWPC
+- SWWL
+- SWUI
+- SWUD
+- SWI5
+- SWU8
+- SBWP
+- SWEL
+- SWELS
+- SWU0
+- SWUE
+- SWU1
+- SWU2
+- SWU_OBUF
+- SWLD
+- SWB_COND
+- SWUS
+- SWI1
+- SWI6
+- SWI3
+
+-> A Workflow administration performs various tasks which can be divided into the foll categories :-
+
+
+NOTE -> FIORI -> Frontend - UI5/UX , Backend - ABAP (O DATA Services)
+
+
+-> You can also list top workitems with errors in Workflow
+-> SAP List Viewer in ABAP systems is used to view the workflow with errors and these are grouped based on error reason
+-> Foll are the possible cause of workflow errors :-
+
+- Agent
+- Deadlines
+- Binding from workflow to workitem
+- Other
+-- Workflow with Errors
+
+
+## Workflow Builder :-
+
+-> Workflow Builder is the most common tool for creating, editing and displaying Workflow Definitions 
+-> It provides a graphical and tree modelling view for workflow definition 
+-> While using SAP GUI for Windows, a graphical view of the Workflow Builder is displaying 
+
+-> While using other SAP GUI, tree view is displayed in the Workflow Builder
+
+-> in the Graphical view of the Workflow Builder, foll sections are defined :-
+
+- Workflow
+- Information
+- Navigation 
+- Objects 
+- Messages
+- Step Types
+- Overview
+
+
+## Navigation Pane :-
+
+-> In the Navigation Pane, you have the workflow steps displayed as per the workflow definition display
+-> Users can also navigate directly to any step definition from the list of steps 
+-> This is also used to edit the workflow from the context menu
+
+
+## Messages :-
+
+-> In the Message Pane, it contains all the messages and search results, which are generated in where-used lists and workflow tests are displayed here
+
+## Information :-
+
+-> This pane is used to display the workflow loaded and its definition, the status of the respective workflow and the version number in the system
+
+
+
+
+
+
+
+
+
+
+
+
+
