@@ -1,0 +1,250 @@
+## Day 29 (09/03/2026) :-
+
+
+## ABAP PROXY :-
+
+-> In SAP ABAP, inbound delivery and outbound delivery proxies refer to the asynchronous communication interfaces used to exchange delivery data between SAP and external systems (like warehouse logistics providers, or other SAP systems) using proxies (usually created from Enterprise Services or via SOA tools like SPROXY)
+
+# What is a Proxy in SAP ABAP :-
+
+-> A Proxy is an ABAP object generated from an Enterprise Service Definition (WSDL/XML schema) 
+-> It allows the SAP system to send or receive messages in XML format, typically used in SAP PI/PO, SAP Cloud Integration, or other middleware scenarios.
+
+# Outbound Delivery :-
+
+- Meaning :
+-> An outbound delivery proxy sends delivery data from SAP to an external system
+
+- Use Case :
+-> Notify a warehouse system about deliveries 
+-> Send outbound delivery details (items, quantities, shipping info)
+
+- Flow :
+-> Delivery is created or changed (ex: in VL01N, VL02N)
+-> ABAP Program or output type triggers the proxy class
+
+-> The Proxy sends XML data to the middleware or external system
+
+# Inbound Delivery :-
+
+- Meaning :
+-> An Inbound Delivery proxy is used when SAP receives delivery data from an external system
+
+- Use Case :
+-> A 3PL (third-party logistics) system sends inbound delivery confirmation 
+-> ASN (Advanced Shipping Notification) Integration
+
+- Flow :
+-> External System sends delivery data (in XML)
+-> Middleware routes it to SAP
+-> SAP uses the inbound proxy class to receive and process the data (ex: create/update delivery document in SAP)
+
+- Technical Tools Involved :
+-> SPROXY - To view or generate proxy classes
+-> SOAMANAGER - To configure endpoints (for web services)
+-> PI/PO/SAP Cloud Integration - Middleware for routing messages 
+
+- Summary :
+
+Proxy Type		Description	Purpose					Triggered by
+
+Outbound Delivery - SAP -> External 	Send Delivery info (EX: Shipping) 	ABAP, Output
+
+Inbound Delivery - External -> SAP 	Receives Delivery Data (Ex: ASN)	Middleware Call
+
+## Diff btw Inbound and Outbound Delivery Proxy :-
+
+
+-				Outbound Delivery 					VS  		Inbound Delivery
+
+1. Data Direction - From SAP to External System 					VS 	From External System to SAP
+2. Trigger Point - ABAP program, user actions, or batch job 				VS 	External mssg via PI/PO or web service
+3. Generated Class Role - Client Side Proxy 						VS 	Server Side Proxy
+4. Call Method - Initiated by SAP 							VS 	Involved automatically by runtime engine
+5. Customer Use Case - Sales Org, Delivery Updates, Material Master Replication 	VS 	Purchase Order Confirmation , status updates
+6. Technical Term - 'Class Proxy' 							VS 	'Server Proxy'
+
+
+-> SAP ABAP, SPROXY is a transaction code used to mange and generate ABAP proxies, which are used for commn with other systems, particularly via SAP Process Integration PI or SAP Process Orchestration PO
+-> These Proxies act as interfaces, enabling data exchange btw SAP Systems and External Systems using standard protocols like SOAP and HTTP
+
+# Debug and Test Inbound ABAP Proxy :-
+
+- There are two methods to debug ABAP using ABAP inbound proxies in SAP :
+
+1. Debugging using SPROXY test feature 
+2. External Debugging
+
+
+-> Each Method has its own Adv, Disadv, limitations and Use Cases
+-> But, using these two methods you can fully debug and test in inbound ABAP Proxy
+
+- Use Cases :- Troubleshooting using SPROXY :-
+
+-> The internal SPROXY debugging method is useful if you need to debug variations of the same XML Input mssg 
+-> This is a great way to test and debug SAP appln processing w/o having to connect with the external system or PI/PO 
+-> Moreover, using this method ABAP developers can work independently to complete Developer Unit Testing (DUT) scenarios w/o integrating the 
+
+
+
+
+## Day 30 (10/03/2026) :-
+
+
+## Defining ABAP CDS Views :-
+
+-> The structure of such a views is defining by specifically the relevant database tables and the set of table fields to be used in the view
+
+-> A CDS view is defined for existing database tables and views, or for other CDS views in the ABAP Dictionary, using the DEFINE VIEW DDL statement
+-> A CDS view serves to define the structure of a CDS DB view and represents a projection onto one or several db tables ot db views in the ABAP Dictionary
+
+- NOTE 
+-> CDS DB views and CDS entities are part of one and the same namespace 
+-> Therefore, you must assign different names for a CDS DB View and the Entity
+
+- Data Definition -> Development object
+
+	- @AbapCatlog.sqlViewName:'SQL_VIEW' -> Name of the CDS Database View
+
+	- DEFINE VIEW entity_name as SELECT .. -> Name of the CDS entity
+
+-> Defining the CDS View in the DDL Editor 
+
+
+## Activating CDS Views :-
+
+-> While activating a CDS view, the foll objects are created in the ABAP Dictionary
+
+1. The actual CDS entity
+2. A CDS Database View
+
+## Accessing CDS Views in ABAP :-
+
+-> Like regular Dictionary projection views, ABAP CDS entities can be used in ABAP Open SQL for Data Selection
+-> The foll Methods lists the customers booking data that is stored in th underlying database tables
+-> As demonstrated in the listing below, the CDS entity (in this case: cust_book_view_entity) is used for data selection in the ABAP source code
+
+
+## ABAP CDS Table Functions :-
+
+-> ABAP CDS Table functions define table functions that are implemented natively on the DB and can be called in CDS
+-> As such, they support the HANA platform code pushdown capabilities in ABAP CDS 
+
+## Defining ABAP CDS Table Functions :-
+
+-> A CDS Table Function is defined using the ABAP CDS statements DEFINE TABLE FUNCTION and can be used as the data source in OPEN SQL Read Statements 
+
+- Each CDS Table Function includes the foll components :
+
+1. The actual CDS entity of the table function that is generated in the ABAP Dictionary
+2. The CDS Table Function Implementation (ABAP class library) 
+
+
+- NOTE
+-> In contrast to the CDS views, the CDS Table functions can be implemented using Native SQL
+-> This implementation is done within an AMDP method of an AMDP class and is 
+
+
+## CDS Join Types :-
+
+=> CDS Join Types with Examples:
+
+1. Inner Join
+->An Inner Join combines records from two or more tables only when there is a match in both tables. If there is no match, the rows are not included in the result set. It is one of the most commonly used join types and works well when you need data that is present in both tables.
+
+- Cardinality:
+-> Ø 1:1 or 1: N: Depending on the relationships between the tables, an inner join can have a one-to-one or one-to-many relationship.
+
+- Use Case:
+-> An Inner Join is useful when you only want records that have related data in both tables. For example, if we want to get purchase order details (from EKKO and EKPO) for items that are actually ordered, an inner join would be the appropriate choice.
+
+- Example:
+-> Let’s say we want to get purchase order details (EKKO) along with the items (EKPO) from a specific company code.
+
+2. Left Outer Join
+-> Retrieves all rows from the left table and matching rows from the right table. If no match exists, the result includes null values for the right table.
+
+- Cardinality and Behavior:
+-> 1:1: Keeps unmatched rows with null values.
+-> 1: N: Ensures all rows from the left table appear, even if the right table has no match.
+-> N:M: Needs careful design to avoid unnecessary data duplication.
+
+- Use Case:
+-> Fetch all deliveries from LIKP, including their corresponding items in LIPS, even if items are missing.
+-> Retaining Non-Matching Records from Left Table
+
+3. Right Outer Join:
+-> The Right Outer Join is similar to a Left Outer Join but focuses on retaining all rows from the right table.
+-> Retrieves all rows from the right table and matching rows from the left table. If no match exists, the result includes null values for the left table.
+
+- Cardinality and Behavior:
+1. 1:1: Returns rows even if the left table has no match.
+2. 1: N: All rows from the right table appear, matched with rows from the left.
+
+- Use Case:
+-> Combine open items with cleared items, retaining all cleared items with BSID, BSAD Tables.
+
+
+
+## Day 31 (12/03/2026) :-
+
+
+## Introduction to ABAP RESTful Application Programming :-
+
+-> RAP is an architecture for development of SAP HANA-optimized OData Services for SAP Fiori Applications or Web APIs
+-> it is available in products like SAP BTP Environment, SAP S/4HANA Cloud and Application Server ABAP 7.56
+-> It is based on CDS and ABAP based custom logic and uses SAPUIS for user interface 
+
+
+classic ABAP programming:
+. freestyle ABAP code
+. screen programming
+
+ABAP Programming Model for SAP Fiori
+. segw
+. ODataPublish
+. CDS and CDS based BOPF
+
+
+## ABAP RESTful Application Programming :- 
+
+1. Data Modelling and Behaviour 
+. the data model is collection of different entities involved in a business scenario, for example airlines, flight routes and flight schedules, and their relationships, for example the parent-child relationship between airline and the flight schedule.
+. RAP uses CDS to define and organize the data model.
+. the behaviour describes what can be done with the data model, for example if the data can be created, updated or deleted.
+. the behaviour can be implemented using ABAP.
+
+2. Business Service
+. service definition is used to define what part of the CDS / Behavior definition will be exposed to next level.
+. service binding defines a specific communication protocol such as OData V2 / OData V4.
+
+3. Service Consumption
+. service can be exposed as a UI Service- this is consumed by SAP Fiori Elements app.
+. an OData service that is exposed as a Web API comes without any UI specific information in the metadata. it is the public interface for any OData client to access the OData service. for example, you can consume a Web API from another OData service.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
