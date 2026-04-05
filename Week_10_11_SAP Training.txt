@@ -1,0 +1,666 @@
+## Day 32 (16/03/2026) :-
+
+## RAP (Restful Application Programming) :-
+
+-> ABAP RESTful Application Programming Model currently has 3 scenarios
+-> The scenarios are based on what the developer has to implement i.e. what the developer manages vs what SAP RAP Framework manages
+
+1. Managed :-
+-> The CRUD operations are managed by SAP
+
+2. Unmanaged :-
+-> The CRUD operations are implemented by Developer in the class associated with the behaviour definition
+
+3. Managed with Unmanaged Save :-
+-> The CRUD operations are managed by SAP however, the developer can decide to implement CRUD operations for one of the entities from the data model
+
+-> In this post you will learn about implementing Managed with unmanaged save
+-> The data model used for this application is Carrier and Connection Entities from the SAP Flight Model
+
+# Create CDS View Entities :-
+
+-> Create below 2 CDS View Entities and achieve them together 
+-> As these entities refer to each other, you have to activate these together
+-> The images for better readability and code text for copying both are provided
+
+
+## Building ABAP Restful Application :-
+
+# Provide the Database Table :-
+-> Developing a RAP stats with providing the DBT 
+-> Depending on the development on whether it is a simple or composite Business Object, one or more CDS Views are 
+
+-> The data model of the BO is defined with CDS Views
+-> Depending on whether it is a simple or a composite BO 
+
+## Project the RESTful Application Programming Business Object and provide service-specific Metadata :-
+
+-> The RESTful Application Programming BO projection consists of a data model projection and if  
+
+
+## Creation of the Sustainable Grocery Application 
+
+1. Define the Database Table 
+2. Generate the Additional Objects
+3. Define and implement the Behaviour 
+4. Adjust the UI in the Metadata Extension
+
+-> To create the RAP , the foll objects needs to be created or generated :-
+
+1. A DBT
+-> 
+
+2. Additional Objects 
+-> A number of objects required by the RAP will be generated through the Generate AAP Repository Objects .. feature of ABAP Development Tools (ADT)
+
+
+3. Behaviour :- 
+-> The behaviour of a RAP BO is defined in a repository object called a CDS Behaviour Definition 
+-> Usually, the behaviour also requires additional logic, which is implemented in a certain type of global ABAP class called Behaviour Pool 
+-> For a non transactional appln for ex a list report the behaviour definition or implementation can be omitted
+-> The behaviour we will add is an action to check if the grocery items selected have expired 
+-> This will set the expired flag in the DBT
+
+4. Metadata Extension :-
+-> Metadata Extension File allows customization of the User Interface
+
+## Create a DBT :-
+
+# Steps :-
+
+1. Create a DBT named ZLUQ_GROCERY
+  a. Right-click on your package Z... in the Project Explorer and choose New->Object ABAP Repository Object Type table in the filter and choose DBT. Press Next
+  b. Enter ZLUQ_GROCERY as the name and Groceries as the description. Press Next to continue
+
+2. Adjust the ZLUQ_GROCERY file by copying the template code and replacing all occurrences of LUQ with your nukber
+  a. Replace the generated code in ZLUQ_GROCERY with the foll code 
+
+
+## Generating Additional Objects :-
+
+-> We have just defined a DBT to hold our data, but the app we will create nodes more objects that just this table 
+-> We can generate the objects using a wizard in ABAP Development Tools (ADT)
+
+-> The generated objects contain all the information necessary to provide a working app with create, read update and delete capabilities 
+-> Later on, we will also adjust and extend some of these objects to change the appearance of the user interface and to implement a check for expired groceries 
+
+-> To start the object generator, right-click the table name in the Project Explorer and choose Generate ABAP Repository Objects 
+-> The wizard starts, and you must enter a package to which all of the new objects will be assigned 
+-> You then select the generator, for this example we will use the ABAP RESTful Application Programming Model UI Service
+
+## Standard Operations :-
+
+-> The behaviour for standard operations can be provided by the RAP Framework Automatically
+
+- Create, Update, Delete -> These are the primary standard operation. These are also called as Modify Operations
+- Create by Association -> This is an Update Operation that creates new instances of an associated entity
+- Lock -> This is a standard operation that locks instances of a Business Object Entity
+
+## Nonstandard Operations :-
+
+-> These operations are used to provide customized behaviour based on business requirements
+
+## Actions :-
+
+-> You can provide action buttons for the actions on the list report or an object page
+-> For Ex, in the travel app that is built earlier, we can add a set status button to change the status to blocked 
+
+- The action can be triggered in one of the three ways mentioned below :-
+
+1. From the service consumer i.e. by the application user interface 
+2. Internally by another action or by a determination via EML
+3. By other business objects via EML
+
+
+
+
+
+
+
+## Day 33 (23/03/2026) :-
+
+## Clean Core :-
+
+# Examining Business Models :-
+
+The Composable Enterprise :-
+-> Modern organizations operate as networks of interchangeable capabilities
+-> SAP’s clean core enables this by keeping the ERP system stable while business services plug in and out via APIs and BTP
+
+Platform & Ecosystem Models :-
+-> Platform business (marketplaces, ecosystems) require real-time data sharing and rapid feature delivery
+-> Clean core’s API-first design supports seamless third-party integration without core modification
+
+Subscription & Outcome Models :-
+-> Outcome-based revenue models demand continuous billing, usage metering and flexible contract structures - features delivered through clean core extensions rather than monolithic customizations
+
+Sustainability and compliance pressures
+-> Regulatory reporting and sustainability tracking requires data model flexibility
+-> Clean core structured data layers enables consistent, auditable reporting without ERP surgery.
+
+# Examining Technological Change :-
+
+Cloud - First Architecture 
+-> SAP S/4HANA Cloud shifts ERP from on-premise ownership to managed cloud service
+-> Clean core is a prerequisite for cloud deployments - modifications block cloud upgrade paths
+
+AI & Intelligent Automation :- 
+-> SAP Business AI. Joule (Gen AI Assistant), and intelligent RPA bots require structured, high - quality data delivered via released CDS views - only possible with a clean data layer
+
+
+
+
+Hyperparameter trends 
+-> Org automate end to end processes across systems
+-> CLean APIs are connective tissues; modification create brittle integrations points that break automation pipeline 
+
+Low-code/ No-code demonstration 
+-> SAP build empowers business users to create apps without ABAP 
+
+Continuous update cycles 
+-> SAP s/4hana cloud public edition updates quarterly
+-> A clean core is the only way to absorb updates automatically without expensive regression cycles driven by custom code conflicts
+
+
+# Understanding the Modern SAP Landscape :-
+
+Core ERP :-
+-> SAP S/4HANA - the clean, stable transactional and analytical core
+-> No modifications to standard objects 
+ 
+BTP Extensions :-
+-> SAP Business Technology Platform hosts all custom logic RAP apps, CAP services, workflows automation
+
+Integration Layer :-
+-> SAP Integration Suite connects ERP to cloud apps, partners, and IoT via released stable APIs and event match
+
+Experience Layer :-
+->  SAP build , Fiori and third party UIs access the core exclusively via ODATA
+
+Data & AI Layer :-
+-> SAP analytical cloud and SAP S/4 HANA cloud consumes CDS views for real time analytics and AI model training
+
+
+
+
+
+
+
+
+
+ # The FIve Pillars of Clean Core :-
+
+Clean Process :-
+-> Business process aligned to SAP Best Practices with documented and approved deviations only 
+-> Fit - to - Standard workshops validate compliance before go - live 
+
+Clean Extensions :-
+-> All customizations built using SAP’s released extensibility APIs (BADIs, RAP, CAP)
+-> No Modifications to SAP standard repository objects
+-> Side - by - side on BTP preferred
+
+Clean Data :-
+-> Master and transactional data accessed only via released CDS views
+-> Data models comply with SAP’s semantic data layer 
+-> No direct SELECT on application tables
+
+Clean Landscapes :-
+-> Minimal system landscape with clear separation between core and extensions
+-> Third - party connections via Integration Suite only
+-> Landscape reduction is a clean core KPI
+
+Clean Operations :-
+-> Automated lifecycle management, Monitoring via SAP cloud ALM, and mandatory ATC quality gates in CI/CD pipelines.
+
+# Implementation Types & Clean Core Alignment :-
+
+Greenfield (New Implementation) :-
+-> Higher Clean Core Purity from go - live 
+-> Process redesigned to SAP Best Practices
+-> No legacy modifications
+-> Longest initial effort, lowest long-term TCO
+
+Brownfield (System Conversion) :-
+-> Preserves existing config and data
+-> Requires aggressive remediation of custom code via ATC and SCMON data
+-> Clean Core achieved progressively post - conversion
+
+Selective Data Transition (SDT) :-
+-> Hybrid : New S/4HANA system with selective migration of master data and open items
+-> Enables process redesign with controlled data continuity
+-> Growing in adoption
+
+Clean Core Readiness Gate :-
+-> Regardless of path, SAP Readiness Check 2.0 must confirm clean core compliance before cutover
+-> ATC findings must be below the agreed threshold to proceed
+
+# Clean Core Benefits - End Users :-
+
+Consistent, Modern UX :-
+-> SAP Fiori apps replace complex GUI transactions
+-> Unified experience across desktop and mobile
+-> Role - based dashboard surface relevant actions without training overhead
+
+Faster System Performance :-
+-> SAP HANA’s in memory architecture eliminated batch batch processing delays
+-> Real - time inventory, financial close, and MRP run in minutes instead of overnight 
+
+Embedded AI Assistance :-
+-> JOULE and predictive analytics integrates directly int fiori workflows.suggesting next best actions auto filling forms and flagging anomalies.
+
+Reliable, Stable Systems :-
+-> With no custom modifications to maintain, cyst downtime for patches drop automatically. User exp fewer surprise outages
+
+# Clean Core Benefits - IT Teams
+
+Automated Upgrades :-
+-> SAP S/4HANA Cloud Public Edition upgrades quarterly 
+
+Reduced Support Burden :-
+-> 
+
+Security &  Compliance Automation :-
+-> 
+
+Faster Development Velocity :-
+-> 
+
+Infrastructure Cost Reduction :-
+-> 
+
+# Clean Core Benefits - Business & Strategy :-
+
+25%-40% TCO Reduction 
+Time-to-market acceleration 
+Acquisition Readiness 
+Regulatory agility
+
+# Making Business Processes Clean Core Compliant :-
+
+Discover & Scope 
+Fit - to -Standard Workshop
+Delta Decision Record
+Remediate & Configure 
+Validate & Sign Off
+
+
+
+
+
+## Day 34 (24/03/2026) :-
+
+# Making Extensions Clean Core Compliant :-
+
+Key User Extensibility :-
+-> Business users configure field extensions, custom logic on forms, and UI adaption via SAP Fiori key user tools - no ABAP required
+-> Lowest risk, always cloud - compatible 
+
+Developer Extensibility - In-App :-
+-> ABAP developers implement BADIs, enhancement spots, and BADI Definitions within the S/4HANA system using only released APIs
+-> ATC must pass with zero clean core violations 
+
+Developer Extensibility - SIde-by-side :-
+-> Business logic built on BTP using RAP (ABAP) or CAP (Node.js/Java)
+-> Communicates with S/4HANA via released OData/REST APIs only
+-> Maximum isolation; preferred for complex logic
+
+Extension Governance Process :-
+-> All extension requests require: business case, architecture review, ATC compliance gate, 
+
+# Making Data Clean Core Compliant :-
+
+CDS View-only Data Access :-
+-> All custom ABAP programs must access application data via SAP-released Core Data Services (CDS) views only
+-> Direct SELECT on BKPF, EKKO, MARA, etc. is prohibited and flagged by ATC
+
+Semantic Data Model Compliance :-
+-> Custom data extension use SAP’s Customer Namespace extension fields on standard entities
+-> No shadow tables, no Z-copies of application tables
+-> Data consistency maintained by the core
+
+Master Data Governance :-
+-> SAP  MAster Data governance or SAP Data Quality Management enforces data quality at entry
+-> Clean Master data is prerequisite for AI, analytics and supply chain reliability 
+
+Data Migration Standard :-
+-> Data Loadz uses SAP Data Migration Cockpit or approved migration objects
+-> DIrect Insert into application tables via custom programs is strictly prohibited
+
+Data Lifecycle & Archiving :-
+-> SAP ILM (Info lifecycle management) manages retention, archiving and deletion
+-> Complies with GDPR right to erasure and reduces HANA Database size, improving performance.
+
+# Making Landscape Clean Core Compliant :-
+
+Landscape Simplification :-
+-> Reduce system count: consolidate satellite systems, retire legacy ERP instances, and centralise business services on a single S/4HANA core
+-> Fewer systems = lower cost and risk 
+
+Transport & Change Management :-
+-> All changes flow through a defined DEV -> QAS -> PRD transport path
+-> SAP Cloud ALM or Change Impact Analysis validates clean core compliance at each transport gate before promotion
+
+Third - Party Integration Governance :-
+-> All the third party systems connect via SAP Integration Suite using managed, versioned APIs.
+-> No Point to point connections directly to S/4HANA application tables or internal RFCs.
+
+Cloud VS On - Premise Strategy :-
+-> Roadmap all systems toward cloud deployment . BTP services replace on premise middleware.
+-> SAP RISE with S/4HANA Cloud is the strategic designation for clean core landscape
+
+
+#  Making Operations Clean Core Compliant :-
+
+SAP CLoud ALM as Operations Hub :-
+-> Centralised monitoring, alerting, and ITSM integration via SAP Cloud ALM. 
+-> Proactive health monitoring tracks clean core KPIs: ATC finding trends, custom code count, upgrade readiness score.
+
+CI/CD Pipeline Quality Gates :-
+-> ABAP Test Cockpit runs automatically on every code commit. 
+-> Builds with ATC violations above agreed thresholds are blocked from promotion. Clean core compliance is enforced, not audited.
+
+Automated Test Suites :-
+-> Regression test automation via ABAP Unit, SAP Cloud ALM test automation, and SAP Solution Manager ensures every quarterly update is validated without manual effort.
+
+Incident & Problem Management :-
+-> Custom code incidents are tagged and tracked separately. 
+-> Pattern analysis identifies systemic issues driving incident volume—these become top ATC remediation priorities. 
+
+Continuous Improvement Reviews :-
+-> Quarterly Clean Core Board reviews KPIs, SCMON usage trends, ATC findings, and maturity score. 
+-> Governance prevents re-accumulation of technical debt.
+
+# CLEAN CORE BEST PRACTICES & ANTI-PATTERNS:-
+
+BEST PRACTICE: ATC IN CI/CD :-
+-> Mandate ABAP Test Cockpit checks in every code pipeline. Treat ATC violations as build failures, not optional warnings. 
+-> This single practice prevents 90% of clean core regression.
+
+BEST PRACTICE: RETIRE BEFORE BUILDING :-
+-> Before approving any new extension, review SCMON usage data for existing objects. 
+-> Retire unused custom code first—new requirements are often already met by under-utilised standard functionality.
+
+ANTI-PATTERN: ‘JUST THIS ONCE :-
+-> The most dangerous clean core anti-pattern is approving a single exception without governance. 
+-> Each undocumented exception seeds the next five. Governance discipline must be absolute from day one.
+
+ANTI-PATTERN: BTP WITHOUT API DESIGN :- 
+-> Moving custom logic to BTP without proper API design replicates technical debt in the cloud. -> BTP extensions must be built on versioned, documented stable APIs—not quick-and-dirty REST calls.
+
+
+
+
+
+## Day 35 (25/03/2026) :-
+
+# Evaluating the Need for Extensions :-
+
+Standard - First - Principle :-
+-> Before building any extension, verify whether standard SAP S/4HANA functionality - including Fiori apps and industry best practices - already addresses the business need
+
+Extension Classification :- 
+-> Classify extensions into: UI Adaptions, Process Extensions, Data Extensions, and Integration Scenarios
+-> Each carries different risk and upgrade complexity
+
+TCO Assessment :- 
+-> Calculate the Total Cost of Ownership across 5+ years, including rework during upgrades, testing effort, and technical debt accumulation for each extension type
+
+BTP as Safe Extension Platform :- 
+-> SAP Business Technology Platform bTP side-by-side extensions decouple custom logic from the core, preserving upgrade safety and cloud-readiness
+
+Portfolio Rationalization :- 
+-> Audit all existing extensions.
+-> Retire redundant ones, consolidate overlapping functionality, and document remaining extensions with clear business justifications.
+
+Governance & Approval :-
+-> Establish an extension governance process requiring business case approval, architecture review, and clean core compliance sign-off before any new extension is built.
+
+# Clean Core Approach - Principles & Framework :-
+
+Fit - to -Standard :-
+->Adopt SAP Best Practices processes without modification.
+-> Customizations must have measurable ROI and be implemented via approved extensibility patterns only.
+
+Side - by -Side Extensions :-
+-> Use SAP BTP ABAP Environment, RAP (RESTful ABAP Programming), or BTP services to add logic outside the S/4HANA core to preserve upgrade compatibility.
+
+API - Led Integration :-
+-> All integrations must use SAP-released, stable public APIs.
+-> Direct table reads (SELECT * FROM), function module calls on internal APIs, and CDS view access bypasses are prohibited.
+
+ABAP Cleanliness Standards :-
+-> All ABAP code must pass SAP’s ABAP Test Cockpit (ATC) checks, adhere to the ABAP Cloud development model, and use only released APIs from the SAP S/4HANA public API surface.
+
+Continuous Monitoring :-
+-> Use Custom Code Migration App (transaction SC01), ABAP Test Cockpit, and SAP Cloud ALM to monitor code health, flag regressions, and enforce clean core at every sprint.
+
+# S/4HANA Cloud Transition - Key Phases :-
+
+Discover :- 
+-> Business Case, stakeholder alignment, readiness assessment with SAP Readiness Check 2.0, TCO Modelling
+
+Prepare :- 
+-> Project setup, fit-gap workshops, extension inventory, data quality assessment, system landscape design
+
+Explore :- 
+-> Fit-to-standard workshops, delta design, extensibility decisions, integration architecture, test planning
+
+Realize :-
+-> Configuration, custom code remediation, integration build, data migration, unit & integration testing 
+
+Deploy :-
+-> UAT, cutover planning, go-live execution, hypercare support, performance monitoring and handover
+
+# System Conversion Validation Steps :-
+
+SAP READINESS CHECK 2.0:
+-> Run the mandatory readiness check to identify custom code issues, simplification catalog impacts, business function usage, and software component prerequisites before starting conversion.
+
+SIMPLIFICATION CATALOG REVIEW:
+-> Analyze all S/4HANA simplification items relevant to your system.
+-> Each item documents deprecated functionality, architectural changes, and required remediation steps.
+
+SUM TEST RUN (SANDBOX):
+-> Execute Software Update Manager (SUM) in a dedicated sandbox system to uncover pre-processing errors, missing prerequisites, and conversion blockers with zero business risk.
+
+CUSTOM CODE PRE-CHECK:
+-> Use ABAP Test Cockpit with the S/4HANA compatibility ruleset to scan all Z/Y programs, function modules, and includes.
+->Prioritize findings by frequency-of-use data.
+
+DATA CONSISTENCY VALIDATION:
+-> Post-conversion, run SAP Data Consistency Framework (DCF) checks, reconcile financial balances, and validate open items to confirm data integrity after structural table changes.
+
+
+# Usage Data Collection Tools & Techniques :-
+
+SCMON - Statement Count Monitor :-
+-> Activate SCMON in the production system to capture execution frequency per ABAP object 
+-> This is the primary tool for identifying actively used VS Dormant custom code
+
+Custom Code Migration App :-
+-> Available in SAP Fiori for S/4HANA, this app imports SCMON data and ATC results to provide a prioritized remediation backlog with usage frequency and finding severity
+
+Usage Data Collection Period :-
+-> Run SCMON for a minimum of 6-12 months covering full business cycles (month-end, year-end, seasonal peaks) to ensure accurate frequency data before making retirement decisions
+
+Frequency Thresholds :-
+-> Establish threshold policies: 0 executions = candidate for retirement; <10/year = low priority;> 100/month = high priority for immediate remediation and cloud compatibilty
+
+Dependency Analysis :-
+-> Use where-used lists, call hierarchies, and ABAP code inspector to map dependencies between custom objects before making any retire / adapt decisions in the migration backlog
+
+# Custom Code Adaption Strategies :-
+
+Replace Obsolete APIs :-
+-> Identify and replace deprecated function modules, BAPIs, and transaction calls with S/4HANA-released APIs.
+
+Use ATC findings to determine recommended replacements
+Ensure compatibility with future upgrades
+
+
+ABAP CLoud Migration :-
+-> Refactor legacy ABAP code to align with the ABAP Cloud development model.
+
+Use ABAP Objects (Classes) instead of procedural code
+Implement RAP (RESTful ABAP Programming Model)
+Access data via released CDS views only
+
+
+Table Access Remediation :- 
+-> Eliminate direct database access to application tables.
+
+Replace SELECT statements with CDS views or APIs
+Respect authorization annotations like @AccessControl.authorization
+Ensure secure and compliant data access
+
+
+Fiori - Enable Custom UIs :- 
+-> Modernize legacy UIs for better user experience and maintainability.
+
+Replace SAP GUI (Dynpro) / Web Dynpro with SAP Fiori (UI5) apps
+Prefer Fiori Elements for faster development and standardization
+Reduce custom UI coding effort
+
+# Legacy Modification Remediation
+
+Modification Classification:
+-> Categorize all modifications into: User Exits, Customer Exits, BADIs (Classic & New), Implicit/Explicit Enhancements, and Copies (Z-copies of SAP standard programs). Each has a different remediation path.
+
+BADIs – Preferred Pattern:
+-> New-style BADIs (implemented via SE19) are the preferred enhancement technique. Migrate classic BADIs and customer exits to equivalent new-style BADIs or SAP Extension Points where available.
+
+Copies of Standard Objects:
+-> Z-copies of SAP standard reports or function modules receive no SAP corrections. Review each copy against current standard functionality — most can be replaced with Fiori apps or standard reports.
+
+Implicit Enhancements – Risk Assessment:
+->Implicit enhancements inject code at SAP-defined hook points without explicit SAP approval. Validate each against the S/4HANA compatibility check and refactor to explicit BADIs or SAP BTP extensions.
+
+Modification Adjustment Procedure:
+-> For unavoidable modifications, follow SAP's Modification Adjustment procedure during upgrades using transaction SPDD (data dictionary) and SPAU (repository objects) to re-apply and re-test.
+
+# HANA Performance Optimization Approach :-
+
+Profile :-
+-> Use SAP HANA Studio, ST12, and ABAP runtime analysis to identify top consumers by runtime.
+
+Analyze :-
+-> Review SQL execution plans in HANA Cockpit.
+Identify full table scans, missing indexes, and inefficient joins.
+
+
+Code - to - Data :-
+-> Push computation to the database using CDS views, AMDP (HANA procedures), and table functions instead of ABAP loops.
+
+Refactor :-
+-> Replace LOOP AT, WHERE with CDS joins.
+Use SELECT FOR ALL ENTRIES cautiously; prefer JOINs in CDS.
+
+
+Validate :-
+-> Re-run runtime analysis, compare before/after metrics, and regression test in quality system before promoting.
+
+## Smart Forms :-
+
+-> Smart Forms are used to design the business documents such as invoices, purchase orders, sales orders
+-> Smart Forms was introduced from 4.6C version onwards
+
+# Procedure of the Smart Forms :-
+
+-> Based on the client requirement we design the smart form layout by using ‘SMARTFORMS’ T-code & provide the necessary symbols, save, Check, Activate
+-> Whenever we activate the smartform it generates a Function Module 
+-> Based on the function module we develop the print program,
+
+–> Function Module is used to transfers the data from print program to layout 
+
+### Components of SMARTFORMS :-
+
+Smart Form Layout
+Function Module
+Print Program
+
+### Components of Smart Form Layout :-
+
+Global Settings 
+Pages and Windows
+
+–> Global settings are the collection of form attribute, form interface, global definitions
+
+### Form Attributes :-
+
+-> These are used to maintain the administrative information that is form name, language, page format default style 
+
+### Forms Interface :-
+
+-> THis is used to declare the variables, work areas and internal tables which are needed to transfer the data from print program to layout
+ 
+### Global Definition :-
+
+-> These are used to declare the variables, WA, IT which are needed to implement the logic in the form or layout 
+
+### Pages and Layout :-
+
+-> These are used to design the smart form layout 
+
+NOTE -> ‘SMARTFORMS’ is the T-code to design the smart form layout
+
+## Steps to design the Smart Form :- 
+
+Execute ‘SMARTFORMS’. 
+Select the radio button form. 
+Provide the form name. 
+Click on create.
+Provide short description. 
+Double click on form interface in the left panel. 
+The import tab (I_BUKRS, type, t001- bukrs). Double click on global definitions in the left panel. 
+Click on types tab. 
+Declare the types. 
+Types: begin of ty_t001, 
+Bukrs type t001-bukrs, Butxt type t001-butxt, Ort01 type t001-ort01, End of ty_t001. 
+Click on global data tab.
+Provide work area. 
+(WA_T001 TYPE TY_T001). 
+Click on initialization tab & implement the logic. 
+Provide input output parameters.
+
+
+Note: - We can test the smart form independently without using the print program. Working with graphic: - By using graphic window we can print the logo in the smart form. The input for the graphic window is graphics image. We can print the .BMP images in the smart form. When ever we are working with .BMP image then we must convert graphic image by using SE78 transaction. 
+
+## Steps to place the logo in smart form: - 
+
+-> Execute ‘SMARTFORMS’. Open the smart form in change mode. Select the page in the left panel. Right click  create  graphic. Double click on the graphics in the left panel. Provide the name (logo name), object (Graphics), ID (BMAP). Select the radio button color Bitmap image (BCOL). Click on form painter in the application tool bar. Align the windows. Once again click on form painter. Save, check, activate. 
+
+Note: - ‘RSTXPD4T4’ is the standard program. We can convert the smart form output to PDF format. 
+
+## Steps to print the watermark or background pictures in smart forms: - 
+
+-> Execute ‘SMARTFORMS’. Open the form in change mode. Double click on page in the left panel. Click on background picture tab. Provide the name (SPG1), object (GRAPHICS), id (BMAP). Select the radio button colour. Select the output mode is print preview & print. Provide the position. Save, check, activate the smart form. 
+
+## Steps to convert SAP-SCRIPT to SMARTFORM: - 
+
+-> Execute ‘SMARTFORMS’. Provide the smart form name. In the menu bar click on utilities. Migration  import SAPSCRIPT FORM. Provide the script name (ZENRICH_7AM_FORM). Enter. Click on save. 
+
+Note: - By using FB_MIGRATE_FORM function module we can convert the SAPSCRIPT to smart form. 
+
+## Working with SMARTSTYLES: - 
+
+-> SMARTSTYLES are used to create the paragraphs as well as character formats in the smart form. The transaction code for smart styles is ‘SMARTSTYLES’. 
+
+## Steps to create paragraph & character formats: - 
+
+-> Execute ‘SMARTSTYLES’. Provide the style name (ZENRICH_7AM_SS1). Click on create. Provide short description. Select the paragraph formats in the left panel. Right click on node. Provide the paragraph format name. Enter. Provide short description. Provide the left margin (0.2 CM). Click on font tab. Select the font family (Helve), font size (14), font style (bold). Select the checkbox color & select the colour. Click on tabs tab. Provide the tab positions. Click on save. Repeat the same steps for all the paragraph formats. Select the character format in the left panel. Right click  create node. Provide the character format name. Enter. Provide short description. Select the bar code name if it’s required. Click on font tab. Provide the font family, size, style. Click on color check box. Select color. Click on save. Repeat the same steps for all character formats. Double click on header data. Select the standard paragraph as default paragraph. Save, check, activate.
+
+
+
+
+
+## Working with Tables :-
+
+Table is used to print the data in a tabular format. 
+Table contains 3 sections. 
+1. Header 
+2. Main 
+3. Footer Based on the client requirement which data is varying that part consider as a main area. Above main area consider as a header & below main area consider as footer
+
+
+
+
